@@ -1,0 +1,17 @@
+<ul class="items clearfix">
+	<?php 
+	
+		echo $this->wrap('index/adminWrapper.phtml', function () {
+		
+			if (sizeof($this->data)) {
+				echo $this->partialLoop('{base}/index_Partial.phtml', 'Publications', $this->data);
+			}
+			else {
+				echo 'Не добавлено ни одной публикации.';
+			}
+		
+		}, 'content', $this);
+	
+	?>
+</ul>
+	

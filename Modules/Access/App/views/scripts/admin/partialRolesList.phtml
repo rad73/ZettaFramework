@@ -1,0 +1,20 @@
+<li data-id="<?php echo $this->name ?>">
+	<div class="z_name">
+		<div class="move"><!-- --></div>
+		<?php echo $this->description ?> - 
+		<i>
+			<a href="<?php echo $this->url(array('action' => 'rulesbyrole', 'role_id' => $this->name), 'mvc') ?>"><?php echo $this->name ?></a>
+		</i>
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('action'=>'roleadd', 'role_id' => $this->name), 'mvc') ?>" class="z_ico_edit" title="Редактировать">Редактировать</a>
+			<a href="<?php echo $this->url(array('action'=>'roledelete', 'role_id' => $this->name), 'mvc') ?>" class="z_ico_delete no_ajax" title="Удалить">Удалить</a>
+		</div>
+	</div>
+	
+	<?php if (sizeof($this->childs)) : ?>
+		<ul>
+		<?php echo $this->partialLoop('admin/partialRolesList.phtml', $this->childs) ?>
+		</ul>
+	<?php endif ?>
+	
+</li>

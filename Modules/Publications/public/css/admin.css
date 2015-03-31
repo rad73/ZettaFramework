@@ -1,0 +1,87 @@
+#z_add_publication_type textarea {
+	height: 40px;
+}
+
+
+#z_add_field_form {
+}
+	
+	#z_add_field_form .errors {
+		width: 195px;
+	}
+	
+	#z_add_field_form #fieldset-base,
+	#z_add_field_form #fieldset-extend,
+	#z_add_field_form #fieldset-buttons
+	{
+		width: 45%;
+		float: left;
+		padding-top: 5px;
+	}
+	
+	#z_add_field_form #fieldset-extend {
+		float: right;
+		padding-left: 5%;
+		background: url('../images/admin/zigzag_separator_form.png') repeat-y;
+	}
+	
+	#z_add_field_form #fieldset-buttons {
+		width: 100%;
+	}
+
+.sortable .move {
+	width: 16px;
+	height: 16px;
+	text-indent: -100000px;
+	background: url('../images/admin/ico_move.png') no-repeat;
+	cursor: move;
+	float: left;
+	margin-right: 7px;
+}
+
+.z_folder_browse {
+	background: url('../images/admin/ico_folders.png') no-repeat;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	position: relative;
+	top: 3px;
+	left: 4px;
+	cursor: pointer;
+}
+
+.z_temp_image {
+	margin-top: 3px;
+}
+		
+	.z_temp_image IMG {
+		max-width: 650px;
+	}
+
+.z_image_browse_row .redactor_box {
+	position: absolute;
+	left: -1000000px;
+	top: -100000px;
+}
+
+#z_add_publication .ui-datepicker-trigger {
+	position: relative;
+	top: 3px;
+	left: 4px;
+	cursor: pointer;
+}
+
+#z_add_publication .z_timepicker {
+	position: relative;
+	left: 10px;
+	width: 55px !important;
+}
+
+#z_view_publications H2 {
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+
+#z_view_publications LI.disabled {
+	text-decoration: line-through;
+}

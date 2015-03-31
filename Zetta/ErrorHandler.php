@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * ErrorHandler
+ *
+ */
+class Zetta_ErrorHandler  {
+
+	public static $DISABLE = false;
+	
+	public function error() {
+		
+		if (false == self::$DISABLE) {
+		
+			$response = Zend_Controller_Front::getInstance()->getResponse();
+			if ($response && $response->getBody() && sizeof($response->getException())) {
+				// исключение уже обработано 
+				return;
+			}
+			
+			if ($response && !$response->getBody() && sizeof($response->getException())) {
+				
+				$frontControllerException = $response->getException();
+				$frontControllerException = $frontControllerException[0];
+	
+				$error['message'] = $frontControllerException->getMessage();
+				$error['file'] = $frontControllerException->getFile();
+				$error['line'] = $frontControllerException->getLine();
+				
+			}
+			else {
+				$error = error_get_last();
+			}
+	
+			if ($error) {
+							
+				if (Zend_Registry::isRegistered('Logger')) {
+				
+					Zend_Registry::get('Logger')->log($error['message'], Zend_Log::CRIT, array(
+						'file'	=>  $error['file'],
+						'line'	=> $error['line']
+					));
+					
+				}
+	
+				if (ini_get('display_errors')) {
+				
+					ob_end_clean();
+	
+					header('HTTP/1.1 500 Internal Server Error');
+					echo 'ZettaCMS: ' . $error['message'] . ' in ' . $error['file'] . ':' . $error['line'];
+					
+				}
+				else {
+					ob_end_clean();
+					echo 'На сайте проводятся профилактические работы. Ожидайте.';
+					exit;
+				}
+	
+			}
+	
+		}
+		
+	}
+
+}

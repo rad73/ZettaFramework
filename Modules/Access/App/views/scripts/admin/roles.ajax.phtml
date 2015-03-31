@@ -1,0 +1,20 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Управление ролями')); ?>
+
+
+<?php if (sizeof($this->accepted_roles)) : ?>
+	<ul class="sortable">
+		<?php echo $this->partialLoop('admin/partialRolesList.phtml', $this->accepted_roles) ?>
+	</ul>
+<?php else: ?>
+	Вы не обладаете ни какими подчинёнными ролями
+<?php endif ?>
+	
+	
+	<div class="z_buttons_placehoder">
+		<a href="<?php echo $this->url(array('module' => 'access', 'controller' => 'admin', 'action' => 'roleadd'), 'mvc', true) ?>" class="ui-button">Добавить роль</a>
+	</div>
+	
+</form>
+	
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'access', 'controller' => 'admin', 'action' => 'index'), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку привелегий</span></a>

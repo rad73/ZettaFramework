@@ -1,0 +1,14 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Дерево сайта')); ?>
+
+<ul class="sortable">
+	<?php
+		echo $this->partialLoop('admin/partialTree.phtml', $this->tree);
+	?>
+</ul>
+
+<div class="z_buttons_placehoder">
+	<a href="<?php echo $this->url(array('module' => 'router', 'controller' => 'admin', 'action'=>'add'), 'mvc', true) ?>" class="ui-button">Добавить маршрут</a>
+</div>
+
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'panel', 'action' => 'managepanel'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Вернуться в управлениe</span></a>

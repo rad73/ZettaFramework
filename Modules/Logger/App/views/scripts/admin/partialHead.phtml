@@ -1,0 +1,18 @@
+<?php
+
+	$this->headLink()->exchangeArray(array());
+	$this->headScript()->exchangeArray(array());
+	
+	echo $this->headLink()
+		->appendStylesheet($this->libUrl('/Logger/public/css/admin.css'));
+		
+?>
+
+<div class="z_head_module">
+	<img id="z_module_image" src="<? echo $this->libUrl('/Logger/public/images/admin/ico.png')?>" alt="Просмотр служебных событий системы"/>
+	<div class="right">
+		<h1>Отчёты<?php echo ($this->subtitle ? ' &rarr; ' . $this->subtitle : '') ?></h1>
+		<p>Просмотр служебных событий системы</p>
+	</div>
+	<div class="clear"></div>
+</div>

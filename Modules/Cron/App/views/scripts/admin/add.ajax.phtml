@@ -1,0 +1,8 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => $this->cron_id ? 'Редактирование задачи' : 'Добавление задачи')); ?>
+
+<div id="z_add_task">
+	<?php echo $this->form ?>
+</div>
+	
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'cron', 'controller' => 'admin', 'action' => 'index'), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку задач</span></a>

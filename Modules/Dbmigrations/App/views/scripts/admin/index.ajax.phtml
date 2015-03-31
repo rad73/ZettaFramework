@@ -1,0 +1,25 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Список миграций')); ?>
+
+<div id="migrations_items">
+	<?php foreach ($this->migrations as $migration): ?>
+	<?php $class_name = in_array($migration, $this->currentClassNames) ? 'exists' : '' ?> 
+	<div class="item_class_name <?php echo $class_name?>">
+		<a href="<?php echo  $this->url(array( 'action' => 'info', 'controller' => 'admin', 'module' => 'dbmigrations', 'class' => $migration), 'mvc', true) ?>">
+			<?php echo $migration?>
+		</a>
+		<a href="<?php echo  $this->url(array( 'action' => 'up', 'controller' => 'admin', 'module' => 'dbmigrations', 'class' => $migration),  'mvc', true) ?>" class="up">
+			<img src="<?php echo  $this->libUrl('/Dbmigrations/public/images/admin/arrow_branch.png') ?>" title="Выполнить миграцию" alt="Выполнить миграцию"/>
+		</a>
+		<a href="<?php echo $this->url(array( 'action' => 'down', 'controller' => 'admin', 'module' => 'dbmigrations', 'class' => $migration), 'mvc', true) ?>" class="down">
+			<img src="<?php echo  $this->libUrl('/Dbmigrations/public/images/admin/cross.png') ?>" title="Откатить миграцию" alt="Откатить миграцию"/>
+		</a>
+	</div>
+	<?php endforeach; ?>
+	<div class="clear"></div>
+</div>
+<a href="<?php echo  $this->url(array( 'action' => 'tomaster', 'controller' => 'admin', 'module' => 'dbmigrations'), 'mvc', true) ?>" id="current_to_master" rel="Внимание. Информация о текущей мастер-ветке будет удалена">
+	<img src="<?php echo  $this->libUrl('/Dbmigrations/public/images/admin/arrow_join.png') ?>" title="Сделать текущую ветку главной" alt="Сделать текущую ветку главной"/>
+	<span>Сделать текущую ветку главной</span>
+</a>
+<div class="clear"><!-- --></div>
+<div id="graph"></div>

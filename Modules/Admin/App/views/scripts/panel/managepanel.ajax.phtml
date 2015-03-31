@@ -1,0 +1,9 @@
+<div class="clearfix">
+	<?php echo $this->partialLoop('panel/partialModules.phtml', $this->modules); ?>
+</div>
+
+<?php if (sizeof($this->modulesDeveloper)) : ?>
+	<div class="clearfix zetta_developer_items">
+		<?php echo $this->partialLoop('panel/partialModules.phtml', $this->modulesDeveloper); ?>
+	</div>
+<?php endif ?>

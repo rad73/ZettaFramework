@@ -1,0 +1,47 @@
+<div id="z_admin_panel">
+
+	<div class="z_panel_wrapper">
+		
+		<a href="<?php echo $this->baseUrl() ?>/"><img src="<?php echo $this->libUrl('/i/logo.png') ?>" class="z_logo" width="80" height="26" alt="ZettaCMS - построй сайт своей мечты"></a>
+	
+		<a href="<?php echo $this->url(array('action'=>'managepanel', 'controller'=>'panel', 'module'=>'admin'), 'mvc')?>" id="z_manage_link"><span>Управление</span></a>
+	
+		<div id="z_favorites_placeholder">
+			<?php echo $this->action('favoriteslist', 'Panel', 'Admin') ?>
+		</div>
+		
+		<div id="z_panel_placeholder">
+			<?php echo $this->placeholder('z_panel_modules') ?>
+		</div>
+
+		<div id="z_ajax_loader"><!-- --></div>
+
+	</div>
+
+</div>
+
+<!-- Всплывающее окно администрирования -->
+<div id="z_overlay"><!-- --></div>
+<div id="z_window">
+	<a href="#" id="z_close">×</a>
+	
+	<div class="zetta_placeholder"><!-- Placeholder для содержимого админки --></div>
+	
+	<div class="clear"><!-- --></div>
+</div>
+<!-- /Всплывающее окно администрирования -->
+
+<div id="zetta_editor_toolbar"><!-- панель для редактора --></div>
+
+<!-- Всплывающий диалог confirm -->
+<div id="zetta_confirm" class="hidden" title="Удалить выбранный элемент?">
+  <p><span class="ui-icon ui-icon-alert"></span><span id="zetta_dialog_msg">Внимание это действие не обратимо. Продолжить?</span></p>
+</div>
+<!-- /Всплывающий диалог confirm -->
+
+
+<!-- Всплывающий диалог alert -->
+<div id="zetta_alert" class="hidden" title="Внимание!">
+  <p><span class="ui-icon ui-icon-alert"></span><span id="zetta_dialog_alert_msg">Произошло событие.</span></p>
+</div>
+<!-- /Всплывающий диалог alert -->

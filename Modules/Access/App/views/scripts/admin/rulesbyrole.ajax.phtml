@@ -1,0 +1,26 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Привелегии для роли "' . $this->role_name . '"')); ?>
+
+<form method="post" action="<?php echo $this->url(array('module' => 'access', 'controller' => 'admin', 'action' => 'rulesbyrole', 'role_id' => $this->role_name), 'mvc', true) ?>">
+	<input type="hidden" name="role_id" value="<?php echo $this->role_name ?>" />
+	<?php if (sizeof($this->resources)) : ?>
+		<div class="z_privilegies_title z_rulesbyroles_title clearfix">
+			<div class="z_group_name">Привилегия</div>
+			<div class="z_deny">Запретить</div>
+		</div>
+		<ul class="z_privilegies_list z_rulesbyroles_list">
+			<?php echo $this->partialLoop('admin/partialRulesByRoleList.phtml', $this->resources); ?>
+		</ul>
+	<?php
+		else :
+			echo 'Вы не обладаете ни одной привелегией.';
+		endif;
+	?>
+	
+	<div class="z_buttons_placehoder">
+		<a href="#" onclick="$(this).parents('form').submit(); return false;" class="ui-button no_ajax">Сохранить</a>
+	</div>
+
+</form>
+
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'access', 'controller' => 'admin', 'action' => 'roles'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Вернуться к списку ролей</span></a>

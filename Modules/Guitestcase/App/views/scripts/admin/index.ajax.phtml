@@ -1,0 +1,25 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Доступные тестовые классы')); ?>
+
+<?php
+	if (sizeof($this->testCases)) {
+		?>
+			<ul class="z_tests_list">
+				<?php 
+					foreach ($this->testCases as $test) {
+						echo $this->partial('admin/partialTestsList.phtml', array('name' => $test));
+					}
+				?>
+			</ul>
+		<?php
+	}
+	else {
+		echo 'Не создано ни одного теста.';
+	}
+?>
+
+<div class="z_buttons_placehoder">
+	<a href="<?php echo $this->url(array('module' => 'guitestcase', 'controller' => 'admin', 'action' => 'runall'), 'mvc', true) ?>" class="ui-button">Прогнать срузу всё</a>
+</div>
+	
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'panel', 'action' => 'managepanel'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Вернуться в управлениe</span></a>

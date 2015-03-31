@@ -1,0 +1,12 @@
+#z_window #visitors_3 {
+	border-bottom: 1px dotted #888;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+}
+
+#z_window #country {
+	float: left;
+	margin-right: 5px;
+	padding-right: 5px;
+	border-right: 1px dotted #888;
+}

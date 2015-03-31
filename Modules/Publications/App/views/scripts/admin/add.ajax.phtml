@@ -1,0 +1,7 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => $this->rubric ? 'Редактирование типа публикации' : 'Новый тип публикации')); ?>
+<div id="z_add_publication_type">
+	<?php echo $this->form ?>
+</div>
+
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Отмена</span></a>

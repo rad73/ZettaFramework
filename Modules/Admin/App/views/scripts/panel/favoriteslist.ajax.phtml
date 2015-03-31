@@ -1,0 +1,17 @@
+<?php if (sizeof($this->favorites)) : ?>
+
+	<ul>
+	
+		<?php foreach ($this->favorites as $favorite) : ?>
+			<li>
+				<a href="<?php echo $this->url(array('module' => $favorite->module, 'controller' => 'admin'), 'mvc', true) ?>">
+					<img src="<?php echo $this->libUrl($favorite->ico) ?>" alt=""/>
+					<span><?php echo $favorite->title ?></span>
+				</a>
+				<a href="<?php echo $this->url(array('action' => 'deleteFavorites', 'controller' => 'panel', 'module' => 'admin', 'id' => $favorite->id), 'mvc') ?>" title="Удалить элемент из избранного" class="z_remove_favorite no_ajax">Удалить элемент из избранного</a>
+			</li>
+		<?php endforeach ?>
+
+	</ul>
+
+<?php endif; ?>

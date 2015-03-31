@@ -1,0 +1,132 @@
+div.layer {
+	width: 40em;
+}
+
+#body {
+	padding-left: 35%;
+}
+
+h1 {
+	color: #444;
+	font-weight: normal;
+	font-size: 1.6em;
+	margin-bottom: .5em;
+}
+
+.username {
+	margin-top: 1em;
+}
+
+.username, .password {
+	margin-bottom: .5em;
+}
+
+.username DIV, .password DIV, .login DIV {
+	float: left;
+}
+
+.label {
+	width: 9em;
+	text-align: right;
+	margin-right: 0.4em;
+	color: #555;
+	font-size: 1.1em;
+	padding-top: 0.3em;
+}
+
+.textbox INPUT {
+	width: 8.9em;
+	font-size: 1.2em;
+}
+
+.remember {
+	margin: 1em 0 0 10em;
+}
+
+.submit INPUT {
+	margin-top: .4em;
+	margin-right: 1.6em;
+	float: right;
+	font-size: 1.2em;
+}
+
+#error {
+	color: red;
+	margin-bottom: .5em;
+	font-size:.9em;
+}
+
+.password .textbox {
+	position: relative;
+	
+}
+
+#protected_ico {
+	position: absolute;
+	right: -2.2em;
+	top: 0px;
+	width: 2em;
+	height: 2em;
+	cursor: hand;
+	cursor: pointer;
+}
+
+#kbd {
+	opacity: .9;
+	width: 41em;
+	display: none;
+	background: white url('../images/pattern.png');
+	border: 1px solid #aaa !important;
+	border-radius: 5px;
+}
+	
+	#kbd_t ABBR, .kbd-button, #kbd-logo {
+		display: none !important;
+	}
+	
+	#kbd_mka TABLE {
+		background: white url('../images/pattern.png') !important;
+	}
+	
+	#kbd_mka {
+		display: block !important;
+	}
+
+	
+#noscript_login_js {
+	position: absolute;
+	width: 105%;
+	height: 85%;
+	top: -5px;
+	left: -5px;
+	font-size: 0.7em;
+	margin: 0;
+}
+
+	#noscript_login_js .content {
+		height: 100%;
+	}
+
+#ltie9_message {
+	display: none;
+}
+	
+.ltie9 #ltie9_message {
+	position: absolute;
+	width: 105%;
+	height: 85%;
+	top: -5px;
+	left: -5px;
+	font-size: 0.7em;
+	margin: 0;
+	display: block;
+}
+
+	.ltie9 #ltie9_message .content {
+		height: 100%;
+	}
+
+#ltie9_message P, 
+#noscript_login_js P {
+	line-height: 1.5;
+}

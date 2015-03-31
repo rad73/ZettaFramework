@@ -1,0 +1,17 @@
+<div id="search">
+	<?php echo $this->partial('index/form.phtml', $this) ?>
+	
+	<?php if ($this->text) : ?>
+		<div id="search_result">
+			<?php 
+				if (empty($this->result)) { 
+					?>По запросу «<?php echo $this->text ?>» ничего не найдено.<?php 
+				} 
+				else {
+					echo $this->partialLoop('index/resultPartial.phtml', $this->result);
+				}
+			?>
+		</div>
+	<?php endif ?>
+	
+</div>

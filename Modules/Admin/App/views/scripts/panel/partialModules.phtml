@@ -1,0 +1,8 @@
+<div class="z_item">
+	<a href="<?php echo $this->url(array('module' => $this->module, 'controller' => 'admin'), 'mvc', true) ?>"><img src="<?php echo $this->libUrl($this->ico) ?>" alt=""/></a>
+	<div class="right">
+		<a href="<?php echo $this->url(array('module' => $this->module, 'controller' => 'admin'), 'mvc', true) ?>"><?php echo $this->title ?></a>
+		<a class="z_to_favorite no_ajax" href="<?php echo $this->url(array('action' => 'tofavorite', 'name' => $this->module), 'mvc') ?>"><!-- --></a>
+		<p><?php echo $this->description ?></p>
+	</div>
+</div>

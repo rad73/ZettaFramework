@@ -1,0 +1,7 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => ($this->field_id ? 'Редактирование поля в ' : 'Добавление поля в ') . '"' . $this->rubric->name . '"')); ?>
+<div id="z_add_field_form">
+	<?php echo $this->form ?>
+</div>
+
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action' => 'fields', 'rubric_id' => $this->rubric->rubric_id), 'mvc', true) ?>" id="z_back_url">&larr; <span>Отмена</span></a>

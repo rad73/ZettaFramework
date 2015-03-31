@@ -1,0 +1,32 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => $this->resource->description)); ?>
+
+<form method="post" action="<?php echo $this->url(array('module' => 'access', 'controller' => 'admin', 'action' => 'privelegies', 'resource' => $this->resource->resource_name), 'mvc', true) ?>">
+	
+	<?php
+		if (sizeof($this->accepted_roles)) {
+			?>
+				<div class="z_privilegies_title clearfix">
+					<div class="z_group_name">Группа пользователей</div>
+					<div class="z_inherit">наследовать</div>
+					<div class="z_allow">разрешить</div>
+					<div class="z_deny">запретить</div>
+				</div>
+				<ul class="z_privilegies_tree">
+			<?php
+				echo $this->partialLoop('admin/partialPrivelegiesList.phtml', $this->accepted_roles);
+			?></ul><?php
+		}
+		else {
+			echo 'Вы не обладаете ни какими привелениями.';
+		}
+	?>
+	
+	
+	<div class="z_buttons_placehoder">
+		<a href="#" onclick="$(this).parents('form').submit(); return false;" class="ui-button no_ajax">Сохранить</a>
+	</div>
+	
+</form>
+	
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'access', 'controller' => 'admin', 'action' => 'index'), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку привелегий</span></a>

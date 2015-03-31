@@ -1,0 +1,19 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Доступные меню')); ?>
+
+
+<?php
+	if (sizeof($this->menu)) {
+		echo $this->partialLoop('admin/partialMenuList.phtml', $this->menu);
+	}
+	else {
+		echo 'Не создано ни одного меню.';
+	}
+?>
+
+
+<div class="z_buttons_placehoder">
+	<a href="<?php echo $this->url(array('action'=>'add'), 'mvc') ?>" class="ui-button">Добавить меню</a>
+</div>
+
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'panel', 'action' => 'managepanel'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Вернуться в управлениe</span></a>

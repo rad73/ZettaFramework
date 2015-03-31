@@ -1,0 +1,73 @@
+#add_user_form {
+	
+}
+		
+	#add_user_form .errors {
+		width: 195px;
+	}
+
+	#add_user_form #fieldset-base,
+	#add_user_form #fieldset-extend,
+	#add_user_form #fieldset-buttons
+	{
+		width: 45%;
+		float: left;
+		padding-top: 5px;
+	}
+	
+	#add_user_form #fieldset-extend {
+		float: right;
+		padding-left: 5%;
+		background: url('../images/admin/zigzag_separator_form.png') repeat-y;
+	}
+	
+	#add_user_form #fieldset-buttons {
+		width: 100%;
+	}
+	
+	#add_user_form .submit {
+		float: right;
+	}
+	
+#z_window .z_td_icons .z_icons {
+	float: right;
+	position: static;
+	margin-top: 3px;
+}
+
+	#z_window .z_td_icons .z_icons A {
+		outline: none;
+	}
+	
+	
+#z_admin_panel #z_usermenu_widget {
+	margin: 14px 0 0 20px;
+}
+
+	#z_admin_panel #z_usermenu_widget A {
+		margin-top: 0;
+	}
+
+	#z_usermenu_widget LI {
+		float: left;
+	}
+
+	#z_admin_panel #z_usermenu_widget .z_ico_profile {
+		background: url('../images/admin/ico_profile.png') no-repeat;
+		margin-right: 20px;
+	}
+	
+	#z_admin_panel #z_usermenu_widget .z_ico_super_profile {
+		background: url('../images/admin/ico_super_profile.png') no-repeat;
+		margin-right: 20px;
+	}
+
+	#z_usermenu_widget SPAN {
+		padding-left: 20px;
+		display: block;
+		height: 16px;
+	}
+	
+	#z_usermenu_widget .z_exit {
+		background: transparent url('../images/admin/ico_exit.png') no-repeat;
+	}	

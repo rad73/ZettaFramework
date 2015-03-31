@@ -1,0 +1,9 @@
+<li>
+	<div class="z_name">
+		<?php echo $this->route_id ?>: <a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'view', 'rubric_id' => Zend_Registry::get('view')->rubric_id, 'route_id' => $this->route_id), 'mvc', true) ?>"><?php echo $this->name ?></a>
+		
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'view', 'rubric_id' => Zend_Registry::get('view')->rubric_id, 'route_id' => $this->route_id), 'mvc', true) ?>" class="z_ico_menu_tree" title="Список публикаций в этом разделе">Список публикаций в этом разделе</a>
+		</div>
+	</div>
+</li>

@@ -1,0 +1,19 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Типы данных')); ?>
+
+<ul class="sortable no_list z_publications_list">
+	<?php 
+		if (sizeof($this->list)) {
+			echo $this->partialLoop('admin/partialList.phtml', $this->list);
+		}
+		else {
+			?>Не добавлено ни одного типа публикаций.<?php
+		}
+	?>
+</ul>
+
+<div class="z_buttons_placehoder">
+	<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'add'), 'mvc', true) ?>" class="ui-button">Добавить новый тип</a>
+</div>
+
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'panel', 'action' => 'managepanel'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Вернуться в управлениe</span></a>

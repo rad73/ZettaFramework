@@ -1,0 +1,32 @@
+<?php
+
+	$request = Zend_Controller_Front::getInstance()->getRequest();
+	$this->headLink()->exchangeArray(array());
+	$this->headScript()->exchangeArray(array());
+	
+	echo $this->headLink()
+		->appendStylesheet($this->libUrl('/Publications/public/css/admin.css'))
+		->appendStylesheet($this->libUrl('/public/css/ui.jquery/ui.timepicker.css'));
+		
+	echo $this->headScript()
+		->appendScript('
+			var _urlPublications = {
+				sortFields: "' . $this->url(array('module' => 'Publications', 'controller' => 'Admin', 'action' => 'sortfields'), 'mvc', true) . '",
+				sortPublications: "' . $this->url(array('module' => 'Publications', 'controller' => 'Admin', 'action' => 'sortpublications', 'rubric_id' => ($this->partial()->view->rubric ? $this->partial()->view->rubric->rubric_id : 0)), 'mvc', true) . '"
+			};
+			var _icoCalendar = "' . $this->libUrl('/Publications/public/images/admin/ico_calendar.png') . '";
+			var _currentPage = "' . $request->getParam('page', 1) . '";
+		')
+		->appendFile($this->libUrl('/public/js/jquery/jquery.ui.timepicker.js'))
+		->appendFile($this->libUrl('/Publications/public/js/admin.js'));
+		
+?>
+
+<div class="z_head_module">
+	<img id="z_module_image" src="<?php echo $this->libUrl('/Publications/public/images/admin/ico.png')?>" alt="Управление деревом сайта"/>
+	<div class="right">
+		<h1>Публикатор<?php echo ($this->subtitle ? ' &rarr; ' . $this->subtitle : '') ?></h1>
+		<p>Редактирование публикаций</p>
+	</div>
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,24 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Разделы "' . $this->menu->name . '"')); ?>
+
+
+<?php
+	if (0 == sizeof($this->tree)) {
+		echo 'Не добавлено ни одного раздела в меню.';
+	}
+	else {
+		?>
+		<ul class="tree <?php echo ($this->menu->type == 'router' ? '' : 'sortable') ?>">
+			<?php echo $this->partialLoop('admin/partialTreeItem.phtml', $this->tree) ?>
+		</ul>
+		<?php
+	}
+?>
+
+<div class="z_buttons_placehoder">
+	<?php if ($this->menu->type != 'router') : ?>
+		<a href="<?php echo $this->url(array('action'=>'addsection'), 'mvc') ?>" class="ui-button">Добавить раздел</a>
+	<?php endif ?>
+</div>
+
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'menu', 'controller' => 'admin', 'action' => 'index'), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку меню</span></a>

@@ -1,0 +1,8 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => (sizeof($this->resource) ? 'Изменение привелегии "' . $this->resource['resource_name'] . '"' : 'Добавление привилегии'))); ?>
+
+<div id="add_resource_form">
+	<?php echo $this->form ?>
+</div>
+
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'access', 'controller' => 'admin', 'action' => 'index'), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку привелегий</span></a>

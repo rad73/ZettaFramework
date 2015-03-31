@@ -1,0 +1,33 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Задачи')); ?>
+
+<div id="z_cron_tasks">
+<?php if (sizeof($this->tasks)) : ?>
+
+	<table class="z_user_list">
+		<tr>
+			<th class="z_task_schedule z_align_center">m</th>
+			<th class="z_task_schedule z_align_center">h</th>
+			<th class="z_task_schedule z_align_center">d</th>
+			<th class="z_task_schedule z_align_center">m</th>
+			<th class="z_task_schedule z_align_center">w</th>
+			<th id="z_task_header">Задание</th>
+			<th>Старт</th>
+			<th>Стоп</th>
+			<th>&nbsp;</th>
+		</tr>
+		<tr class="z_table_head_border">
+			<th colspan="11"><!-- --></th>
+		</tr>
+		<?php echo $this->partialLoop('admin/partialTask.phtml', $this->tasks) ?>
+	</table>
+<?php else : ?>
+	Не добавлено ни одного задания.
+<?php endif ?>
+</div>
+
+<div class="z_buttons_placehoder">
+	<a href="<?php echo $this->url(array('module' => 'cron', 'controller' => 'admin', 'action' => 'add'), 'mvc', true) ?>" class="ui-button">Добавить задание</a>
+</div>
+	
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'panel', 'action' => 'managepanel'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Вернуться в управлениe</span></a>

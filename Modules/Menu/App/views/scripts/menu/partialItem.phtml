@@ -1,0 +1,14 @@
+<?php if (!$this->disable) : ?>
+
+	<li data-id="<?php echo $this->item_id ?>" class="item_<?php echo $this->partialCounter ?> id_<?php echo $this->item_id ?> <?php echo ($this->current ? 'active' : '') ?>">
+		<a href="<?php echo (!$this->external_link ? $this->baseUrl() : '') . $this->url ?>"><?php echo $this->name ?></a>
+		
+		<?php if (sizeof($this->childs)) : ?>
+			<ul>
+				<?php echo $this->partialLoop('menu/partialItem.phtml', $this->childs); ?>
+			</ul>
+		<?php endif; ?>
+		
+	</li>
+	
+<?php endif ?>

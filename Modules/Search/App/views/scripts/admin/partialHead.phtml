@@ -1,0 +1,21 @@
+<?php
+
+	$this->headLink()->exchangeArray(array());
+	$this->headScript()->exchangeArray(array());
+	
+	echo $this->headLink()
+		->appendStylesheet($this->libUrl('/Search/public/css/admin.css'));
+		
+	echo $this->headScript()
+		->appendFile($this->libUrl('/Search/public/js/admin.js'));
+		
+?>
+
+<div class="z_head_module">
+	<img id="z_module_image" src="<? echo $this->libUrl('/Search/public/images/admin/ico.png')?>" alt="Управление поисковым индексом"/>
+	<div class="right">
+		<h1>Поиск<?php echo ($this->subtitle ? ' &rarr; ' . $this->subtitle : '') ?></h1>
+		<p>Управление поисковым индексом</p>
+	</div>
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,25 @@
+<?php
+
+	$this->headLink()->exchangeArray(array());
+	$this->headScript()->exchangeArray(array());
+	
+	echo $this->headLink()
+		->appendStylesheet($this->libUrl('/Menu/public/css/admin.css'));
+		
+	echo $this->headScript()
+		->appendScript('
+			var _urlSaveTree = "' . $this->url(array('module' => 'menu', 'controller' => 'admin', 'action' => 'savetree'), 'mvc', true) . '";
+		')
+		->appendFile($this->libUrl('/js/jquery/jquery.nestedSortable.js'))
+		->appendFile($this->libUrl('/Menu/public/js/admin.js'));
+		
+?>
+
+<div class="z_head_module">
+	<img id="z_module_image" src="<? echo $this->libUrl('/Menu/public/images/admin/ico.png')?>" alt="Управление деревом сайта"/>
+	<div class="right">
+		<h1>Меню<?php echo ($this->subtitle ? ' &rarr; ' . $this->subtitle : '') ?></h1>
+		<p>Управление навигацией на сайте</p>
+	</div>
+	<div class="clear"></div>
+</div>

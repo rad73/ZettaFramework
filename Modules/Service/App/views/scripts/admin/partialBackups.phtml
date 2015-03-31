@@ -1,0 +1,20 @@
+<?php
+	$temp = explode('_', basename($this->dir));
+	list($y, $m, $d) = explode('-', $temp[0]);
+	list($h, $i, $s) = explode('-', $temp[1]);
+	
+	$time = mktime($h, $i,$s, $m, $d, $y);
+	
+?>
+
+<li>
+	<div class="z_name">
+		<?php echo $this->partialCounter ?>: <b><?php echo date('d.m.Y H:i:s', $time) ?></b>
+		
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('action'=>'download', 'dir' => basename($this->dir), 'direct' => 1), 'mvc') ?>" id="z_download" class="z_ico_download no_ajax" title="Скачать архив">Скачать архив</a>
+			<a href="<?php echo $this->url(array('action' => 'restore', 'dir' => basename($this->dir), 'direct' => 1), 'mvc') ?>" class="z_ico_restore no_ajax" title="Восстановить из резервной копии">Восстановить из резервной копии</a>
+		</div>
+	</div>
+	
+</li>

@@ -1,0 +1,18 @@
+<li data-id="<?php echo $this->name ?>">
+	<div class="z_name">
+		<?php echo $this->description ?> - 
+		<i>
+			<a href="<?php echo $this->url(array('action' => 'users', 'role_id' => $this->name), 'mvc') ?>"><?php echo $this->name ?></a>
+		</i>
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('action'=>'users', 'role_id' => $this->name), 'mvc') ?>" class="z_ico_user" title="Список пользователей">Список пользователей</a>
+		</div>
+	</div>
+	
+	<?php if (sizeof($this->childs)) : ?>
+		<ul>
+		<?php echo $this->partialLoop('admin/partialRolesList.phtml', $this->childs) ?>
+		</ul>
+	<?php endif ?>
+	
+</li>

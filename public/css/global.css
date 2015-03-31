@@ -1,0 +1,68 @@
+HTML, BODY, #z_blocks_wrapper {height: 100%;}
+BODY {padding: 0; margin: 0; font: 63% Arial, sans-serif; background: #fff; }
+
+TABLE {font-size: 100%; border-collapse: collapse; border-spacing: 0; border: 0; width: 100%}
+TABLE TD {padding: 0;}
+TABLE TR {vertical-align: top;}
+
+A {text-decoration: underline;}
+A:hover {text-decoration: none;}
+A IMG {border: none;}
+
+FORM, H1, H2, H3, H4, H5, H6, P {
+	margin: 0;
+}
+
+ul,
+ul li,
+ol,
+ol li {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.clear {clear: both; overflow: hidden; height: 0px; float: none !important;}
+
+.hidden, .data {display: none;}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.ltie8 .clearfix {
+	zoom: expression( this.runtimeStyle.zoom="1", this.appendChild( document.createElement("div") ).className="clear" );
+}
+
+.overflow_all {
+	position: fixed;
+	z-index: 9999;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	background: #000;
+	color: #fff;
+	text-align: center;
+	padding-top: 20px;
+	opacity: 0.8;
+}
+	.overflow_all A {
+		color: #fff;
+	}
+	
+#ltie8_message { display: none; }
+.ltie8 #ltie8_message { display: block; }
+
+#ZFDebug {
+	z-index: 10000 !important;
+}
+
+.captcha IMG {
+	display: block;
+	margin-top: 5px;
+}

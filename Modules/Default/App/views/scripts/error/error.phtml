@@ -1,0 +1,12 @@
+<div class="warning">
+	<img src="<?php echo $this->libUrl('/i/error/warning.png')?>" class="logo_warning" width="64" height="64" alt="Warning"/>
+	<h1>Хмм, тут ошибочка вышла...</h1>
+</div>
+<p>На сайте что-то сломалось, администратору было выслано оповещение о сбое.</p>
+<p>Через пару минут всё восстановиться. Повторите попытку позже.</p>
+
+<?php if (ZETTA_MODE != 'production') : ?>
+	<div class="log">
+		<?php echo nl2br($this->error)?>
+	</div>
+<?php endif; ?>

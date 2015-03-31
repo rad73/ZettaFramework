@@ -1,0 +1,43 @@
+<?php
+	$acl = Zetta_Acl::getInstance();
+	$globalView = $this->partial()->view;
+	$resourceName = $globalView->resource->resource_name;
+	$isAllow = $acl->isAllowedGroup($this->name, $resourceName);
+	$isInherit = $acl->isInheritRule($this->name, $resourceName);
+	
+	$parent_role = $acl->getParentRole($this->name);
+	$isAllowParent = $acl->isAllowedGroup($parent_role, $resourceName);
+	
+	if ($globalView->my_role == $parent_role) {
+		$isInherit = false;
+	}
+
+?>
+
+
+<li class="<?php echo ($isAllow ? 'z_allow' : 'z_deny') ?> <?php echo ($isInherit ? 'z_inherit' : 'z_exists') ?>">
+	<div class="z_name">
+		<?php echo $this->description ?> - 
+		<i> <?php echo $this->name ?></i>
+		<div class="z_icons z_rb clearfix">
+		
+			<?php if ($globalView->my_role != $parent_role) : ?>
+				<label class="z_rb_inherit z_rb_label">
+					<input type="radio" value="inherit" name="<?php echo $this->name ?>" <?php echo ($isInherit ? 'checked' : '') ?>/>
+				</label>
+			<?php endif ?>
+			<label class="z_rb_allow z_rb_label">
+				<input type="radio" value="allow" name="<?php echo $this->name ?>" <?php echo ($isAllow && !$isInherit ? 'checked' : '') ?> <?php echo ($isInherit && !$isAllow ? 'disabled' : '') ?> />
+			</label>
+			<label class="z_rb_deny z_rb_label">
+				<input type="radio" value="deny" name="<?php echo $this->name ?>" <?php echo (!$isAllow && !$isInherit ? 'checked' : '') ?> <?php echo ($isInherit && !$isAllow ? 'disabled' : '') ?> />
+			</label>
+		</div>
+	</div>
+	
+	<?php if (sizeof($this->childs)) : ?>
+		<ul>
+		<?php echo $this->partialLoop('admin/partialPrivelegiesList.phtml', $this->childs) ?>
+		</ul>
+	<?php endif ?>
+</li>

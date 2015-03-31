@@ -1,0 +1,26 @@
+<h1><?php echo $this->block('page_title') ?></h1>
+
+<?php echo $this->block('page_content') ?>
+
+<form id="forgot" method="post" action="<?php echo $this->url(array('module' => 'accessusers', 'controller' => 'index', 'action' => 'forgot')) ?>">
+
+	<?php 
+		if ($this->error) {
+			echo '<div class="error">' . $this->block('forgot_error') . '</div>'; 
+		}
+	?>
+
+	<dl class="main_form">
+			
+			<dt>
+				<label for="forgot_email" class="require">Введите свой e-mail</label>
+			</dt>
+			<dd>
+				<input type="text" id="forgot_email" name="forgot_email" value="<?php echo $this->email ?>">
+			</dd>
+			
+		</dl>
+
+		<a class="button" onclick="$('#forgot').submit(); return false;" href="#"><span>Восстановить пароль<em><!-- --></em></span><i></i></a>
+		
+</form>

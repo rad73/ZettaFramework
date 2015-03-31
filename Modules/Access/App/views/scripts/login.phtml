@@ -1,0 +1,54 @@
+<?php echo $this->doctype('HTML5') ?>
+<!--[if lt IE 8]><html class="ltie8"><![endif]-->
+<!--[if lt IE 9]><html class="ltie9"><![endif]-->
+<head>
+	<?php 
+		echo $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
+	?>
+	<?php echo $this->headTitle('ZettaCMS')->setSeparator(' - ') ?>
+	<?php
+		echo $this->headLink()
+				->headLink(array('rel' => 'icon', 'type'=> 'image/x-icon', 'href' => $this->libUrl('/i/favicon.ico'), 'PREPEND'))
+				->prependStylesheet($this->libUrl('/css/global.css'))
+				->appendStylesheet($this->libUrl('/css/error.css'))
+				->appendStylesheet($this->libUrl('/Access/public/css/enter.css'));
+	?>
+	
+</head>
+
+<body>
+
+	<div id="body">
+
+		<div class="logotype">
+			<img src="<?php echo $this->libUrl('/i/logo.png')?>" class="logo" width="108" height="35" alt="ZettaCMS"/>
+		</div>
+
+		<!-- Begin layer -->
+		<div class="layer color">
+
+			<div class="content">
+				<!-- Begin edit content -->
+
+				<?php echo $this->layout()->content; ?>
+
+				<!-- End edit content -->
+			</div>
+	
+		</div>
+		<!-- End layer -->
+
+		<div class="empty"><!-- --></div>
+
+		<div id="footer">
+			<?php echo $this->partial('copyrights.phtml'); ?>
+		</div>
+	</div>
+	
+	<?php
+	echo $this->headScript()
+		->prependFile($this->libUrl('/js/jquery.min.js'));
+	?>
+	
+</body>
+</html>

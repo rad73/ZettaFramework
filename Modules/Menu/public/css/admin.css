@@ -1,0 +1,66 @@
+	.tree UL LI {
+		margin-left: 20px;
+	}
+	
+	.tree .move {
+		width: 16px;
+		height: 16px;
+		text-indent: -100000px;
+		background: url('../images/admin/ico_move.png') no-repeat;
+		cursor: move;
+		float: left;
+		margin-right: 7px;
+		display: none;
+	}
+	
+		.sortable .move {
+			display: block;
+		}
+	
+	.tree i {
+		font-style: normal;
+		color: #888;
+	}
+	
+	.tree .disable_item .name {
+		text-decoration: line-through;
+	}
+				
+#add_route_form {
+	
+}
+		
+	#add_route_form .errors {
+		width: 195px;
+	}
+
+	#add_route_form #fieldset-base,
+	#add_route_form #fieldset-by_router,
+	#add_route_form #fieldset-buttons
+	{
+		width: 45%;
+		float: left;
+	}
+	
+	#add_route_form #fieldset-by_router,
+	#add_route_form #fieldset-by_external
+	{
+		float: right;
+		padding-left: 5%;
+		background: url('../images/admin/zigzag_separator_form.png') repeat-y;
+	}
+	
+	#add_route_form #fieldset-by_external {
+		display: none;
+	}
+	
+	#add_route_form #fieldset-buttons {
+		width: 100%;
+	}
+	
+	#add_route_form .submit {
+		float: right;
+	}
+	
+	
+	

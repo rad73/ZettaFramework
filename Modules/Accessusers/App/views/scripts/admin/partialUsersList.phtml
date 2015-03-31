@@ -1,0 +1,12 @@
+<tr>
+	<td><a href="<?php echo $this->url(array('action' => 'add', 'login' => $this->username), 'mvc') ?>"><?php echo $this->username ?></a></td>
+	<td><?php echo $this->email ?></td>
+	<td><?php echo $this->name ?> <?php echo $this->sername ?></td>
+	<td><?php echo $this->role_name ?></td>
+	<td class="z_td_icons">
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('action'=>'add', 'login' => $this->username), 'mvc') ?>" class="z_ico_edit" title="Редактировать">Редактировать</a>
+			<a href="<?php echo $this->url(array('action'=>'delete', 'login' => $this->username), 'mvc') ?>" class="z_ico_delete no_ajax" title="Удалить">Удалить</a>
+		</div>
+	</td>
+</tr>

@@ -1,0 +1,13 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Информация о миграции')); ?>
+
+<h2><?php echo $this->class_name?></h2>
+<div id="migrations_info">
+	<div id="comment" class="<?php echo $this->comment?'visible':'hidden'?>">
+		<img src="<?php echo  $this->libUrl('/Dbmigrations/public/images/admin/information.png') ?>" alt="Комментарий" />
+		<span>
+			<?php echo $this->comment?>
+		</span>
+	</div>
+	<div id="file_plase"><?php echo $this->file?></div>
+	<div id="source"><?php echo $this->source?></div>
+</div>

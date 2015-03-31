@@ -1,0 +1,128 @@
+#body {
+	margin: 0 10px;
+}
+
+#graph {
+	position: relative;
+	border: 1px dashed #777;
+	margin-top: 10px;
+}
+
+#block_info {
+	position: absolute;
+	color: #838383;
+	width: 450px;
+	height: 50px;
+}
+
+#block_info .class_commit A {
+	font-weight: bold;
+}
+
+#block_info .outer_info {
+	margin: 5px;
+}
+#block_info SPAN {
+	font-size: 11px;
+}
+
+#block_info A {
+	font-weight: bold;
+}
+#block_info .commit_text {
+	font-size: 12px;
+}
+
+#block_info .link_merge {
+	right: 5px;
+}
+
+#block_info .link_merge A, 
+#block_info .link_disconnect A {
+	width: 16px;
+	height: 30px;
+	display: block;
+	float: left;
+	display: block;
+	margin-right: 4px;
+}
+
+.top_right .link_merge A, .top_left .link_merge A {
+	background: transparent url(../images/arrow_merge.png) no-repeat;
+}
+
+#block_info .link_disconnect A {
+	background: transparent url(../images/disconnect.png) no-repeat;
+}
+
+#migrations_items {
+	margin: 10px 0px;
+}
+
+#migrations_items .item_class_name {
+	width: 50%;
+	float: left;
+	margin-bottom: 5px;
+	font-size: 12px;
+}
+
+#migrations_items .exists A {
+	color: green;
+}
+
+
+#migrations_items .up,
+#migrations_items .down {
+	float: left;
+	margin-right: 5px;
+}
+
+#migrations_items .up, #migrations_items .exists .down {
+	display: block;
+}
+
+#migrations_items .exists .up, #migrations_items .down {
+	display: none;
+}
+
+#current_to_master IMG {
+	postion: absolute;
+}
+
+#current_to_master span {
+	text-decoration: underline;
+}
+
+#current_to_master:hover span {
+	text-decoration: none;
+}
+
+#current_to_master {
+	text-decoration: none;
+	color: red !important;
+	margin-top: 10px;
+}
+
+#source {
+	margin-top: 10px;
+	border: 1px solid #aaa;
+	padding: 10px;
+	background-color: #eee;
+	font-size: 12px;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+
+#migrations_info #comment IMG {
+	margin-right: 4px;
+}
+
+#migrations_info #comment {
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+#file_plase {
+	margin-left: 25px;
+	font-style: italic;
+}

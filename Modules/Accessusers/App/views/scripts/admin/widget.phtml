@@ -1,0 +1,19 @@
+<div id="z_usermenu_widget" class="z_widget_item">
+	
+	<ul>
+		<li>
+			<?php if ($this->user->role_name == 'superadmin' || !Zetta_Acl::getInstance()->isAllowed('admin_module_accessusers')) : ?>
+				<span class="z_ico_super_profile"><?php echo $this->user->username ?></span>
+			<?php else: ?>
+				<a title="Изменить личные параметры" href="<?php echo $this->url(array('module' => 'accessusers', 'controller' => 'admin', 'action' => 'add', 'login' => $this->user->username, 'role_id' => $this->user->role_name), 'mvc', true) ?>" class="z_ico_profile"><?php echo $this->user->username ?></a>
+			<?php endif ?>
+		</li>
+		<li>
+			<form id="z_exit_form" method="post" action="<?php echo $this->url(array('action'=>'logout', 'controller'=>'login', 'module'=>'access'), 'mvc')?>" class="no_ajax">
+				<a title="Выход" href="#" onclick="$('#z_exit_form').submit(); return false;" class="z_exit"><!-- --></a>
+			</form>
+		</li>
+	</ul>
+
+</div>
+

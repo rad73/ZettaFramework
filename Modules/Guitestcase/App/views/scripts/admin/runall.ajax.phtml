@@ -1,0 +1,12 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Прогонка всех тестов')) ?>
+
+<?php foreach ($this->testCases as $testCase=>$testCaseClassname) : ?>
+	<div class="z_test_item">
+		<h2><?php echo $testCase ?></h2>
+		<?php echo $this->action('run', 'admin', 'guitestcase', array('testcase' => $testCase, 'no_header' => 1))?>
+	</div>
+<?php endforeach; ?>
+	
+<div class="z_buttons_placehoder"><!-- --></div>
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'guitestcase', 'controller' => 'admin', 'action' => 'index'), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку тестов</span></a>

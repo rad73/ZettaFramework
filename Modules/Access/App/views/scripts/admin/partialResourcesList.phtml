@@ -1,0 +1,11 @@
+<li>
+	<div class="z_name">
+		<?php echo $this->description ?>
+		- <a href="<?php echo $this->url(array('action'=>'privelegies', 'resource' => $this->resource_name), 'mvc') ?>"><?php echo $this->resource_name ?></a>
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('action'=>'privelegies', 'resource' => $this->resource_name), 'mvc') ?>" class="z_ico_key" title="Настроить привилегии">Настроить привилегии</a>
+			<a href="<?php echo $this->url(array('action'=>'add', 'resource' => $this->resource_name), 'mvc') ?>" class="z_ico_edit" title="Редактировать">Редактировать</a>
+			<a href="<?php echo $this->url(array('action'=>'delete', 'resource' => $this->resource_name), 'mvc') ?>" class="z_ico_delete no_ajax" title="Удалить">Удалить</a>
+		</div>
+	</div>
+</li>

@@ -1,0 +1,13 @@
+<li>
+	<div class="z_name">
+		<?php echo $this->rubric_id ?>: <a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'routes', 'rubric_id' => $this->rubric_id), 'mvc', true) ?>" title="<?php echo $this->table_name ?>"><?php echo $this->name ?></a>
+		<i> - <?php echo $this->table_name ?></i>
+		
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'fields', 'rubric_id' => $this->rubric_id), 'mvc', true) ?>" class="z_ico_fields" title="Список полей">Список полей</a>
+			<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'add', 'rubric_id' => $this->rubric_id), 'mvc', true) ?>" class="z_ico_edit" title="Редактировать">Редактировать</a>
+			<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'delete', 'rubric_id' => $this->rubric_id), 'mvc', true) ?>" class="z_ico_delete no_ajax" title="Удалить">Удалить</a>
+		</div>
+	</div>
+</li>
+

@@ -1,0 +1,38 @@
+<?php
+
+	$this->headLink()->exchangeArray(array());
+	$this->headScript()->exchangeArray(array());
+	
+	echo $this->headLink()
+		->appendStylesheet($this->libUrl('/Analytics/public/css/admin.css'));
+		
+	echo $this->headScript()
+		->appendScript('
+			var _analyticSWFLine = "' . $this->libUrl('/Analytics/public/flash/amline.swf') . '",
+				_analyticSWFPie = "' . $this->libUrl('/Analytics/public/flash/ampie.swf') . '",
+				_xml = {
+					visitors: "' . $this->url(array('module' => 'analytics', 'controller' => 'admin', 'action' => 'getfile', 'file' => 'visitors_settings.xml', 'direct' => true, 'rand' => time()), 'mvc', true) . '",
+					visitors_3: "' . $this->url(array('module' => 'analytics', 'controller' => 'admin', 'action' => 'getfile', 'file' => 'visitors_3_settings.xml', 'direct' => true, 'rand' => time()), 'mvc', true) . '",
+					country: "' . $this->url(array('module' => 'analytics', 'controller' => 'admin', 'action' => 'getfile', 'file' => 'country_settings.xml', 'direct' => true, 'rand' => time()), 'mvc', true) . '"
+				},
+				_csv = {
+					visitors: "' . $this->url(array('module' => 'analytics', 'controller' => 'admin', 'action' => 'getfile', 'file' => 'visitors.csv', 'direct' => true, 'rand' => time()), 'mvc', true) . '",
+					visitors_3: "' . $this->url(array('module' => 'analytics', 'controller' => 'admin', 'action' => 'getfile', 'file' => 'visitors_3.csv', 'direct' => true, 'rand' => time()), 'mvc', true) . '",
+					country: "' . $this->url(array('module' => 'analytics', 'controller' => 'admin', 'action' => 'getfile', 'file' => 'country.csv', 'direct' => true, 'rand' => time()), 'mvc', true) . '",
+					city: "' . $this->url(array('module' => 'analytics', 'controller' => 'admin', 'action' => 'getfile', 'file' => 'city.csv', 'direct' => true, 'rand' => time()), 'mvc', true) . '"
+				},
+				_keyFileUrl = "' . dirname($this->libUrl('/Analytics/public/js/amcharts_key.txt')) . DS . '";
+		')
+		->appendFile($this->libUrl('/Analytics/public/js/swfobject.js'))
+		->appendFile($this->libUrl('/Analytics/public/js/admin.js'))
+		
+?>
+
+<div class="z_head_module">
+	<img id="z_module_image" src="<? echo $this->libUrl('/Analytics/public/images/admin/ico.png')?>" alt="Просмотр статистики посещений"/>
+	<div class="right">
+		<h1>Аналитика<?php echo ($this->subtitle ? ' &rarr; ' . $this->subtitle : '') ?></h1>
+		<p>Просмотр статистики посещений</p>
+	</div>
+	<div class="clear"></div>
+</div>

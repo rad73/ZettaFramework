@@ -1,0 +1,14 @@
+<div class="z_widget_item">
+	<fieldset class="switch" title="Выключить / включить режим редактирования">
+		<input type="radio" <?php echo (false == $this->blocks_enabled ? 'checked="checked"': '') ?> name="z_block_switch" value="off" id="switch-radio-off-1" class="switch-radio switch-radio-off">
+		<label for="switch-radio-off-1" class="switch-label switch-label-off">
+			Выкл.
+			<span class="switch-slider"></span>
+		</label>
+		<input type="radio" <?php echo (true == $this->blocks_enabled ? 'checked="checked"': '') ?> value="on" name="z_block_switch" id="switch-radio-on-1" class="switch-radio switch-radio-on">
+		<label for="switch-radio-on-1" class="switch-label switch-label-on">
+			Вкл.
+			<span class="switch-slider"></span>
+		</label>
+	</fieldset>
+</div>

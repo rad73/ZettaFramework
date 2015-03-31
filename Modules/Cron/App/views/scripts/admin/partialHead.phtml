@@ -1,0 +1,21 @@
+<?php
+
+	$this->headLink()->exchangeArray(array());
+	$this->headScript()->exchangeArray(array());
+	
+	echo $this->headLink()
+		->appendStylesheet($this->libUrl('/Cron/public/css/admin.css'));
+	
+	echo $this->headScript()
+		->appendFile($this->libUrl('/Cron/public/js/admin.js'));
+				
+?>
+
+<div class="z_head_module">
+	<img id="z_module_image" src="<? echo $this->libUrl('/Cron/public/images/admin/ico.png')?>" alt="Управление поисковым индексом"/>
+	<div class="right">
+		<h1>Планировщик задач<?php echo ($this->subtitle ? ' &rarr; ' . $this->subtitle : '') ?></h1>
+		<p>Управление задачами на сайте</p>
+	</div>
+	<div class="clear"></div>
+</div>

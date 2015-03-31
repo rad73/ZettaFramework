@@ -1,0 +1,7 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => $this->user_id ? 'Редактирование пользователя' : 'Добавление пользователя')); ?>
+
+<div id="add_user_form">
+	<?php echo $this->form ?>
+</div>
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'accessusers', 'controller' => 'admin', 'action' => 'users', 'role_id' => $this->role ? $this->role->name : false), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку пользователей</span></a>

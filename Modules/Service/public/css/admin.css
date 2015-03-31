@@ -1,0 +1,18 @@
+#z_window .z_update #z_update_info {
+	margin-bottom: 20px;
+}
+
+#z_window .z_update P {
+	margin-bottom: 8px;
+	line-height: 1.5;
+}
+
+#z_window #z_backup_info .z_backups_list {
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px solid #aaa;
+}
+
+#z_window .z_red {
+	color: red;
+}

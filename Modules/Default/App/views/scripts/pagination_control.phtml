@@ -1,0 +1,25 @@
+<?php if ($this->pageCount > 1): ?>
+	<div class="pagination_control">
+		<!-- Ссылка на предыдущую страницу -->
+		<?php if (isset($this->previous)): ?>
+			<a class="pagination_prev" href="<?php echo $this->url(array('page' => $this->previous)); ?>">&larr;</a>
+		<?php else: ?>
+			<span class="pagination_prev pagination_disabled">&larr;</span> 
+		<?php endif; ?>
+		
+		<i>|</i>
+		 
+		<!-- Нумерованные ссылки на страницы -->
+		<?php foreach ($this->pagesInRange as $page): ?>
+		    <a <?php echo $page == $this->current ? 'class="pagination_current"' : '' ?> href="<?php echo $this->url(array('page' => $page)); ?>"><?php echo $page; ?></a>
+		    <i>|</i>
+		<?php endforeach; ?>
+		 
+		<!-- Ссылка на следующую страницу -->
+		<?php if (isset($this->next)): ?>
+			<a class="pagination_next" href="<?php echo $this->url(array('page' => $this->next)); ?>">&rarr;</a>
+		<?php else: ?>
+			<span class="pagination_next pagination_disabled">&rarr;</span> 
+		<?php endif; ?>
+	</div>
+<?php endif ?>

@@ -1,0 +1,9 @@
+<?php
+	$icon = '/Zfdebuginit/public/images/admin/ico_small' . ($this->enabled ? '' : '_disable') . '.png';
+?>
+
+<div id="z_zfdebug_widget" class="z_widget_item" title="Показывать / не показывать отладочную информацию о странице">
+	<a href="#" class="no_ajax">
+		<img src="<?php echo $this->libUrl($icon)?>">
+	</a>
+</div>

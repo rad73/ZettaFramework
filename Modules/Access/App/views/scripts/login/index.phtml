@@ -1,0 +1,101 @@
+<?php
+
+	$this->headScript()
+		->appendFile($this->libUrl('/js/rsa.js'))
+		->appendFile($this->libUrl('/js/md5.js'))
+		->appendFile($this->libUrl('/Access/public/js/login.js'));
+		
+	$this->headTitle('Вход в систему управления');
+
+?>
+
+
+<h1>Вход в систему управления</h1>
+
+<form method="post" action="<?php echo $this->url(array('module' => 'access', 'controller' => 'login', 'action' => 'index'))?>" id="login">
+			
+	<ins><input type="hidden" id="auth_hash" name="auth_hash" value="<?php echo $this->hash; ?>" /></ins>
+
+	<?php if ($this->showError): ?>
+		<div id="error">Вы указали неверное имя пользователя или пароль.</div>
+	<?php endif ?>
+	
+	<div class="username">
+
+			<div class="label">
+				<label for="username">Имя пользователя</label>
+			</div>
+
+			<div class="textbox">
+				<input type="text" id="username" name="username" value="<?php echo $this->escape($this->username); ?>" class="textbox"/>
+			</div>
+
+			<div class="clear"></div>
+
+	</div>
+
+	<div class="password">
+
+			<div class="label">
+				<label for="password">Пароль</label>
+			</div>
+
+			<div class="textbox">
+				<input type="password" id="auth_password" name="auth_password" class="textbox"/>
+				<?php
+					if ($this->safetyPassword) {
+						echo $this->partial('keyboard.phtml');
+					}
+				?>
+			</div>
+
+			<div class="clear"></div>
+
+	</div>
+
+	<?php if (Zend_Registry::get('config')->Access->cookie) : ?>
+	<div class="remember">
+		<label><input type="checkbox" name="use_cookie"/> Запомнить меня</label>
+	</div>
+	<?php endif; ?>
+
+	<div class="submit">
+		<input type="submit" value="Войти" />
+	</div>
+
+	<div class="clear"></div>
+
+</form>
+
+<!--googleoff: all-->
+	<!--noindex-->
+
+	<noscript>
+		<div id="noscript_login_js" class="layer">
+			<div class="content">
+				<div class="warning">
+					<img src="<?=$this->libUrl('/i/error/warning.png')?>" class="logo_warning" width="64" height="64" alt="Warning"/>
+					<h1>Ну вот и приехали...</h1>
+				</div>
+				<p>Работа с ситемой управления возможна только при включённом javascript.</p>
+				<p>Don't panic. Включите в своём браузере javascript и <a href="">обновите</a> страницу.</p>
+		
+			</div>
+		</div>
+	</noscript>
+
+	<div id="ltie9_message">
+		
+			<div class="content">
+				<div class="warning">
+					<img src="<?=$this->libUrl('/i/error/warning.png')?>" class="logo_warning" width="64" height="64" alt="Warning"/>
+					<h1>Любите раритет?</h1>
+				</div>
+				<p>Ваш браузер устарел. Для корректного отображения сайта необходимо <a href="http://windows.microsoft.com/ru-RU/internet-explorer/download-ie" target="_blank">обновить</a> браузер до последней версии.</p>
+			</div>
+		
+			<div id="msg_update_browser"></div>
+
+	</div>
+<!--/noindex-->
+<!--googleon: all-->

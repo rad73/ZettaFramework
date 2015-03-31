@@ -1,0 +1,6 @@
+<?php if ($this->error_enter): ?>
+	<div class="error">Вы указали неверное имя пользователя или пароль.</div>
+<?php endif ?>
+<?php echo $this->form ?>
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'accessusers', 'controller' => 'index', 'action' => 'forgot')) ?>" id="forgot">Забыл пароль?</a>

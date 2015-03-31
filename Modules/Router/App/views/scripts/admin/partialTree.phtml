@@ -1,0 +1,21 @@
+<li data-id="<?php echo $this->route_id ?>" class="<?php echo ($this->route_id == 1 ? 'disabled' : '') . ' ' . ($this->disable == 1 ? 'disable_item' : '') ?>">
+	<div class="z_name">
+		<?php echo ($this->route_id != 1 ? '<div class="move">move</div>' : '') ?>
+		<?php echo $this->route_id ?>: <a href="<?php echo $this->url(array('action'=>'add', 'route_id' => $this->route_id), 'mvc') ?>" title="m: <?php echo $this->module ?>, c: <?php echo $this->controller ?>, a: <?php echo $this->action ?>"><?php echo $this->name ?></a>
+		<?php echo ($this->route_id != 1 ? ' <i> - ' . $this->uri . '</i>' : '') ?>
+		
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('action'=>'add', 'route_id' => $this->route_id), 'mvc') ?>" class="z_ico_edit" title="Редактировать">Редактировать</a>
+			<a href="<?php echo $this->baseUrl() . $this->url ?>" target="_blank" class="z_ico_open no_ajax" title="Посмотреть раздел на сайте">Посмотреть раздел на сайте</a>
+			<?php echo ($this->route_id != 1 ? '<a href="' . $this->url(array('action'=>'delete', 'route_id' => $this->route_id), 'mvc') . '" class="z_ico_delete no_ajax" title="Удалить">Удалить</a>' : '') ?>
+			<a href="<?php echo $this->url(array('module' => 'router', 'controller' => 'admin', 'action'=>'add', 'parent_route_id' => $this->route_id), 'mvc', true) ?>" class="z_ico_add" title="Добавить подраздел">Добавить подраздел</a>
+		</div>
+	</div>
+	
+	<?php if (sizeof($this->childs)) : ?>
+		<ul>
+			<?php echo $this->partialLoop('admin/partialTree.phtml', $this->childs); ?>
+		</ul>
+	<?php endif; ?>
+	
+</li>

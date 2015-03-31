@@ -1,0 +1,10 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Информация')); ?>
+
+В поисковом индексе: <?php echo $this->count ?> 	
+
+<div class="z_buttons_placehoder">
+	<a id="z_reindexate" href="<?php echo $this->url(array('module' => 'search', 'controller' => 'cron', 'action' => 'indexate'), 'mvc', true) ?>" class="no_ajax ui-button">Переиндексировать</a>
+</div>
+	
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'panel', 'action' => 'managepanel'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Вернуться в управлениe</span></a>

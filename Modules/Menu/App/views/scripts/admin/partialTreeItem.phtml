@@ -1,0 +1,28 @@
+<li data-id="<?php echo $this->item_id ?>" class="<?php echo ($this->disable == 1 ? 'disable_item' : '') ?>">
+	<div class="z_name">
+		<div class="move">move</div>
+		<?php echo $this->item_id ?>: <a href="<?php echo $this->url(array('action'=>'addsection', 'item_id' => $this->item_id), 'mvc') ?>"><?php echo $this->name ?></a>
+		
+		<i> - <?php echo $this->url ?></i>
+		<?php if ($this->external_link) : ?>
+			<a href="<?php echo $this->external_link ?>" target="_blank" class="z_ico z_ico_open no_ajax" title="Внешняя ссылка">Внешняя ссылка</a>
+		<?php endif ?>
+
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('action'=>'addsection', 'item_id' => $this->item_id), 'mvc') ?>" class="z_ico_edit" title="Редактировать">Редактировать</a>
+			
+			<?php if ('from_router' != $this->type) : ?>
+				<a href="<?php echo $this->url(array('module' => 'menu', 'controller' => 'admin', 'action'=>'deletesection', 'item_id' => $this->item_id, 'menu_id' => $this->menu_id), 'mvc', true) ?>" class="z_ico_delete no_ajax" title="Удалить">Удалить</a>
+				<a href="<?php echo $this->url(array('module' => 'menu', 'controller' => 'admin', 'action'=>'addsection', 'parent_id' => $this->item_id, 'menu_id' => $this->menu_id), 'mvc', true) ?>" class="z_ico_add" title="Добавить подраздел">Добавить подраздел</a>
+			<? endif ?>
+			
+		</div>
+	</div>
+	
+	<?php if (sizeof($this->childs)) : ?>
+		<ul>
+			<?php echo $this->partialLoop('admin/partialTreeItem.phtml', $this->childs); ?>
+		</ul>
+	<?php endif; ?>
+	
+</li>

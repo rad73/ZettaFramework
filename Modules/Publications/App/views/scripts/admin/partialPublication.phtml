@@ -1,0 +1,11 @@
+<li data-id="<?php echo $this->publication_id ?>" class="<?php echo ($this->active ? 'active' : 'disabled') ?>">
+	<div class="z_name">
+		<div class="move">move</div>
+		<?php echo $this->publication_id ?>: <a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'addpublication', 'publication_id' => $this->publication_id, 'rubric_id' => $this->partial()->view->rubric->rubric_id, 'route_id' => $this->route_id), 'mvc', true) ?>"><?php echo $this->escape($this->name) ?></a>
+		
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'deletepublication', 'publication_id' => $this->publication_id, 'rubric_id' => $this->partial()->view->rubric->rubric_id, 'route_id' => $this->route_id), 'mvc', true) ?>" class="z_ico_delete deleteField no_ajax" title="Удалить">Удалить</a>
+			<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'addpublication', 'publication_id' => $this->publication_id, 'rubric_id' => $this->partial()->view->rubric->rubric_id, 'route_id' => $this->route_id), 'mvc', true) ?>" class="z_ico_edit" title="Редактировать">Редактировать</a>
+		</div>
+	</div>
+</li>

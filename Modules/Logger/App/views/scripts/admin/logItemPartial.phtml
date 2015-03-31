@@ -1,0 +1,14 @@
+<?php
+	$date = date_parse($this->timestamp);
+?>
+<tr class="z_log_<?php echo $this->priorityName ?>">
+	<td><?php printf('%02d.%02d.%04d %02d:%02d:%02d', $date['day'], $date['month'], $date['year'], $date['hour'], $date['minute'], $date['second']) ?></td>
+	<td><?php echo $this->remote_addr ?></td>
+	<td><?php echo $this->request_url ?></td>
+	<td class="z_info"><?php echo $this->message ?></td>
+	<td class="z_message"><?php 
+		if ($this->file) {
+			echo $this->file .':'. $this->line;
+		}
+	?></td>
+</tr>

@@ -1,0 +1,85 @@
+#z_window .z_privilegies_tree UL LI {
+	margin-left: 20px;
+}
+
+#z_window .z_privilegies_title {
+	font-weight: bold;
+	border-bottom: 1px dotted #aaa;
+	padding: 5px 2px;
+	margin-bottom: 5px;
+}
+
+	#z_window .z_privilegies_title DIV {
+		float: left;
+	}
+	
+	#z_window .z_privilegies_title .z_inherit, #z_window .z_privilegies_title .z_allow, #z_window .z_privilegies_title .z_deny {
+		font-size: 11px;
+		width: 80px;
+		text-align: center;
+	}
+	
+	#z_window .z_group_name {
+		width: 655px;
+		padding-left: 5px;
+	}
+	
+#z_window .z_rb {
+	top: 0;
+}
+		
+	#z_window .z_rb_label {
+		width: 80px;
+		float: left;
+		text-align: center;
+		display: block;
+		padding: 0;
+		line-height: 26px;
+	} 
+	
+		#z_window .z_rb_label:hover {
+			background: #cae6b7;
+		}
+		
+#z_window LI.z_deny .z_name {
+	color: #ce3535;
+}
+
+#add_resource_form {
+	
+}
+		
+	#add_resource_form .errors {
+		width: 195px;
+	}
+
+	#add_resource_form #fieldset-extend,
+	#add_resource_form #fieldset-base,
+	#add_resource_form #fieldset-buttons
+	{
+		width: 45%;
+		float: left;
+	}
+	
+	#add_resource_form #fieldset-base
+	{
+		float: right;
+		padding-left: 5%;
+		background: url('../images/admin/zigzag_separator_form.png') repeat-y;
+	}
+	
+	#add_resource_form #fieldset-buttons {
+		width: 100%;
+	}
+	
+	#add_resource_form .submit {
+		float: right;
+	}
+	
+#z_window .z_rulesbyroles_title .z_group_name {
+	width: 815px;
+}
+
+	#z_window .z_rulesbyroles_list .z_inherit {
+		text-decoration: line-through;
+	}

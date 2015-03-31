@@ -1,0 +1,7 @@
+/**
+ * @name Modules_Admin
+ * @author Александр Хрищанович
+ * @version 1.0 beta
+ * @description Админ панель на сайте
+ * @dependence Modules_Access
+ */

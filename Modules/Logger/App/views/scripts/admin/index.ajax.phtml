@@ -1,0 +1,35 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Просмотр отчётов')); ?>
+
+<?php if (sizeof($this->log) && !$this->download) : ?>
+	
+	<table id="z_table_logger">
+		<thead>
+			<tr>
+				<th class="z_log_date">Дата</th>
+				<th>IP</th>
+				<th>URL</th>
+				<th>Сообщение</th>
+				<th>Информация</th>
+			</tr>
+			<tr class="z_table_head_border">
+				<th colspan="5"><!-- --></th>
+			</tr>
+		</thead>
+		<?php echo $this->partialLoop('admin/logItemPartial.phtml', $this->log) ?>
+	</table>
+
+<?php elseif ($this->download): ?>
+	Файл журнала доступен по <a href="<?php echo $this->url(array('module' => 'logger', 'controller' => 'admin', 'action' => 'download', 'direct' => 1), 'mvc', true) ?>" target="_blank" class="no_ajax">ссылке</a> (<?php echo $this->size ?>Kb)
+<?php else: ?>
+	В журнале нету ни одной записи.
+<?php endif ?>
+	
+
+<div class="z_buttons_placehoder">
+	<form id="clear_log_form" method="post" action="<?php echo $this->url(array('module' => 'logger', 'controller' => 'admin', 'action' => 'clear'), 'mvc', true) ?>">
+		<a href="#" onclick="_confirm('Удалить журнал?', false, function () {$('#clear_log_form').submit()}); return false;" class="no_ajax ui-button">Очистить журнал</a>
+	</form>
+</div>
+	
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'panel', 'action' => 'managepanel'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Вернуться в управлениe</span></a>

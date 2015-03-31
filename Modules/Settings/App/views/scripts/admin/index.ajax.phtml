@@ -1,0 +1,33 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Настройки сайта')); ?>
+
+<?php if (sizeof($this->settings)) : ?>
+	
+	<table id="z_settings_list">
+		<thead>
+			<tr>
+				<th>Имя</th>
+				<th>Значение</th>
+				<th>Описание</th>
+				<th>&nbsp;</th>
+			</tr>
+			<tr class="z_table_head_border">
+				<th colspan="4"><!-- --></th>
+			</tr>
+		</thead>
+		<?php 
+			foreach ($this->settings as $k=>$array) {
+				echo $this->partial('admin/rowPartial.phtml', array('key'=> $k, 'data' => $array));
+			} 
+		?>
+	</table>
+<?php else: ?>
+	В настройках нету ни одной записи.
+<?php endif ?>
+	
+
+<div class="z_buttons_placehoder">
+	<a href="<?php echo $this->url(array('module' => 'settings', 'controller' => 'admin', 'action' => 'add'), 'mvc', true) ?>" class="ui-button">Добавить настройку</a>
+</div>
+	
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'panel', 'action' => 'managepanel'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Вернуться в управлениe</span></a>

@@ -1,0 +1,14 @@
+<ul>
+
+	<?php foreach ($this->data as $row): ?>
+	<li>
+	
+		<?php foreach ($row as $k=>$v): ?>
+				<p><b><?php echo $k ?>: </b> <?php echo $v ?></p>
+		<?php endforeach ?>
+
+	</li>
+	
+	<?php endforeach ?>
+
+</ul>

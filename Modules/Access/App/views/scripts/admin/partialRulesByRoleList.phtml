@@ -1,0 +1,34 @@
+<?php
+	$acl = Zetta_Acl::getInstance();
+	$globalView = $this->partial()->view;
+		
+	$resourceName = $this->resource_name;
+	$group = $globalView->role_name;
+	
+	$isAllow = $acl->isAllowedGroup($group, $resourceName);
+	
+	$isInherit = $acl->isInheritRule($group, $resourceName);
+
+	$parent_role = $acl->getParentRole($group);
+	$isAllowParent = $acl->isAllowedGroup($parent_role, $resourceName);
+	
+	if ($acl->getMyGroup() == $parent_role) {
+		$isInherit = false;
+	}
+
+?>
+
+<li class="<?php echo ($isAllow ? 'z_allow' : 'z_deny') ?> <?php echo ($isInherit ? 'z_inherit' : '') ?>">
+	<div class="z_name">
+		<?php echo $this->description ?> - 
+		<i> <?php echo $this->resource_name ?></i>
+		<div class="z_icons z_rb clearfix">
+			<label class="z_rb_deny z_rb_label">
+				<?php if (!$isInherit): ?>
+					<input type="hidden" value="allow" name="<?php echo $this->resource_name ?>" />
+				<?php endif ?>
+				<input type="checkbox" value="deny" name="<?php echo $this->resource_name ?>" <?php echo (!$isAllow ? 'checked' : '') ?> <?php echo ($isInherit && !$isAllow ? 'disabled' : '') ?> />
+			</label>
+		</div>
+	</div>
+</li>

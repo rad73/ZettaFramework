@@ -1,0 +1,18 @@
+<li>
+	<div class="z_name">
+		<?php if ($this->type == 'free') : ?>
+			<i class="icon-random" title="Собственный набор разделов в меню"><!-- --></i>
+		<?php endif ?>
+
+		<?php echo $this->menu_id ?>: 
+		<a href="<?php echo $this->url(array('action'=>'tree', 'menu_id' => $this->menu_id), 'mvc') ?>"><?php echo $this->name ?></a>
+		
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('action'=>'tree', 'menu_id' => $this->menu_id), 'mvc') ?>" class="z_ico_menu_tree" title="Редактировать список разделов">Редактировать список разделов</a>
+			<?php if ($this->menu_id != 1): ?>
+				<a href="<?php echo $this->url(array('action'=>'add', 'menu_id' => $this->menu_id), 'mvc') ?>" class="z_ico_edit" title="Редактировать">Редактировать</a>
+				<a href="<?php echo $this->url(array('action'=>'delete', 'menu_id' => $this->menu_id), 'mvc') ?>" class="z_ico_delete no_ajax" title="Удалить">Удалить</a>
+			<?php endif ?>
+		</div>
+	</div>
+</li>

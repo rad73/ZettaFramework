@@ -1,0 +1,6 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => $this->menu_id ? 'Свойства меню' : 'Добавление меню')); ?>
+<div id="add_route_form">
+	<?php echo $this->form ?>
+</div>
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'menu', 'controller' => 'admin'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Отмена</span></a>

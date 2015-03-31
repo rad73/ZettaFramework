@@ -1,0 +1,20 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Список полей "' . $this->rubric->name . '"')); ?>
+
+<div id="z_fields_list" class="sortable">
+	<?php 
+		if (sizeof($this->fields)) {
+			echo $this->partialLoop('admin/partialField.phtml', $this->fields);
+		}
+		else {
+			?>В данном типе данных не добавлено ни одного поля<?php
+		}
+	?>
+</div>
+
+<div class="z_buttons_placehoder">
+	<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action' => 'addfield', 'rubric_id' => $this->rubric->rubric_id), 'mvc', true) ?>" class="ui-button">Добавить поле</a>
+</div>
+
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin'), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку типов данных</span></a>
+

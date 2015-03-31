@@ -1,0 +1,58 @@
+<?php 
+	if (false == $this->no_header) {
+		echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Тестовый класс "' . $this->result['name'] . '"'));
+	}
+?>
+
+<div class="z_description_test">
+	<div><b>Файл с тестовыми сценариями:</b> <?= $this->result['file']?></div>
+	<div><b>Тестовых сценариев:</b> <?= $this->result['tests']?></div>
+	<div><b>Принято:</b> <span class="assert"><?= ($this->result['assertions'] - $this->result['failures'])?></span></div>
+	<div><b>Отказано:</b> <span class="fail"><?= $this->result['failures']?></span></div>
+	<div><b>Ошибок:</b> <span class="error"><?= $this->result['errors']?></span></div>
+	<div><b>Общее время:</b> <?= $this->result['time']?></div>
+</div>
+
+<table>
+	<tr>
+		<th width="1">&nbsp;</th>
+		<th>Тестовый случай</th>
+		<th>Строка</th>
+		<th>Всего проверок</th>
+		<th>Время выполнения</th>
+		<th>Отчёт об ошибках</th>
+	</tr>
+	<tr class="z_table_head_border">
+		<th colspan="6"></th>
+	</tr>
+	<?php foreach ($this->result->testcase as $testCase) : ?>
+	<?php
+		$log = explode("\n\n", $testCase->failure? $testCase->failure : $testCase->error);
+		if ($testCase->failure) {
+			$status = 'fail';
+		}
+		else if($testCase->error) {
+			$status = 'error';
+		}
+		else {
+			$status = 'assert';
+		}
+	?>
+	<tr class="<?=$status?>">
+		<td class="td_icon"><img src="<?=$this->libUrl('/Guitestcase/public/images/' . $status . '.png')?>" alt="<?=$status?>"/></td>
+		<td class="name"><?= $testCase['name'] ?></td>
+		<td><?= $testCase['line'] ?></td>
+		<td><?= $testCase['assertions'] ?></td>
+		<td><?= $testCase['time'] ?></td>
+		<td class="log"><?= nl2br($log[0]) ?></td>
+	</tr>
+	<?php endforeach; ?>
+</table>
+
+<?php if (false == $this->no_header) : ?>
+	
+	<div class="z_buttons_placehoder"><!-- --></div>
+	<div class="clear"><!-- --></div>
+	<a href="<?php echo $this->url(array('module' => 'guitestcase', 'controller' => 'admin', 'action' => 'index'), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку тестов</span></a>
+	
+<?php endif ?>

@@ -1,0 +1,13 @@
+<?php
+	$backUrl = $this->route_id
+	? $this->url(array('module' => 'publications', 'controller' => 'admin', 'action' => 'view', 'rubric_id' => $this->rubric->rubric_id, 'route_id' => $this->route_id), 'mvc', true)
+	: $this->url(array('module' => 'publications', 'controller' => 'admin', 'action' => 'routes', 'rubric_id' => $this->rubric->rubric_id), 'mvc', true);
+?>
+
+<script type="text/javascript">$.History.go('<?php echo $backUrl ?>');</script>
+
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Публикация сохранена')); ?>
+Данные сохранены. <a href="<?php echo $backUrl ?>">Перейти к списку публикаций</a>
+<div class="clear"><!-- --></div>
+
+

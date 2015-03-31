@@ -1,0 +1,29 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => $this->role ? 'Пользователи группы "' . $this->role->description .' ('.$this->role->name . ')"' : 'Доступные пользователи')); ?>
+
+
+<?php if (sizeof($this->users)) : ?>
+	<table class="z_user_list">
+		<tr>
+			<th>Логин</th>
+			<th>E-mail</th>
+			<th>Фио</th>
+			<th>Группа</th>
+			<th>&nbsp;</th>
+		</tr>
+		<tr class="z_table_head_border">
+			<th colspan="5"><!-- --></th>
+		</tr>
+		<?php echo $this->partialLoop('admin/partialUsersList.phtml', $this->users) ?>
+	</table>
+<?php else: ?>
+	Не найдено ни одного пользователя, на просмотр которого у вас есть привилегии.
+<?php endif ?>
+	
+	<div class="z_buttons_placehoder">
+		<a href="<?php echo $this->url(array('module' => 'accessusers', 'controller' => 'admin', 'action' => 'add', 'role_id' => $this->role ? $this->role->name : false), 'mvc', true) ?>" class="ui-button">Добавить пользователя</a>
+	</div>
+	
+</form>
+	
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'accessusers', 'controller' => 'admin', 'action' => 'index'), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку ролей</span></a>

@@ -1,0 +1,14 @@
+<li data-id="<?php echo $this->field_id ?>" class="<?php echo ($this->hidden_front ? 'hidden_front' : '') ?>">
+	<div class="z_name">
+		<div class="move">move</div>
+		<?php echo $this->field_id ?>: <b><?php echo $this->title ?></b>
+		<i> - <?php echo $this->name ?> (тип: <?php echo $this->type ?>)</i>
+		
+		<div class="z_icons">
+			<?php if (!in_array($this->name, array('name', 'active'))) : ?>
+				<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'deletefield', 'field_id' => $this->field_id, 'rubric_id' => $this->rubric_id), 'mvc', true) ?>" class="z_ico_delete deleteField no_ajax" title="Удалить">Удалить</a>
+			<?php endif ?>
+			<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'addfield', 'field_id' => $this->field_id, 'rubric_id' => $this->rubric_id), 'mvc', true) ?>" class="z_ico_edit" title="Редактировать">Редактировать</a>
+		</div>
+	</div>
+</li>

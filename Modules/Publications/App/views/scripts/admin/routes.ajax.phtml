@@ -1,0 +1,39 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Рубрики к которым подключен "' . $this->rubric->name . '"')); ?>
+
+<div id="z_publications_modules">
+
+	<?php 
+	if (sizeof($this->routes)) {
+		echo $this->partialLoop('admin/partialRoute.phtml', $this->routes);
+	}
+	else {
+		?>Данные модуль не подключен ни к одной рубрике.<?php 
+	}
+	?>
+
+</div>
+
+<?php if (sizeof($this->publications)) : ?>
+
+	<div id="z_view_publications" class="sortable">	
+		<h2>Публикации без рубрики</h2>
+		<?php
+			try {
+				echo $this->partialLoop('admin_' . $this->rubric->table_name . '/partialPublication.phtml', $this->publications);
+			}
+			catch (Exception $e) {
+				echo $this->partialLoop('admin/partialPublication.phtml', $this->publications);
+			}
+		?>
+		<?php echo $this->paginationControl($this->paginator) ?>
+	</div>
+	
+<?php endif ?>
+
+<div class="z_buttons_placehoder">
+	<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'addpublication', 'rubric_id' => $this->rubric->rubric_id), 'mvc', true) ?>" class="ui-button">Добавить публикацию вне рубрики</a>
+</div>
+
+
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Отмена</span></a>

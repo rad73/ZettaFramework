@@ -1,0 +1,8 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => $this->role_name ? 'Изменение роли "' . $this->role_name . '"' : 'Добавление роли')); ?>
+
+<div id="add_role_form">
+	<?php echo $this->form ?>
+</div>
+
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'access', 'controller' => 'admin', 'action' => 'roles'), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку ролей</span></a>

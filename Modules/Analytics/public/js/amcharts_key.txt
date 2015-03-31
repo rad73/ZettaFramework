@@ -1,0 +1,15 @@
+YOUR LICENSE KEY:
+
+AMCHART-LWVS-3421-5224-3425-4186
+
+Open notepad, copy and paste this key and save the file as:
+
+amcharts_key.txt
+
+This file must be saved in the "path" folders. "Path" folder is defined in 
+chart html file. By default it is the same folder where your swf files are:
+
+ampie/ for pie chart
+amline/ for line chart
+amcolumn/ for column chart
+xy/ for xy chart

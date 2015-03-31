@@ -1,0 +1,6 @@
+[submodule "Library/Zend"]
+	path = Library/Zend
+	url = https://github.com/zf/ZendFramework-Library.git
+[submodule "Library/ZFDebug"]
+	path = Library/ZFDebug
+	url = git://github.com/jokkedk/ZFDebug.git

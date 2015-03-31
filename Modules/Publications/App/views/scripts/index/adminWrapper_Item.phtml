@@ -1,0 +1,18 @@
+<aside class="z_admin_wrapper z_admin_publications">
+	
+	<aside class="z_icons_editable">
+		<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action' => 'deletepublication', 'publication_id' => $this->publication_id, 'rubric_id' => $this->pub_rubric_id), 'mvc', true) ?>" class="icon icon-remove no_ajax"></a>
+		<a href="<?php echo $this->url(array(
+			'module' => 'publications', 
+			'controller' => 'admin', 
+			'action' => 'addpublication', 
+			'publication_id' => $this->publication_id, 
+			'rubric_id' => $this->pub_rubric_id,
+			'route_id' => $this->route_id,
+		), 'mvc', true) ?>" class="icon icon-pencil"></a>
+	</aside>
+
+	<?php echo $this->content ?>
+	
+</aside>
+

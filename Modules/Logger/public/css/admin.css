@@ -1,0 +1,18 @@
+.z_log_date {
+	width: 140px;
+}
+
+.z_log_CRIT {
+	color: red;
+}
+
+.z_log_ERR {
+	color: #e47600;
+}
+
+#z_table_logger TD.z_info,
+#z_table_logger TD.z_message
+{
+	word-break: break-all;
+	max-width: 350px;
+}

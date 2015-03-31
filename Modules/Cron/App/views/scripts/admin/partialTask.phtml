@@ -1,0 +1,31 @@
+<tr class="<?php echo ($this->active != 1 ? 'disable_cron' : '') ?>">
+	<td class="z_align_center"><?php echo $this->minute ?></td>
+	<td class="z_align_center"><?php echo $this->hour ?></td>
+	<td class="z_align_center"><?php echo $this->day ?></td>
+	<td class="z_align_center"><?php echo $this->month ?></td>
+	<td class="z_align_center"><?php echo $this->week_day ?></td>
+	<td><a class="z_name" href="<?php echo $this->url(array('action'=>'add', 'cron_id' => $this->cron_id), 'mvc') ?>"><?php echo $this->task ?></a></td>
+	<td class="z_task_date">
+	<?php 
+		$date = date_parse($this->last_run_start);
+		echo ($date['year'])
+			? sprintf('%02d.%02d.%04d %02d:%02d:%02d', $date['day'], $date['month'], $date['year'], $date['hour'], $date['minute'], $date['second'])
+			: '—';
+	?>
+	</td>
+	<td class="z_task_date">
+	<?php 
+		$date = date_parse($this->last_run_finish);
+		echo ($date['year'])
+			? sprintf('%02d.%02d.%04d %02d:%02d:%02d', $date['day'], $date['month'], $date['year'], $date['hour'], $date['minute'], $date['second'])
+			: '—';
+	?>
+	<td class="z_td_icons">
+		<div class="z_icons">
+			<a href="<?php echo $this->url(array('action'=>'stop', 'cron_id' => $this->cron_id), 'mvc') ?>" class="z_ico_pause no_ajax <?php echo ($this->in_progress) ? 'visible' : 'hidden' ?>" title="Прервать выполнение">Остановить выполнение</a>
+			<a href="<?php echo $this->url(array('action'=>'run', 'cron_id' => $this->cron_id), 'mvc') ?>" class="z_ico_play no_ajax <?php echo ($this->in_progress) ? 'hidden' : 'visible' ?>" title="Запустить">Запустить</a>
+			<a href="<?php echo $this->url(array('action'=>'add', 'cron_id' => $this->cron_id), 'mvc') ?>" class="z_ico_edit" title="Редактировать">Редактировать</a>
+			<a href="<?php echo $this->url(array('action'=>'delete', 'cron_id' => $this->cron_id), 'mvc') ?>" class="z_ico_delete no_ajax" title="Удалить">Удалить</a>
+		</div>
+	</td>
+</tr>

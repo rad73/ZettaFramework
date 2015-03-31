@@ -1,0 +1,17 @@
+<?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Выберите группу')); ?>
+
+<?php if (sizeof($this->accepted_roles)) : ?>
+	<ul class="sortable">
+		<?php echo $this->partialLoop('admin/partialRolesList.phtml', $this->accepted_roles) ?>
+	</ul>
+<?php else: ?>
+	Вы не обладаете ни какими подчинёнными ролями
+<?php endif ?>
+	
+<div class="z_buttons_placehoder">
+	<a href="<?php echo $this->url(array('module' => 'accessusers', 'controller' => 'admin', 'action' => 'users'), 'mvc', true) ?>" class="ui-button">Все пользователи</a>
+	<a href="<?php echo $this->url(array('module' => 'access', 'controller' => 'admin', 'action' => 'roleadd'), 'mvc', true) ?>" class="ui-button">Добавить роль</a>
+</div>
+	
+<div class="clear"><!-- --></div>
+<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'panel', 'action' => 'managepanel'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Вернуться в управлениe</span></a>
