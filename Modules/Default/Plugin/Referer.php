@@ -2,16 +2,16 @@
 
 /**
  * Плагин для определения прошлой страницы альтернатива $_SERVER['HTTP_REFERER']
- * 
- * @example 
- * 
+ *
+ * @example
+ *
  * Zend_Registry::get('http_referer');
- * 
+ *
  */
 class Modules_Default_Plugin_Referer extends Zend_Controller_Plugin_Abstract {
 
 	protected $_session;
-	
+
 	public function routeStartup(Zend_Controller_Request_Abstract $request) {
 		
 		$this->_session = new Zend_Session_Namespace('Default');
@@ -21,9 +21,9 @@ class Modules_Default_Plugin_Referer extends Zend_Controller_Plugin_Abstract {
 		}
 
 	}
-	
+
 	public function dispatchLoopShutdown() {
-		
+
 		if (
 			(stristr($this->getResponse()->getBody(), '</html>') || $this->getRequest()->getParam('format') == 'html')
 			&& $this->getResponse()->getHttpResponseCode() == 200
