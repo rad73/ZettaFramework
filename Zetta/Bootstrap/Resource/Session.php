@@ -8,7 +8,12 @@ class Zetta_Bootstrap_Resource_Session extends Zend_Application_Resource_Session
 
 	public function init() {
 
-		$this->getBootstrap()->bootstrap('Db');
+		if ($this->getBootstrap()->hasPluginResource('multidb')) {
+			$this->getBootstrap()->bootstrap('multidb');
+		}
+		else {
+			$this->getBootstrap()->bootstrap('Db');
+		}
 
 		if ($this->getSaveHandler() instanceof Zend_Session_SaveHandler_DbTable) {
 
