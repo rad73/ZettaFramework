@@ -6,25 +6,14 @@
  */
 class Zetta_Bootstrap_Resource_Multidb extends Zend_Application_Resource_Multidb {
 
-	/**
-	 * БД по умолчанию
-	 * @var Zend_Db_Adapter
-	 */
-	protected $_db;
-
 	public function init() {
 
 		parent::init();
 
-		foreach($this->_dbs as $name=>$db) {
-
-			$this->_db = $db;
-			$this
-				->_saveInRegistry($name)
-				->_saveConfigRegistry($name)
-				->_registerSqliteFunctions();
-
-		}
+		$this
+			->_saveInRegistry()
+			->_saveConfigRegistry()
+			->_registerSqliteFunctions();
 
 		return $this;
 
@@ -34,10 +23,10 @@ class Zetta_Bootstrap_Resource_Multidb extends Zend_Application_Resource_Multidb
 	 * Сохраняем объект бд в реестре
 	 * Теперь к нему можно обратиться Zend_Registry::get('db')
 	 */
-	protected function _saveInRegistry($suffix) {
+	protected function _saveInRegistry() {
 
-		$name = 'db' . ($this->isDefault($this->_db) ? '' : '_' . $suffix);
-		Zend_Registry::set($name, $this->_db);
+		Zend_Registry::set('db', $this->getDefaultDb());
+		Zend_Registry::set('dbs', $this->_dbs);
 
 		return $this;
 
@@ -47,18 +36,21 @@ class Zetta_Bootstrap_Resource_Multidb extends Zend_Application_Resource_Multidb
 	 * Сохраняем конфиг БД в реестре
 	 * Теперь к нему можно обратиться Zend_Registry::get('db')
 	 */
-	protected function _saveConfigRegistry($suffix) {
+	protected function _saveConfigRegistry() {
 
-		$name = 'DB' . ($this->isDefault($this->_db) ? '' : '_' . $suffix);
-		Zend_Registry::get('config')->$name = (object)$this->getOptions();
+		Zend_Registry::get('config')->db = (object)$this->getOptions();
 		return $this;
 
 	}
 
 	protected function _registerSqliteFunctions() {
 
-		if ($this->_db instanceof Zend_Db_Adapter_Pdo_Sqlite) {
-			$this->_db->getConnection()->sqliteCreateFunction('md5', 'md5', 1);
+		foreach ($this->_dbs as $db) {
+
+			if ($db instanceof Zend_Db_Adapter_Pdo_Sqlite) {
+				$db->getConnection()->sqliteCreateFunction('md5', 'md5', 1);
+			}
+
 		}
 
 	}
