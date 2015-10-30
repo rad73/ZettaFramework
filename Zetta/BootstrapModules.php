@@ -115,7 +115,8 @@ abstract class Zetta_BootstrapModules  {
 		));
 
 		$resourceLoader
-			->addResourceType('model', 'models/',  $this->_modulePrefix . $this->_moduleName . '_Model');
+			->addResourceType('model', 'models/',  $this->_modulePrefix . $this->_moduleName . '_Model')
+			->addResourceType('model_ns', 'models/',  $this->_modulePrefix . $this->_moduleName . '\\Model');
 
 		if (strstr($this->_modulePath, HEAP_PATH)) {
 
@@ -125,7 +126,8 @@ abstract class Zetta_BootstrapModules  {
 			));
 
 			$resourceLoader
-				->addResourceType('model', 'models/',  'Modules_' . $this->_moduleName . '_Model');
+				->addResourceType('model', 'models/',  'Modules_' . $this->_moduleName . '_Model')
+				->addResourceType('model_ns', 'models/',  'Modules_' . $this->_moduleName . '\\Model');
 
 		}
 
