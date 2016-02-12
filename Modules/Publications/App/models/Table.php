@@ -30,7 +30,7 @@ class Modules_Publications_Model_Table extends Zend_Db_Table  {
 	protected function _setup() {
 
 		parent::_setup();
-		
+
 		$this->_cleanName = $this->_name;
 		$this->_name = self::PREFIX_TABLE . $this->_name;
 
@@ -100,10 +100,8 @@ class Modules_Publications_Model_Table extends Zend_Db_Table  {
      */
     public function insert(array $data) {
 
-		$rowMaxSort = $this->fetchRow($this->select()->order('sort DESC'));
-		$maxSort = ($rowMaxSort) ? (int)$rowMaxSort->sort + 1 : 1;
-
-		$data['sort'] = $maxSort;
+		$rowMaxSort = $this->fetchRow($this->select()->from($this->info('name'), array(new Zend_Db_Expr("MAX(sort) AS sort"))));
+		$data['sort'] = ($rowMaxSort) ? (int)$rowMaxSort->sort + 1 : 1;
 
     	return parent::insert($data);
 
