@@ -27,15 +27,11 @@ ol li {
 .hidden, .data {display: none;}
 
 .clearfix:after {
-	content: ".";
+	content: "";
 	display: block;
 	height: 0;
 	clear: both;
 	visibility: hidden;
-}
-
-.ltie8 .clearfix {
-	zoom: expression( this.runtimeStyle.zoom="1", this.appendChild( document.createElement("div") ).className="clear" );
 }
 
 .overflow_all {
@@ -54,7 +50,7 @@ ol li {
 	.overflow_all A {
 		color: #fff;
 	}
-	
+
 #ltie8_message { display: none; }
 .ltie8 #ltie8_message { display: block; }
 
