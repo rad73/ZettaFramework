@@ -2,7 +2,7 @@
 
 /**
  * Абстрактный класс для авторизации пользователя
- * 
+ *
  * @author Александр Хрищанович
  *
  */
@@ -13,7 +13,7 @@ abstract class Modules_Access_Framework_Auth_Plugin_Abstract implements Zend_Aut
 
 	protected $_errors;
 	protected $_resultObject;
-	
+
 	protected $_treatment;
 
 
@@ -25,20 +25,20 @@ abstract class Modules_Access_Framework_Auth_Plugin_Abstract implements Zend_Aut
 	public function authenticate() {
 
 		if ($this->_userName && $this->_hashPassword) {
-			
+
 			$adapter = new Zend_Auth_Adapter_DbTable(Zend_Registry::get('db'));
 			$adapter
 				->setTableName($this->_getUsersTableName())
 				->setIdentityColumn('username')
 				->setCredentialColumn('password')
 				->setCredentialTreatment($this->_getTreatment());
-				
+
 			$adapter
 				->setIdentity($this->_userName)
 				->setCredential($this->_hashPassword);
-	
+
 			$result = Zend_Auth::getInstance()->authenticate($adapter);
-			
+
 			if ($result->isValid()) {
 				$this->_resultObject = $adapter;
 				return true;
@@ -52,7 +52,7 @@ abstract class Modules_Access_Framework_Auth_Plugin_Abstract implements Zend_Aut
 		}
 
 	}
-	
+
 	/**
 	 * Setter for _userName
 	 *
@@ -74,7 +74,7 @@ abstract class Modules_Access_Framework_Auth_Plugin_Abstract implements Zend_Aut
 		$this->_hashPassword = $hash;
 		return $this;
 	}
-	
+
 	/**
 	 * Результирующий объект информации о пользователе при успешном логине
 	 *
@@ -107,21 +107,21 @@ abstract class Modules_Access_Framework_Auth_Plugin_Abstract implements Zend_Aut
 	protected function _getTreatment() {
 
 		$db = Zend_Registry::get('db');
-		
+
 		if ($db instanceof Zend_Db_Adapter_Pdo_Sqlite) {
 			return "md5('". Zend_Registry::get('config')->Db->staticSalt. "' || ? || salt) AND active = 1";
 		}
 		else {
 
 			return "MD5(CONCAT('"
-				. Zend_Registry::get('config')->Db->staticSalt. "', ?, salt
-			)) AND active = 1";	
+				. Zend_Registry::get('config')->db->staticSalt. "', ?, salt
+			)) AND active = 1";
 
 		}
-		
-		
+
+
 	}
-	
+
 	public function getAuth() {
 		return Zend_Auth::getInstance();
 	}

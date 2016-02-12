@@ -7,35 +7,35 @@
 class Zetta_View_Helper_Block extends Zend_View_Helper_Abstract {
 
 	protected $_blockModel;
-	
+
 	public function setView(Zend_View_Interface $view) {
 
 		parent::setView($view);
-		
+
 		$this->view
     		->addBasePath(HEAP_PATH . DS . 'Blocks/App/views')
     		->addBasePath(MODULES_PATH . DS . 'Blocks/App/views');
-    	
+
     	$this->_blockModel = new Modules_Blocks_Model_Blocks();
-    			
+
 		if ($this->isAdmin()) {
-	    	
+
 			$this->view->current_route_id = Zend_Registry::get('RouteCurrentId');
-			
+
 			$this->view->headScript()
 				->appendFile($this->view->libUrl('/Blocks/public/js/admin.js'))
 				->prependScript('
 					var _urlBlockSave = "' . $this->view->url(array('module' => 'blocks', 'controller' => 'admin', 'action' => 'save'), 'mvc', true) . '",
 						_urlBlockInfo = "' . $this->view->url(array('module' => 'blocks', 'controller' => 'admin', 'action' => 'blockinfo'), 'mvc', true) . '",
 						_urlBlockDelete = "' . $this->view->url(array('module' => 'blocks', 'controller' => 'admin', 'action' => 'blockdelete'), 'mvc', true) . '",
-						_currentRouteId = ' . $this->view->current_route_id . ';
+						_currentRouteId = ' . intval($this->view->current_route_id) . ';
 				');
-				
-			
+
+
 		}
-	
+
 	}
-	
+
     public function block($blockName, $blockType = 'html', $defaultValue = false, $inherit = true) {
 
     	$block = $this->_blockModel->getBlock($blockName);
@@ -51,26 +51,19 @@ class Zetta_View_Helper_Block extends Zend_View_Helper_Abstract {
     	catch (Exception $e) {
     		$return = $this->view->render('block/index.phtml');
     	}
-    	
+
     	if ($this->isAdmin()) {
     		$this->view->content = $return;
 			$return = $this->view->render('block/adminWrapper.phtml');
     	}
-    	
+
     	return $return;
 
     }
-    
-    
+
+
     protected function isAdmin() {
-
-    	$_user = Zend_auth::getInstance()->getIdentity();
-		
-    	if ($_user && strstr($_user->role_name, 'admin')) {
-			return true;
-			
-		}
-
+    	return Zetta_Acl::getInstance()->isAllowed('admin_module_blocks');
     }
 
 }

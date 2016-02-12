@@ -229,18 +229,34 @@ abstract class System_Functions {
 	 * @return array
 	 */
 	public static function get_php_classes($php_code) {
-	    $classes = array();
-	    $tokens = token_get_all($php_code);
-	    $count = count($tokens);
-	    for ($i = 2; $i < $count; $i++)
-	    {
-	        if ($tokens[$i - 2][0] == T_CLASS && $tokens[$i - 1][0] == T_WHITESPACE && $tokens[$i][0] == T_STRING && !($tokens[$i - 3] && $i - 4 >= 0 && $tokens[$i - 4][0] == T_ABSTRACT))
-	        {
-	            $class_name = $tokens[$i][1];
-	            $classes[] = $class_name;
-	        }
-	    }
-	    return $classes;
+
+		$classes = array();
+		$namespace = 0;
+		$tokens = token_get_all($php_code);
+		$count = count($tokens);
+		$dlm = false;
+
+		for ($i = 2; $i < $count; $i++) {
+			if ((isset($tokens[$i - 2][1]) && ($tokens[$i - 2][1] == "phpnamespace" || $tokens[$i - 2][1] == "namespace")) ||
+				($dlm && $tokens[$i - 1][0] == T_NS_SEPARATOR && $tokens[$i][0] == T_STRING)) {
+				if (!$dlm) $namespace = 0;
+				if (isset($tokens[$i][1])) {
+					$namespace = $namespace ? $namespace . "\\" . $tokens[$i][1] : $tokens[$i][1];
+					$dlm = true;
+				}
+			}
+			elseif ($dlm && ($tokens[$i][0] != T_NS_SEPARATOR) && ($tokens[$i][0] != T_STRING)) {
+				$dlm = false;
+			}
+			if (($tokens[$i - 2][0] == T_CLASS || (isset($tokens[$i - 2][1]) && $tokens[$i - 2][1] == "phpclass"))
+					&& $tokens[$i - 1][0] == T_WHITESPACE && $tokens[$i][0] == T_STRING) {
+				$class_name = $tokens[$i][1];
+				if (!isset($classes[$namespace])) $classes[$namespace] = array();
+				$classes[$namespace][] = $class_name;
+			}
+		}
+		return $classes;
+
 	}
 
 	/**

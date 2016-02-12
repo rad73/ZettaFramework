@@ -39,6 +39,8 @@ class Zetta_Bootstrap_Resource_Multidb extends Zend_Application_Resource_Multidb
 	protected function _saveConfigRegistry() {
 
 		Zend_Registry::get('config')->db = (object)$this->getOptions();
+		Zend_Registry::get('config')->db->staticSalt = $this->getDefaultDb()->getConfig()['staticSalt'];
+		
 		return $this;
 
 	}

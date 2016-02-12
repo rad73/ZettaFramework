@@ -254,22 +254,28 @@ class Modules_Router_Model_Router extends Zend_Db_Table  {
 		foreach ($heap_controllers as $controller) {
 
 			require_once $controller;
-			$classes = System_Functions::get_php_classes(file_get_contents($controller));
+			$arrayOfClasses = System_Functions::get_php_classes(file_get_contents($controller));
 
+			foreach ($arrayOfClasses as $namespace=>$classes) {
 
-			foreach ($classes as $className) {
+				foreach ($classes as $class) {
 
-				if (preg_match('/(.+)_(.+)Controller/', $className, $matches)) {
+					$className = ($namespace ? $namespace . '\\' : '') . $class;
 
-					$moduleName = System_String::StrToLower($matches[1]);
-					$controllerName = System_String::StrToLower($matches[2]);
+					if (preg_match('/(.+)(_|\\\\)(.+)Controller/', $className, $matches)) {
 
-					$class = new ReflectionClass($className);
-					if (preg_match('/@description (.*)/', $class->getDocComment(), $matches)) {
-						$return[$moduleName . '~' . $controllerName] = $matches[1];
+						$moduleName = System_String::StrToLower($matches[1]);
+						$controllerName = System_String::StrToLower($matches[3]);
+
+						$class = new ReflectionClass($className);
+						if (preg_match('/@description (.*)/', $class->getDocComment(), $matches)) {
+							$return[$moduleName . '~' . $controllerName] = $matches[1];
+						}
+
 					}
 
 				}
+
 
 			}
 
@@ -291,23 +297,28 @@ class Modules_Router_Model_Router extends Zend_Db_Table  {
 		$controller = HEAP_PATH . '/' . ucfirst($module) . '/App/controllers/' . ucfirst($controller) . 'Controller.php';
 
 		require_once $controller;
-		$classes = System_Functions::get_php_classes(file_get_contents($controller));
+		$arrayOfClasses = System_Functions::get_php_classes(file_get_contents($controller));
 
-		foreach ($classes as $className) {
+		foreach ($arrayOfClasses as $namespace=>$classes) {
 
-			if (preg_match('/(.+)_(.+)Controller/', $className, $matches)) {
+				foreach ($classes as $class) {
 
-				$moduleName = System_String::StrToLower($matches[1]);
-				$controllerName = System_String::StrToLower($matches[2]);
+					$className = ($namespace ? $namespace . '\\' : '') . $class;
 
-				$class = new ReflectionClass($className);
+					if (preg_match('/(.+)(_|\\\\)(.+)Controller/', $className, $matches)) {
 
-				$methods = $class->getMethods();
+					$moduleName = System_String::StrToLower($matches[1]);
+					$controllerName = System_String::StrToLower($matches[3]);
 
-				foreach ($methods as $method) {
+					$class = new ReflectionClass($className);
+					$methods = $class->getMethods();
 
-					if ($method->isPublic() && stristr($method->getName(), 'Action') && preg_match('/@description (.*)/', $method->getDocComment(), $matches)) {
-						$return[$moduleName . '~' . $controllerName . '~' . str_replace('Action', '', $method->getName())] = $matches[1];
+					foreach ($methods as $method) {
+
+						if ($method->isPublic() && stristr($method->getName(), 'Action') && preg_match('/@description (.*)/', $method->getDocComment(), $matches)) {
+							$return[$moduleName . '~' . $controllerName . '~' . str_replace('Action', '', $method->getName())] = $matches[1];
+						}
+
 					}
 
 				}
