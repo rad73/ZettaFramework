@@ -122,7 +122,7 @@ class Modules_Service_Model_Backup  {
 	}
 
 	/**
-	 * Чистим старые бекапы (срок хранения 15 дней)
+	 * Чистим старые бекапы (срок хранения 7 дней)
 	 *
 	 * @return Modules_Service_Model_Backup
 	 */
@@ -132,7 +132,7 @@ class Modules_Service_Model_Backup  {
 
 		foreach ($backups as $dir) {
 
-			if (time() - 15 * 24 * 3600 >= filemtime($dir)) {
+			if (time() - 7 * 24 * 3600 >= filemtime($dir)) {
 				System_Functions::unlinkDir($dir);
 			}
 
