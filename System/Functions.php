@@ -294,7 +294,7 @@ abstract class System_Functions {
 
 		if (is_dir($path)) {
 
-			@mkdir($dest);
+			@mkdir($dest, 0777, true);
 			$objects = scandir($path);
 
 			if (sizeof($objects) > 0) {
@@ -318,7 +318,15 @@ abstract class System_Functions {
 
 		}
 		elseif (is_file($path)) {
+
+			$copyToDir = dirname($dest);
+
+			if (!is_dir($copyToDir)) {
+				@mkdir($copyToDir, 0777, true);
+			}
+
 			return copy($path, $dest);
+
 		}
 		else {
 			return false;
