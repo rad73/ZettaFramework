@@ -8,28 +8,22 @@ class Modules_Router_IndexController extends Zend_Controller_Action {
 	 * @var Modules_Router_Model_Router
 	 */
 	protected $_modelRoutes;
-	
+
 	/**
 	 * Текущий раздел
 	 *
 	 * @var Zend_Db_Row
 	 */
 	protected $_currentSection;
-	
+
 	public function init() {
 
 		$this->_modelRoutes = Modules_Router_Model_Router::getInstance();
 
 		$this->_currentSection = $this->_modelRoutes->current();
 		$this->_helper->viewRenderer->setNoRender();
-		
-		$this->view->current_route = $this->_currentSection;
-		if ($this->_currentSection) {
-			Zend_Registry::set('current_route', (object)$this->_currentSection);
-		}
-		
 		$this->view->headTitle($this->_currentSection['name']);
-		
+
 		if (
 			!$this->_currentSection
 			|| (1 == $this->_currentSection['disable'])	// @todo сделать проверку - если администратор то показать раздел
@@ -78,7 +72,7 @@ class Modules_Router_IndexController extends Zend_Controller_Action {
 		Zend_Registry::set('main_param', isset($params['main_param']) ? $params['main_param'] : false);
 
 		$this->_helper->actionStack(System_String::StrToLower($action), System_String::StrToLower($controller), System_String::StrToLower($module), $params);
-		
+
 	}
 
 	public function __call($function, $args) { }

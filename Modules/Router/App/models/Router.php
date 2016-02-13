@@ -34,8 +34,6 @@ class Modules_Router_Model_Router extends Zend_Db_Table  {
 
 		$this->_buildRoutesTree();
 
-		Zend_Registry::set('router', $this);
-
 	}
 
 	/**

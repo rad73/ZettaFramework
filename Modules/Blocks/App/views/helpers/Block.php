@@ -20,7 +20,7 @@ class Zetta_View_Helper_Block extends Zend_View_Helper_Abstract {
 
 		if ($this->isAdmin()) {
 
-			$this->view->current_route_id = Zend_Registry::get('RouteCurrentId');
+			$route_id_current = Zend_Registry::get('RouteCurrentId');
 
 			$this->view->headScript()
 				->appendFile($this->view->libUrl('/Blocks/public/js/admin.js'))
@@ -28,7 +28,7 @@ class Zetta_View_Helper_Block extends Zend_View_Helper_Abstract {
 					var _urlBlockSave = "' . $this->view->url(array('module' => 'blocks', 'controller' => 'admin', 'action' => 'save'), 'mvc', true) . '",
 						_urlBlockInfo = "' . $this->view->url(array('module' => 'blocks', 'controller' => 'admin', 'action' => 'blockinfo'), 'mvc', true) . '",
 						_urlBlockDelete = "' . $this->view->url(array('module' => 'blocks', 'controller' => 'admin', 'action' => 'blockdelete'), 'mvc', true) . '",
-						_currentRouteId = ' . intval($this->view->current_route_id) . ';
+						_currentRouteId = ' . intval($route_id_current) . ';
 				');
 
 

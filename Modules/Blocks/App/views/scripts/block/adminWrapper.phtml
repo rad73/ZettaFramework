@@ -1,10 +1,10 @@
-<aside class="z_admin_wrapper z_admin_block <?php 
+<aside class="z_admin_wrapper z_admin_block <?php
 	if ($this->inherit) {
-		echo ($this->block && $this->current_route_id != 1 && $this->current_route_id == $this->block->route_id ? 'z_override_block' : '');
-		echo (!$this->block || $this->current_route_id != 1 && $this->current_route_id != $this->block->route_id ? 'z_inherit_block' : '');
+		echo ($this->block && $this->route_current_id != 1 && $this->route_current_id == $this->block->route_id ? 'z_override_block' : '');
+		echo (!$this->block || $this->route_current_id != 1 && $this->route_current_id != $this->block->route_id ? 'z_inherit_block' : '');
 	}
 ?>" data-block-name="<?php echo $this->block_name ?>" data-block-type="<?php echo $this->block_type ?>">
-	
+
 	<aside class="z_icons_editable">
 		<var class="icon-pencil no_ajax" title="Редактировать"></var>
 		<var href="#" class="icon-lock no_ajax" title="Убрать наследование с главной страницы"></var>
@@ -12,5 +12,5 @@
 	</aside>
 
 	<div class="z_redactor"><?php echo $this->content ?></div>
-	
+
 </aside>

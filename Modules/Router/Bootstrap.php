@@ -31,6 +31,9 @@ class Modules_Router_Bootstrap extends Zetta_BootstrapModules {
 
 		defined('ZETTA_FRONT')	|| define('ZETTA_FRONT', $currentRoute['route_id'] ? true : false);
 
+		Zend_Controller_Front::getInstance()
+			->registerPlugin(new Modules_Router_Plugin_ViewVars());
+
 	}
 
 }
