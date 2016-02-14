@@ -75,6 +75,9 @@ class Publications_Framework_Form extends Zetta_Form {
 					$element = 'select';
 					$options['list_values'] = 'routes';
 				break;
+			case 'file':
+					$element = 'ZettaFile';
+				break;
 		}
 
 		if (array_key_exists('default', $options) && $options['default']) {
@@ -137,10 +140,10 @@ class Publications_Framework_Form extends Zetta_Form {
 			else if ($field['type'] == 'multiCheckbox') {
 				$arrayData[ $field['name'] ] = '÷' . implode('÷', $this->getValue($field['name'])) . '÷';
 			}
-			else if ($field['type'] == 'file' && sizeof($_FILES)) {
+			else if ($field['type'] == 'file') {
 
 				// закачиваем файлик
-				if (array_key_exists($field['name'], $_FILES) && !$_FILES[$field['name']]['error']) {
+				if (sizeof($_FILES) && array_key_exists($field['name'], $_FILES) && !$_FILES[$field['name']]['error']) {
 
 					$incomingDir = USER_FILES_PATH . DS . 'files/incoming';
 					if (false == is_dir($incomingDir)) mkdir($incomingDir);

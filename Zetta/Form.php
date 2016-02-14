@@ -158,6 +158,8 @@ class Zetta_Form extends Zend_Form {
 
 	public function __construct($options = null) {
 
+		$this->addPrefixPath('Zetta_Form_Element', 'Zetta/Form/Element/', 'element');
+
 		parent::__construct($options);
 
 		if (is_array($options) && isset($options['id'])) {
@@ -179,5 +181,5 @@ class Zetta_Form extends Zend_Form {
 
 
 	}
-	
+
 }

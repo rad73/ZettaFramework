@@ -320,7 +320,6 @@ class Modules_Publications_AdminController extends Zend_Controller_Action {
 		}
 
 		if (!sizeof($_POST) || !$form->isValid($_POST)) {
-			var_dump($form->getMessages());
 		    $this->view->form = $form;
 		}
 		else {
