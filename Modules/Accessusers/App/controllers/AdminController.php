@@ -99,7 +99,7 @@ class Modules_Accessusers_AdminController extends Zend_Controller_Action {
 
 			if ($form->getValue('password')) {
 
-				$arrayData['password'] = md5(Zend_Registry::get('config')->db->staticSalt . md5($form->getValue('password')) . $form->getValue('salt'));
+				$arrayData['password'] = md5(Zend_Registry::get('config')->Db->staticSalt . md5($form->getValue('password')) . $form->getValue('salt'));
 
 				if ($this->getParam('login') == Modules_Access_Framework_User::getInstance()->getUserName()) {
 					$stdObject = Zend_Auth::getInstance()->getStorage()->read();

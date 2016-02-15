@@ -34,7 +34,7 @@ class Zetta_Bootstrap_Resource_Db extends Zend_Application_Resource_Db {
 
 	/**
 	 * Сохраняем конфиг БД в реестре
-	 * Теперь к нему можно обратиться Zend_Registry::get('db')
+	 * Теперь к нему можно обратиться Zend_Registry::get('config')->Db
 	 */
 	protected function _saveConfigRegistry() {
 

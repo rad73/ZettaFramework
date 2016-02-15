@@ -114,11 +114,10 @@ abstract class Modules_Access_Framework_Auth_Plugin_Abstract implements Zend_Aut
 		else {
 
 			return "MD5(CONCAT('"
-				. Zend_Registry::get('config')->db->staticSalt. "', ?, salt
+				. Zend_Registry::get('config')->Db->staticSalt. "', ?, salt
 			)) AND active = 1";
 
 		}
-
 
 	}
 
