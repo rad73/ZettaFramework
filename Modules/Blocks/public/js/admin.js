@@ -168,7 +168,7 @@ var _initBlocks = function () {
 			case 'text':
 				_redactor.html(_this, _callback, {
 					toolbar: false,
-					allowedTags: ['var']
+					allowedTags: ['br']
 				});
 				_redactor._view._bodyClick({pageX: _parent.offset().left, pageY: _parent.offset().top});
 			break;
