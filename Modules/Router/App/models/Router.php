@@ -224,17 +224,21 @@ class Modules_Router_Model_Router extends Zend_Db_Table  {
 
 	public function getParentsId($route_id) {
 
-		$parent_id = $this->_routesData[$route_id]['parent_route_id'];
-		$return = array($parent_id);
+		if ($route_id) {
 
-		while ($parent_id) {
-			$parent = $this->_routesData[$parent_id];
-			if ($parent && $parent_id = $parent['parent_route_id']) {
-				$return[] = $parent_id;
+			$parent_id = $this->_routesData[$route_id]['parent_route_id'];
+			$return = array($parent_id);
+
+			while ($parent_id) {
+				$parent = $this->_routesData[$parent_id];
+				if ($parent && $parent_id = $parent['parent_route_id']) {
+					$return[] = $parent_id;
+				}
 			}
-		}
 
-		return $return;
+			return $return;
+
+		}
 
 	}
 
