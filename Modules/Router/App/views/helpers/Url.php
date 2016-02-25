@@ -50,7 +50,7 @@ class Zetta_View_Helper_Url extends Zend_View_Helper_Abstract {
 
     	}
 
-    	return System_String::StrToLower($return);
+    	return $return;
 
     }
 

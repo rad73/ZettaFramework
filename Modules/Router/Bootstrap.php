@@ -16,6 +16,8 @@ class Modules_Router_Bootstrap extends Zetta_BootstrapModules {
 
 			$_migrationManager = new Modules_Dbmigrations_Framework_Manager();
 			$_migrationManager->upTo('Modules_Router_Migrations_CreateRoutesTable');
+			$_migrationManager->upTo('Modules_Router_Migrations_AddTypeField');
+			$_migrationManager->upTo('Modules_Router_Migrations_AddRedirectUrlField');
 			$_migrationManager->upTo('Modules_Router_Migrations_AddDefaultRoutes');
 
 		}

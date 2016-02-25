@@ -9,13 +9,13 @@ class Dbmigrations_Framework_Adapter_Mysql implements Dbmigrations_Framework_Ada
 	}
 
 	public function createTable($tableName, $columns) {
-		
+
 		$columnToDelete = 'to_delete_' . substr(md5(rand()), 0, 5);
-		$query = 'CREATE TABLE ' 
-			. $this->_db->quoteIdentifier($tableName) 
+		$query = 'CREATE TABLE '
+			. $this->_db->quoteIdentifier($tableName)
 			. ' (' . $this->_db->quoteIdentifier($columnToDelete) .' INT ) ' 	// создаём поле, а потом его снесём
 			. 'ENGINE=InnoDB CHARSET=utf8';
-			
+
 		$this->_db->query($query);
 
 		/* Добавим теперь к свежесозданной табличе столбцы */
@@ -34,7 +34,7 @@ class Dbmigrations_Framework_Adapter_Mysql implements Dbmigrations_Framework_Ada
 
 	public function renameTable($tableName, $newName) {
 		$this->_db->query('RENAME TABLE ' .  $this->_db->quoteIdentifier($tableName) . '  TO ' .  $this->_db->quoteIdentifier($newName));
-		
+
 	}
 
 	public function createKey($table, $columnName, $keyName, $options = array(
@@ -42,12 +42,12 @@ class Dbmigrations_Framework_Adapter_Mysql implements Dbmigrations_Framework_Ada
 			'primary'	=> false
 	)) {
 
-		$query = 'ALTER TABLE ' 
-			. $this->_db->quoteIdentifier($table) 
-			. ' ADD ' 
-				. (isset($options['uniq']) && true == $options['uniq'] ? 'UNIQUE' : '') . ' ' 
-				. (isset($options['primary']) && true == $options['primary'] ? 'PRIMARY' : '') 
-			. ' KEY ' . $this->_db->quoteIdentifier($keyName) 
+		$query = 'ALTER TABLE '
+			. $this->_db->quoteIdentifier($table)
+			. ' ADD '
+				. (isset($options['uniq']) && true == $options['uniq'] ? 'UNIQUE' : '') . ' '
+				. (isset($options['primary']) && true == $options['primary'] ? 'PRIMARY' : '')
+			. ' KEY ' . $this->_db->quoteIdentifier($keyName)
 			. ' (' . (is_array($columnName) ? implode(',', $columnName) : $columnName) . ')';
 
 		$this->_db->query($query);
@@ -70,17 +70,17 @@ class Dbmigrations_Framework_Adapter_Mysql implements Dbmigrations_Framework_Ada
 
 		$this->createKey($table, $columnName, $keyName);
 
-		$query = 'ALTER TABLE ' 
+		$query = 'ALTER TABLE '
 			. $this->_db->quoteIdentifier($table)
 			. ' ADD CONSTRAINT ' . $this->_db->quoteIdentifier($keyName) . ' FOREIGN KEY '
 			. $this->_db->quoteIdentifier($keyName) . ' (' . $this->_db->quoteIdentifier($columnName) . ')'
 			. ' REFERENCES ' . $this->_db->quoteIdentifier($options['table']) . ' (' . $this->_db->quoteIdentifier($options['field']) . ')'
 			. (isset($options['ondelete']) ? (' ON DELETE ' .  $options['ondelete']) : '')
 			. (isset($options['onupdate']) ? (' ON UPDATE ' .  $options['onupdate']) : '');
-		
+
 
 		$this->_db->query($query);
-    
+
 	}
 
 	public function dropForeignKey($table, $keyName) {
@@ -88,28 +88,30 @@ class Dbmigrations_Framework_Adapter_Mysql implements Dbmigrations_Framework_Ada
 	}
 
 	public function addColumn($table, $name, $options = array(
-			'type'	=> null, 
-			'length'	=> null, 
-			'unsigned'	=> false, 
+			'type'	=> null,
+			'length'	=> null,
+			'unsigned'	=> false,
 			'auto_increment'	=> false,
 			'comment'	=> '',
 			'default'	=> '',
-			'null'	=> false
+			'null'	=> false,
+			'after'	=> false,
 	)) {
 
-		$query = 'ALTER TABLE ' 
-			. $this->_db->quoteIdentifier($table)  
-			. ' ADD COLUMN ' . $this->_makeStringColumn($name, $options);
+		$query = 'ALTER TABLE '
+			. $this->_db->quoteIdentifier($table)
+			. ' ADD COLUMN ' . $this->_makeStringColumn($name, $options)
+			. ($options['after'] ? ' AFTER ' . $this->_db->quoteIdentifier($options['after']) : '');
 
 		$this->_db->query($query);
-		
+
 		if (isset($options['keys'])) {
 			$this->_createKeys($table, $name, $options['keys']);
 		}
 		if (isset($options['references'])) {
 			$this->_createReferences($table, $name, $options['references']);
 		}
-				
+
 	}
 
 	public function	dropColumn($table, $name) {
@@ -117,18 +119,18 @@ class Dbmigrations_Framework_Adapter_Mysql implements Dbmigrations_Framework_Ada
 	}
 
 	public function	alterColumn($table, $name, $newName, $options = array(
-			'type'	=> null, 
-			'length'	=> null, 
-			'unsigned'	=> false, 
+			'type'	=> null,
+			'length'	=> null,
+			'unsigned'	=> false,
 			'auto_increment'	=> false,
 			'comment'	=> '',
 			'default'	=> '',
 			'null'	=> false,
 	)) {
-		
+
 		$query = 'ALTER TABLE '
-			. $this->_db->quoteIdentifier($table)  
-			. ' CHANGE ' . $this->_db->quoteIdentifier($name) 
+			. $this->_db->quoteIdentifier($table)
+			. ' CHANGE ' . $this->_db->quoteIdentifier($name)
 			. ' ' . $this->_makeStringColumn($newName, $options, true);
 
 		$this->_db->query($query);
@@ -145,15 +147,15 @@ class Dbmigrations_Framework_Adapter_Mysql implements Dbmigrations_Framework_Ada
 	protected function _makeStringColumn($columnName, $options, $alter = false) {
 
 		return implode(' ', array(
-			$this->_db->quoteIdentifier($columnName), 
-			$options['type'], 
-			(isset($options['length']) ? '(' . $this->_db->quote($options['length'], 'INTEGER') . ')' : ''),  
-			(isset($options['unsigned']) ? 'unsigned' : ''),  
+			$this->_db->quoteIdentifier($columnName),
+			$options['type'],
+			(isset($options['length']) ? '(' . $this->_db->quote($options['length'], 'INTEGER') . ')' : ''),
+			(isset($options['unsigned']) ? 'unsigned' : ''),
 			(isset($options['null']) ? 'NULL' : 'NOT NULL'),
 			(isset($options['default']) ? 'DEFAULT ' . $this->_db->quote($options['default']) : ''),
 			(isset($options['comment']) ? ' COMMENT ' . $this->_db->quote($options['comment']) : ''),
 			(isset($options['auto_increment']) ? 'AUTO_INCREMENT, '
-			. ($alter ? 'DROP PRIMARY KEY,' : '') 
+			. ($alter ? 'DROP PRIMARY KEY,' : '')
 			. 'ADD PRIMARY KEY (' . $this->_db->quoteIdentifier($columnName) . ')' : ''),
 		));
 

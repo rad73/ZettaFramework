@@ -32,6 +32,10 @@ class Modules_Router_IndexController extends Zend_Controller_Action {
 			return $this->_forwardTo404();
 		}
 
+		if (false == empty($this->_currentSection['redirect_url'])) {
+			$this->_redirectToURL();
+		}
+
 		$this->_forwardToMVC();
 
 	}
@@ -42,6 +46,14 @@ class Modules_Router_IndexController extends Zend_Controller_Action {
 	 */
 	protected function _forwardTo404() {
 		$this->_helper->actionStack('error404', 'error', 'default');
+	}
+
+	/**
+	 * Переадресация по URL
+	 *
+	 */
+	protected function _redirectToURL() {
+		$this->_redirect($this->_currentSection['redirect_url'], array('code' => 301));
 	}
 
 	/**
