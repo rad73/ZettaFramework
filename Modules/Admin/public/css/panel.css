@@ -1,5 +1,5 @@
 .zetta_front {
-	overflow: visible !important; 
+	overflow: visible !important;
 }
 
 ZETTA {
@@ -25,17 +25,17 @@ ZETTA {
 		margin: 0;
 		padding: 0;
 	}
-	
+
 		#z_admin_panel LI,
 		#z_window LI {
 			list-style: none;
 			padding: 0;
 		}
-		
-		
+
+
 	/* Кнопки */
 	.zetta_front .ui-button {
-		
+
 	    background-color: #f3f3f3;
 		background-image: -moz-linear-gradient(top, #ffffff, #e1e1e1);
 		background-image: -ms-linear-gradient(top, #ffffff, #e1e1e1);
@@ -44,7 +44,7 @@ ZETTA {
 		background-image: -o-linear-gradient(top, #ffffff, #e1e1e1);
 		background-image: linear-gradient(top, #ffffff, #e1e1e1);
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e1e1e1', GradientType=0);
-		
+
 	    border-color: #CCCCCC #CCCCCC #AAAAAA;
 	    border-image: none;
 	    border-radius: 4px 4px 4px 4px;
@@ -65,7 +65,7 @@ ZETTA {
 	    text-decoration: none;
 	    text-shadow: 0 1px 0 #FFFFFF;
 	}
-	
+
 		.zetta_front .ui-button:hover {
 		    color: #555555;
 		    background: none repeat scroll 0 0 #F3F3F3;
@@ -73,37 +73,37 @@ ZETTA {
 		    text-decoration: none;
 		    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 		}
-		
+
 			.zetta_front .ui-button-text-only .ui-button-text {
 				padding: 0;
 			}
-			
+
 	.zetta_front .elfinder-quicklook {
 		font-size: 1.6em;
 	}
-	
+
 	.zetta_front .elfinder-dialog {
 		font-size: 1em !important;
 	}
-			
+
 	.zetta_front .ui-dialog-titlebar-close {
 		margin: -10px 0 0 !important;
 	}
-				
+
 		#z_window .ui-button {
 			margin: 0 0 0 15px !important;
 			float: right;
 			color: #000000;
 		}
-		
-		
+
+
 		#z_window .ui-dialog-buttonset .ui-button {
 			margin: 0.5em 0.4em 0.5em 0 !important;
 		}
 
 	/* Панель управления сверху */
 	#z_admin_panel {
-		height: 40px; 
+		height: 40px;
 		width: 100%;
 		background: url('../images/panel/pattern.gif') repeat;
 		border-bottom: 3px solid #B0B0B0;
@@ -114,16 +114,16 @@ ZETTA {
 		min-width: 800px;
 		font-size: 12px;
 	}
-	
+
 		#z_admin_panel .z_panel_wrapper {
 			position: relative;
 		}
-	
+
 		#z_admin_panel .z_logo {
 			margin-top: 8px;
 			margin-left: 10px;
 		}
-		
+
 		#z_admin_panel A
 		{
 			padding-left: 20px;
@@ -133,14 +133,14 @@ ZETTA {
 			font-size: 12px;
 			margin-right: 15px;
 		}
-		
+
 			#z_admin_panel > .z_panel_wrapper > A:first-child {
 				padding: 0;
 				margin: 0;
 				height: auto;
 				display: inline;
 			}
-		
+
 		#z_admin_panel #z_manage_link {
 			background: url('../images/panel/ico_manage.png') no-repeat;
 			text-decoration: none;
@@ -148,16 +148,16 @@ ZETTA {
 			top: 15px;
 			left: 135px;
 		}
-		
+
 			#z_admin_panel #z_manage_link SPAN {
 				border-bottom: 1px dotted #000;
 			}
-			
+
 			#z_admin_panel #z_manage_link:hover SPAN {
 				border-bottom: none;
 			}
-	
-	
+
+
 	#z_admin_panel #z_favorites_placeholder {
 		position: absolute;
 		top: 15px;
@@ -168,17 +168,17 @@ ZETTA {
 		height: 16px;
 		overflow: hidden;
 	}
-	
+
 		#z_admin_panel #z_favorites_placeholder LI {
 			float: left;
 			margin-right: 0px;
 			position: relative;
 		}
-	
+
 			#z_admin_panel #z_favorites_placeholder LI {
 				position: relative;
 			}
-		
+
 				#z_admin_panel #z_favorites_placeholder IMG {
 					width: 16px;
 					position: absolute;
@@ -186,20 +186,20 @@ ZETTA {
 					left: 0px;
 					margin: 0;
 				}
-			
+
 				#z_admin_panel #z_favorites_placeholder A {
 					text-decoration: none;
 					padding-right: 10px;
 				}
-		
+
 				#z_admin_panel #z_favorites_placeholder A SPAN {
 					border-bottom: 1px solid #000;
 				}
-				
+
 					#z_admin_panel #z_favorites_placeholder A:hover SPAN  {
 						border-bottom: none;
 					}
-		
+
 		#z_admin_panel #z_favorites_placeholder .z_remove_favorite {
 			width: 8px;
 			height: 8px;
@@ -211,39 +211,39 @@ ZETTA {
 			padding: 0;
 			display: none;
 		}
-		
+
 			#z_admin_panel #z_favorites_placeholder LI:hover .z_remove_favorite {
 				display: block;
 			}
-			
+
 		#z_admin_panel #z_panel_placeholder {
 			position: absolute;
 			right: 20px;
 			top: 0px;
 		}
-		
+
 	#z_admin_panel .z_widget_item {
 		float: left;
 		height: 40px;
 		overflow: hidden;
 	}
-	
+
 		#z_admin_panel .z_widget_item A {
 			margin-top: 14px;
 			margin-right: 0;
 		}
-		
-		
+
+
 	#z_ajax_loader {
 		top: 7px;
 		left: 96px;
 		width: 16px;
 		height: 11px;
 		background: url('../images/panel/ajax-loader.gif') no-repeat;
-		position: absolute; 
+		position: absolute;
 		display: none;
 	}
-	
+
 	/* Всплывающее окно */
 	#z_window {
 		position: absolute;
@@ -267,20 +267,20 @@ ZETTA {
 	    box-shadow: 0 5px 60px #000000;
 		font-size: 13px;
 	}
-	
+
 		#z_window .zetta_developer_items {
 			border-top: 1px dashed #666;
 			margin-top: 20px;
 		}
-	
+
 		#z_window A {
 			color: #6d9bce;
 		}
-		
+
 		#z_window .zetta_placeholder {
 			margin: 0 20px;
 		}
-	
+
 		#z_window .z_item {
 			width: 33%;
 			float: left;
@@ -288,29 +288,29 @@ ZETTA {
 			margin-bottom: 25px;
 			margin-top: 15px;
 		}
-		
+
 			#z_window .z_item A {
 				font-size: 15px;
 				color: #000;
 			}
-	
+
 		#z_window .z_item IMG,
 		#z_window .z_item .right {
 			float: left;
 		}
-		
+
 			#z_window .z_item .right {
 				width: 75%;
 			}
-		
+
 			#z_window .z_item .right P {
 				margin-top: 5px;
 			}
-			
+
 			#z_window .z_item IMG {
 				margin-right: 15px;
 			}
-			
+
 		#z_window #z_close {
 			text-decoration: none;
 		    color: #777777;
@@ -321,13 +321,13 @@ ZETTA {
 		    right: 5px;
 		    top: 5px;
 		    width: 20px;
-			
+
 		}
-		
+
 			#z_window #z_close:hover {
 				color: #000;
 			}
-		
+
 		#z_window .z_to_favorite {
 			width: 10px;
 			height: 10px;
@@ -335,11 +335,11 @@ ZETTA {
 			display: none;
 			margin-top: -5px;
 		}
-		
+
 			#z_window .z_item:hover .z_to_favorite {
 				display: inline-block;
 			}
-			
+
 		#z_overlay {
 			position: fixed;
 			top: 0;
@@ -351,16 +351,16 @@ ZETTA {
 			z-index: 10005;
 			display: none;
 		}
-		
-	
+
+
 		#z_window .right {
 			float: left;
 		}
-			
+
 		#z_window #z_module_image {
 			float: left;
 		}
-		
+
 		#z_window H1 {
 			font-size: 26px;
 			font-weight: normal;
@@ -368,53 +368,52 @@ ZETTA {
 			padding: 0;
 			text-transform: none;
 		}
-		
+
 		#z_window H2 {
 			font-size: 20px;
 			font-weight: normal;
-			margin: -5px 0 5px;
 			padding: 0;
 		}
-		
+
 		#z_window .z_head_module {
 			margin-bottom: 15px;
 			border-bottom: 1px dashed #BBBBBB;
 			padding-bottom: 10px;
 		}
-		
+
 		#z_window .z_head_module .right {
 			margin-left: 20px;
 			width: 840px;
 		}
-		
+
 		#z_window P {
 			margin-top: 0;
 			font-size: 12px;
 		}
-		
+
 		/* общие стили для форм в окне */
 		#z_window FORM {
 		}
-			
+
 			#z_window .zend_form {
 				margin: 0;
 			}
-			
+
 			#z_window .form_row {
 				padding-bottom: 10px;
 			}
-		
+
 			#z_window LABEL {
 				float: left;
 				width: 170px;
 				padding: 5px 20px 5px 0;
 				font-size: 13px;
 			}
-			
+
 			#z_window .element {
 				float: left;
 			}
-			
+
 			#z_window .form_row:after {
 				content: ".";
 				display: block;
@@ -422,7 +421,7 @@ ZETTA {
 				clear: both;
 				visibility: hidden;
 			}
-			
+
 			#z_window .errors {
 				display: block;
 				color: red;
@@ -430,17 +429,17 @@ ZETTA {
 				padding: 0;
 				margin: 0;
 			}
-			
+
 				#z_window .errors LI {
 					margin-top: 3px;
 				}
-			
+
 			#z_window FIELDSET {
 				border: none;
 				margin: 0;
 				padding: 0;
 			}
-			
+
 			.zend_form:after {
 				content: ".";
 				display: block;
@@ -448,7 +447,7 @@ ZETTA {
 				clear: both;
 				visibility: hidden;
 			}
-			
+
 			#z_window LABEL.required:after {
 				color: red;
 				content: "*";
@@ -457,120 +456,120 @@ ZETTA {
 				margin-top: -3px;
 				position: absolute;
 			}
-			
+
 			#z_window .label_checkbox {
 				width: auto;
 				padding: 1px 0 0 5px;
 			}
-			
+
 			#z_window .checkbox {
 				margin-left: 186px;
 			}
-			
+
 			#z_window .form_row_radio {
 				position: relative;
 			}
-				
+
 					#z_window .radio LABEL {
 						padding-right: 0;
 						margin-left: 20px;
 					}
-					
+
 					#z_window .radio INPUT {
 						position: absolute;
 						margin-left: -20px;
 					}
-				
+
 				#z_window .radio_label {
 					position: absolute;
 					left: 0;
 					top: 5px;
 					padding: 0;
 				}
-			
+
 			#z_window .z_buttons_placehoder {
 				margin-top: 40px;
 				border-top: 1px dashed #bbb;
 				padding-bottom: 0px;
 				min-height: 35px;
 			}
-			
+
 				#z_window .z_buttons_placehoder .submit {
 					float: right;
 				}
-				
+
 			#z_window .z_buttons_placehoder .ui-button {
 				top: 10px;
 			}
-			
+
 			#z_window .form_row .text input,
 			#z_window select {
 				width: 190px;
 				font-size: 12px;
 				font-family: Arial;
 			}
-			
+
 				#z_window .form_row .text textarea {
 					font-size: 12px;
 					font-family: Arial;
 					width: 350px;
 					height: 50px;
 				}
-			
+
 				#z_window select {
 					width: 196px;
 				}
-				
+
 			#z_window .form_row .redactor_box {
 				border: 1px solid #aaa;
 				width: 690px;
 			}
-			
+
 			#z_window .redactor_editor {
 				min-height: 150px;
 				background: #fff;
 			}
-			
+
 			#z_window .redactor_box A {
 				color: #333;
 			}
-				
-		
-		/* иконки доступные по умолчанию */	
+
+
+		/* иконки доступные по умолчанию */
 		#z_window .z_icons {
 			position: absolute;
 		    right: 5px;
 		    top: 5px;
 		}
-		
+
 			#z_window LI:hover .z_icons {
 				display: block;
 			}
-			
+
 			#z_window .z_name {
 				padding: 5px 110px 5px 5px;
 				position: relative;
 			}
-			
+
 				#z_window TD .z_name {
 					padding-right: 5px;
 				}
-			
+
 				#z_window .z_name [class^="icon-"]:before {
 				    color: #777;
 				    font-size: 11px;
 				}
-			
+
 				#z_window .z_name A {
 					outline: none;
 				}
-			
-				
+
+
 				#z_window .z_name:hover,
 				#z_window .ui-sortable-helper {
 					background: #fff;
 				}
-			
+
 			#z_window .z_icons A,
 			#z_window .z_ico {
 				display: inline-block;
@@ -580,11 +579,11 @@ ZETTA {
 				text-indent: -10000px;
 				outline: none;
 			}
-			
+
 				#z_window .z_ico {
 					margin-top: 3px;
 				}
-			
+
 				#z_window .z_ico_open { background: url('../images/panel/ico_open.png') no-repeat; }
 				#z_window .z_ico_edit { background: url('../images/panel/ico_settings.png') no-repeat; }
 				#z_window .z_ico_delete { background: url('../images/panel/ico_delete.png') no-repeat; }
@@ -600,7 +599,7 @@ ZETTA {
 				#z_window .z_ico_pause { background: url('../images/panel/ico_10_pause.png') no-repeat; }
 				#z_window .z_ico_download { background: url('../images/panel/ico_10_download.png') no-repeat; }
 				#z_window .z_ico_restore { background: url('../images/panel/ico_10_restore.png') no-repeat; }
-	
+
 
 		/* стиль ссылки "вернуться назад" */
 		#z_window #z_back_url {
@@ -610,47 +609,47 @@ ZETTA {
 			position: absolute;
 			font-style: italic;
 		}
-			
+
 			#z_window #z_back_url SPAN {
 				text-decoration: underline;
 			}
-			
+
 			#z_window #z_back_url:hover SPAN {
 				text-decoration: none;
 			}
-		
+
 		#z_window .ui-sortable-helper {
 			transition: width .5s;
 		}
-			
+
 		#z_window .ui-sortable-paging {
 			width: 200px !important;
 			margin-top: 35px;
 			background: #fff;
 			height: auto !important;
 		}
-				
+
 		#z_window .sortable_placeholder {
 			border: 1px dashed #999;
 		}
-		
+
 		#z_window .sortable_placeholder.z_hide {
 			visibility: hidden;
 		}
-		
+
 			#z_window .z_name i {
 				font-style: normal;
 				color: #888;
 			}
-	
+
 		#z_window .disable_item .z_name {
 			text-decoration: line-through;
 		}
-		
+
 		#z_window .sortable UL LI {
 			margin-left: 20px;
 		}
-		
+
 		#z_window .sortable .move {
 			width: 16px;
 			height: 16px;
@@ -660,24 +659,24 @@ ZETTA {
 			float: left;
 			margin-right: 7px;
 		}
-		
+
 		#z_window table {
-			
+
 		}
-		
+
 			#z_window th {
 				text-align: left;
 				padding: 4px;
 			}
-			
+
 			#z_window td {
 				padding: 4px;
 			}
-			
+
 			#z_window tr:hover td {
 				background: #fff;
 			}
-		
+
 			#z_window table .z_table_head_border TH {
 				border-top: 1px solid #AAAAAA;
 				height: 5px;
@@ -691,44 +690,44 @@ ZETTA {
 		z-index: 10005;
 		margin-top: -90px;
 	}
-	
+
 		#zetta_editor_toolbar .redactor_toolbar {
 			border: 5px solid #000;
 			border-radius: 5px;
 		}
-	
-	
+
+
 	/* Настройки ui.jquery */
 	.zetta_front .ui-front, .zetta_front .ui-widget {
 		z-index: 10100;
 	}
-	
+
 		.zetta_front .ui-sortable-helper,
 		.zetta_front .ui-selectable-helper {
 			z-index: 10500 !important;
 		}
-		
+
 		.zetta_front .ui-dialog {
 			font-size: 1.2em;
 		}
-	
+
 		.zetta_front .ui-dialog P {
 			margin: 10px 0;
 		}
-		
+
 		.zetta_front .ui-widget-overlay {
 			background-repeat: repeat;
 		}
-		
+
 		.zetta_front .ui-dialog P .ui-icon {
 			float: left;
 			margin: 0 7px 20px;
 		}
-	
+
 	.zetta_front .ui-dialog .ui-dialog-buttonpane {
 		padding-right: 0;
 	}
-	
+
 .z_admin_wrapper {
 	position: relative;
 	border: 1px dashed #1cbe61;
@@ -758,11 +757,11 @@ ZETTA {
 		background: #1cbe61;
 		/* z-index: 10000; */
 	}
-	
+
 		.in_edit .z_icons_editable {
 			opacity: 0.3;
 		}
-	
+
 		.z_icons_editable A,
 		.z_icons_editable VAR
 		{
@@ -774,12 +773,12 @@ ZETTA {
 			font-size: 12px !important;
 			cursor: pointer;
 		}
-		
+
 		.z_icons_editable .icon-pencil, .z_icons_editable .icon {
 			display: block;
 			float: left;
 		}
-		
+
 		.z_icons_editable .icon-remove {
 			background: red;
 		}
@@ -788,20 +787,20 @@ ZETTA {
 		min-height: 25px;
 		cursor: default;
 	}
-	
+
 		.redactor_editor {
 			cursor: text;
 		}
-		
+
 		.z_inherit_block .icon-pencil { display: none; }
 		.z_inherit_block .icon-unlock { display: none; }
 		.z_inherit_block .icon-lock { display: block; }
-		
+
 	.z_override_block .icon-pencil { display: none; }
 	.z_override_block .icon-lock { display: none; }
 	.z_override_block .icon-unlock { display: block; }
-	
-	
+
+
 .z_admin_menu {
 	border: 1px dotted rgb(246, 112, 22);
 }
@@ -818,7 +817,7 @@ ZETTA {
 		background: #2865ca;
 		z-index: 1	/* если убрать z-index то на иконки не возможно нажать например тут http://1000.template.asdf.by/portfolio/flowers/ */
 	}
-	
+
 
 .z_admin_block {
 	border: 1px dotted rgb(28, 190, 97);
@@ -827,23 +826,23 @@ ZETTA {
 	.z_admin_block .z_icons_editable {
 		background: #1cbe61;
 	}
-	
+
 .z_inherit_block {
 		border: 1px dotted #aaa;
 	}
-		
+
 		.z_inherit_block .z_icons_editable {
 			background: #aaa;
 		}
-		
+
 	.z_admin_wrapper:hover, .in_edit {
 		border-style: solid !important;
 	}
-	
+
 #z_window .in_edit {
 	border: none !important;
 }
-	
+
 #file_manager {
 	padding: 0;
 	font-size: 1em;
@@ -852,11 +851,11 @@ ZETTA {
 }
 
 	#file_manager .elfinder-toolbar,
-	#file_manager .elfinder-statusbar 
+	#file_manager .elfinder-statusbar
 	{
 		background: #fff;
 	}
-	
+
 #z_window .pagination_control {
 	text-align: center;
 	margin-top: 15px;
@@ -865,30 +864,29 @@ ZETTA {
 	#z_window .pagination_control I {
 		display: none;
 	}
-	
+
 	#z_window .pagination_control A {
 		color: #555;
 		font-size: 1em;
 		padding: 0.1em 0.4em;
 	}
-	
+
 	#z_window .pagination_control .pagination_next,
 	#z_window .pagination_control .pagination_prev {
 		text-decoration: none;
 	}
-	
+
 	#z_window .pagination_control .pagination_disabled {
 		display: none;
 	}
-	
+
 	#z_window .pagination_control .pagination_current {
 		background: #555;
 		color: #fff;
 		text-decoration: none;
 		border-radius: 3px;
 	}
-	
+
 	#z_window .z_drop_pagination {
 		background: #fff;
 	}
-	
