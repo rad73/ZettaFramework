@@ -34,8 +34,12 @@ class Publications_Framework_Form extends Zetta_Form {
 
 		$this->_addElements();
 
-		if (Zend_Registry::isRegistered('RouteCurrentId')) {
-			$this->setAction(Zend_Registry::get('view')->url(array('route_id' => Zend_Registry::get('RouteCurrentId'))));
+		$route_id = Zend_Registry::isRegistered('RouteCurrentId') && Zend_Registry::get('RouteCurrentId')
+			? Zend_Registry::get('RouteCurrentId')
+			: Zend_Controller_Front::getInstance()->getRequest()->getParam('route_id');
+
+		if ($route_id) {
+			$this->setAction(Zend_Registry::get('view')->url(array('route_id' => $route_id)));
 		}
 
 	}
