@@ -7,7 +7,7 @@ error_reporting(15);
 //подключаем класс GA API
 include("gapi.class.php");
 
-$ga = new gapi($u,$p);
+$ga = new gapi($u, $key);
 
 
 //////получаем пользователи/просмотры за все время

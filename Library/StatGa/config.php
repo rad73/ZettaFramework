@@ -3,6 +3,7 @@
 $u="user@email";
 $p="password";
 $id="analytics_id";
+$key="";
 
 
 //текущая дата
