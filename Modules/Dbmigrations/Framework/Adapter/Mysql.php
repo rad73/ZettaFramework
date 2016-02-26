@@ -101,7 +101,7 @@ class Dbmigrations_Framework_Adapter_Mysql implements Dbmigrations_Framework_Ada
 		$query = 'ALTER TABLE '
 			. $this->_db->quoteIdentifier($table)
 			. ' ADD COLUMN ' . $this->_makeStringColumn($name, $options)
-			. ($options['after'] ? ' AFTER ' . $this->_db->quoteIdentifier($options['after']) : '');
+			. (!empty($options['after']) ? ' AFTER ' . $this->_db->quoteIdentifier($options['after']) : '');
 
 		$this->_db->query($query);
 
