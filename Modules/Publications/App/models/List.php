@@ -1,9 +1,9 @@
 <?php
 
-class Modules_Publications_Model_List extends Zend_Db_Table  {
+class Modules_Publications_Model_List extends Zetta_Db_Table  {
 
 	protected $_name = 'publications_list';
-	
+
 	/**
 	 * Получаем информацию о типе публикаций
 	 *
@@ -11,13 +11,16 @@ class Modules_Publications_Model_List extends Zend_Db_Table  {
 	 * @return Zend_Db_Row
 	 */
 	public function getRubricInfo($rubric_id) {
-		
-		if (is_numeric($rubric_id)) {
-			return $this->fetchRow($this->select()->where('rubric_id = ?', $rubric_id));
+
+		foreach($this->fetchFull() as $i=>$row) {
+
+			if ((is_numeric($rubric_id) && $row->rubric_id == $rubric_id) || ($row->table_name == $rubric_id)) {
+				return $row;
+			}
+
 		}
-		else {
-			return $this->fetchRow($this->select()->where('table_name = ?', $rubric_id));
-		}
+
+		return false;
 
 	}
 
@@ -28,21 +31,21 @@ class Modules_Publications_Model_List extends Zend_Db_Table  {
 	 * @return int
 	 */
 	public function insert(array $data) {
-		
+
 		$rowID = parent::insert($data);
-		
+
 		if ($rowID) {
-		
+
 			/* создаём таблицу для хранения данных */
 			$tableName = $data['table_name'];
 			if (!System_Functions::tableExist($tableName)) {
-			
+
 				$_migrationManager = new Modules_Dbmigrations_Framework_Manager();
 				$_migrationManager->upTo('Modules_Publications_Migrations_CreatePublicationAbstractTable', $tableName, false);
-				
+
 				// Добавляем базовые поля
 				$filedsModel = new Modules_Publications_Model_Fields();
-				
+
 				$filedsModel->insert(array(
 					'rubric_id'		=> $rowID,
 					'name'	=> 'name',
@@ -51,7 +54,7 @@ class Modules_Publications_Model_List extends Zend_Db_Table  {
 					'validator'	=> '.*',
 					'sort'	=> 1,
 				));
-				
+
 				$filedsModel->insert(array(
 					'rubric_id'		=> $rowID,
 					'name'	=> 'active',
@@ -60,14 +63,14 @@ class Modules_Publications_Model_List extends Zend_Db_Table  {
 					'default'	=> '1',
 					'sort'	=> 2,
 				));
-				
-	
+
+
 			}
-				
+
 		}
-		
+
 		return $rowID;
-		
+
 	}
 
 	/**
@@ -79,14 +82,14 @@ class Modules_Publications_Model_List extends Zend_Db_Table  {
 	public function delete($where) {
 
 		$resultSet = $this->fetchAll($where);
-		
+
 		if (sizeof($resultSet)) {
 			foreach ($resultSet as $row) {
 				$_migrationManager = new Modules_Dbmigrations_Framework_Manager();
 				$_migrationManager->downTo('Modules_Publications_Migrations_CreatePublicationAbstractTable', $row->table_name);
 			}
 		}
-		
+
 		return parent::delete($where);
 
 	}

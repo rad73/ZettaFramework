@@ -1,14 +1,13 @@
 <?php
 
-class Modules_Menu_Model_Menu extends Zend_Db_Table  {
+class Modules_Menu_Model_Menu extends Zetta_Db_Table  {
 
 	protected $_name = 'menu';
-	protected $_nameItemsModel = 'menu_items';
 
 	/**
 	 * Модель разелов меню
 	 *
-	 * @var Zend_Db_Table
+	 * @var Modules_Menu_Model_MenuItems
 	 */
 	protected $_modelItems;
 
@@ -16,7 +15,7 @@ class Modules_Menu_Model_Menu extends Zend_Db_Table  {
 	public function __construct($config = array(), $definition = null) {
 
 		parent::__construct($config, $definition);
-		$this->_modelItems = new Zend_Db_Table($this->_nameItemsModel);
+		$this->_modelItems = new Modules_Menu_Model_MenuItems();
 
 	}
 
@@ -26,7 +25,7 @@ class Modules_Menu_Model_Menu extends Zend_Db_Table  {
 	 * @return Zend_Db_Rowset
 	 */
 	public function getAllMenu() {
-		return $this->fetchAll();
+		return $this->_allData();
 	}
 
 	/**
@@ -36,8 +35,17 @@ class Modules_Menu_Model_Menu extends Zend_Db_Table  {
 	 * @return Zend_Db_Row
 	 */
 	public function getMenu($menuId) {
-		return $this->fetchRow($this->select()->where('menu_id = ?', $menuId));
+
+		foreach($this->fetchFull() as $i=>$row) {
+
+			if ($row->menu_id == $menuId) {
+				return $row;
+			}
+
+		}
+
 	}
+
 
 	/**
 	 * Получаем дерево разделов определённого меню
@@ -50,11 +58,7 @@ class Modules_Menu_Model_Menu extends Zend_Db_Table  {
 		$menu = $this->getMenu($menuId);
 		if (!sizeof($menu)) return array();
 
-		$sections = $this->_modelItems->fetchAll($this->_modelItems->select()
-			->where('menu_id = ?', $menu->menu_id)
-			->order('sort', 'item_id')
-		);
-
+		$sections = $this->_modelItems->getMenuItems($menu->menu_id);
 
 		if ($menu->type == 'router') {
 
