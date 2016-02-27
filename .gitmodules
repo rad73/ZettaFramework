@@ -3,4 +3,4 @@
 	url = https://github.com/zf/ZendFramework-Library.git
 [submodule "Library/ZFDebug"]
 	path = Library/ZFDebug
-	url = https://github.com/jokkedk/ZFDebug.git
+	url = https://github.com/dirmax/ZFDebug.git
