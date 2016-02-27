@@ -83,9 +83,9 @@ class Modules_Menu_Model_Menu extends Zetta_Db_Table  {
 					if (sizeof($sections)) {
 						foreach ($sections as $item) {
 
-							if ($item->route_id == $row['route_id']) {
-								$return[$i]['disable'] = $item->disable || $parentDisable;
-								$return[$i]['name'] = $item->name ? $item->name : $row['name'];
+							if ($item['route_id'] == $row['route_id']) {
+								$return[$i]['disable'] = $item['disable'] || $parentDisable;
+								$return[$i]['name'] = $item['name'] ? $item['name'] : $row['name'];
 							}
 						}
 					}
