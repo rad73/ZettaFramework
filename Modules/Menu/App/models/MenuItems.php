@@ -33,7 +33,7 @@ class Modules_Menu_Model_MenuItems extends Zetta_Db_Table  {
 		foreach($this->fetchFull() as $i=>$row) {
 
 			if ($row->menu_id == $menuId) {
-				array_push($returnArray, $row);
+				array_push($returnArray, $row->toArray());
 			}
 
 		}

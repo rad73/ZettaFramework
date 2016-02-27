@@ -25,7 +25,7 @@ class Modules_Menu_Model_Menu extends Zetta_Db_Table  {
 	 * @return Zend_Db_Rowset
 	 */
 	public function getAllMenu() {
-		return $this->_allData();
+		return $this->fetchFull();
 	}
 
 	/**
@@ -125,7 +125,7 @@ class Modules_Menu_Model_Menu extends Zetta_Db_Table  {
 
 			};
 
-			$sections = System_Functions::toForest($sections->toArray(), 'item_id', 'parent_id');
+			$sections = System_Functions::toForest($sections, 'item_id', 'parent_id');
 			$sections = $_makeUrl($sections);
 
 		}

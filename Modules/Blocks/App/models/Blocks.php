@@ -40,7 +40,7 @@ class Modules_Blocks_Model_Blocks extends Zetta_Db_Table  {
 	 * @return Zend_Db_Row
 	 */
 	public function getBlock($blockName) {
-		
+
 		foreach($this->fetchFull() as $i=>$row) {
 
 			if ($row->block_name == $blockName) {
@@ -106,7 +106,7 @@ class Modules_Blocks_Model_Blocks extends Zetta_Db_Table  {
 
 			$select = $this->select()
 				->where('route_id = 1')
-				->order('route_id');
+				->order('route_id DESC');
 
 			if ($this->_currentRouteId && $this->_currentRouteId != 1) {
 				$select = $select
