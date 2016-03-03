@@ -11,10 +11,13 @@ class Zetta_Bootstrap_Resource_Db extends Zend_Application_Resource_Db {
 	public function init() {
 
 		$this->_db = parent::init();
-		$this
-			->_saveInRegistry()
-			->_saveConfigRegistry()
-			->_registerSqliteFunctions();
+
+		if (null != $this->_db) {
+			$this
+				->_saveInRegistry()
+				->_saveConfigRegistry()
+				->_registerSqliteFunctions();
+		}
 
 		return $this->_db;
 
