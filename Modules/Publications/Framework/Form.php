@@ -62,19 +62,6 @@ class Publications_Framework_Form extends Zetta_Form {
 					$element = 'text';
 					$options['z_date_time'] = 1;
 				break;
-			case 'captcha':
-					// throw new Exception('Мы ещё не подключили этот тип поля');
-					$options['captcha'] = array(
-					    'captcha' => 'Image',
-					    'font' => SYSTEM_PATH . '/public/font/captcha_font.ttf',
-					    'imgDir'	=> TEMP_PATH . DS . 'Captcha',
-					    'imgUrl'	=> HTTP_HOST . '/Temp/Captcha/',
-					    'wordLen'	=> 5,
-					    'lineNoiseLevel'	=> 2,
-					    'dotNoiseLevel'	=> 50,
-
-					);
-				break;
 			case 'route':
 					$element = 'select';
 					$options['list_values'] = 'routes';

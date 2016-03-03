@@ -135,6 +135,18 @@ class Zetta_Form extends Zend_Form {
 				break;
 			case 'captcha':
 					$options['decorators'] = $this->elementCaptchaDecorators;
+
+					$options['captcha'] = array(
+					    'captcha' => 'Image',
+					    'font' => SYSTEM_PATH . '/public/font/captcha_font.ttf',
+					    'imgDir'	=> TEMP_PATH . DS . 'Captcha',
+					    'imgUrl'	=> HTTP_HOST . '/Temp/Captcha/',
+					    'wordLen'	=> 5,
+					    'lineNoiseLevel'	=> 2,
+					    'dotNoiseLevel'	=> 50,
+
+					);
+
 				break;
 			case 'file':
 					$options['decorators'] = $this->elementFileDecorators;
