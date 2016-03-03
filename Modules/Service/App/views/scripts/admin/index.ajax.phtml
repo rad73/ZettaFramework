@@ -1,20 +1,20 @@
 <?php echo $this->partial('admin/partialHead.phtml'); ?>
 
 <div class="z_update">
-	
+
 	<div id="z_update_info">
 		<h2>Обновление ZettaCMS</h2>
 		<p>Система обновления ZettaCMS работает в автоматическом режиме. Это означает, что она сама себя обновит в случае нобходимости.</p>
 		<p>Однако, если вы уверены, что вам не нужны обновления, вы можете отключить систему обновлений. В этом случае мы снимаем с себя все гарантийные обязательства по ZettaCMS.</p>
-		
+
 		<?php if ($this->currentVersion != $this->avalibleVersion) : ?>
 			<p class="z_red">Текущая версия ZettaCMS: <?php echo $this->currentVersion ?>. Вам доступно обновление до версии <?php echo $this->avalibleVersion ?>.</p>
 		<?php else : ?>
 			<p>Текущая версия ZettaCMS: <?php echo $this->currentVersion ?>. На сайте установлены все обновления.</p>
 		<?php endif ?>
-		
+
 	</div>
-	
+
 	<div id="z_backup_info">
 		<h2>Резервное копирование ZettaCMS</h2>
 		<p>Резервные копии вашего сайта создаются в автоматическом режиме. Если у вас сломался сайт, вы можете воспользоваться следующими резервными копиями:</p>
@@ -23,7 +23,7 @@
 			<?php if (sizeof($this->backups)) : ?>
 				<ul>
 					<?php foreach ($this->backups as $i=>$dir) : ?>
-						<? echo $this->partial('admin/partialBackups.phtml', array('partialCounter' => $i + 1, 'dir' => $dir)) ?>
+						<?php echo $this->partial('admin/partialBackups.phtml', array('partialCounter' => $i + 1, 'dir' => $dir)) ?>
 					<?php endforeach ?>
 				</ul>
 			<?php else: ?>
@@ -31,9 +31,9 @@
 			<?php endif ?>
 		</div>
 	</div>
-	
+
 </div>
-	
+
 <div class="z_buttons_placehoder">
 
 	<?php if ($this->currentVersion != $this->avalibleVersion && $this->siteConfig('disable_updates') != 1) : ?>
@@ -47,6 +47,6 @@
 	<?php endif ?>
 
 </div>
-	
+
 <div class="clear"><!-- --></div>
 <a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'panel', 'action' => 'managepanel'), 'mvc', true) ?>" id="z_back_url">&larr; <span>Вернуться в управлениe</span></a>

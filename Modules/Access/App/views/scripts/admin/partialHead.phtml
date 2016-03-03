@@ -2,10 +2,10 @@
 
 	$this->headLink()->exchangeArray(array());
 	$this->headScript()->exchangeArray(array());
-	
+
 	echo $this->headLink()
 		->appendStylesheet($this->libUrl('/Access/public/css/admin.css'));
-		
+
 	echo $this->headScript()
 		->appendFile($this->libUrl('/Access/public/js/admin.js'))
 		->appendScript('
@@ -13,11 +13,11 @@
 				sortRoles: "' . $this->url(array('module' => 'Access', 'controller' => 'Admin', 'action' => 'sortroles'), 'mvc', true) . '"
 			};
 		')
-		
+
 ?>
 
 <div class="z_head_module">
-	<img id="z_module_image" src="<? echo $this->libUrl('/Access/public/images/admin/ico.png')?>" alt="Распределение прав доступа"/>
+	<img id="z_module_image" src="<?php echo  $this->libUrl('/Access/public/images/admin/ico.png')?>" alt="Распределение прав доступа"/>
 	<div class="right">
 		<h1>Права доступа<?php echo ($this->subtitle ? ' &rarr; ' . $this->subtitle : '') ?></h1>
 		<p>Распределение прав доступа</p>

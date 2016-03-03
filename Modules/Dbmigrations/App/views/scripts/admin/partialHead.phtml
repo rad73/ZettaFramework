@@ -2,10 +2,10 @@
 
 	$this->headLink()->exchangeArray(array());
 	$this->headScript()->exchangeArray(array());
-	
+
 	echo $this->headLink()
 		->appendStylesheet($this->libUrl('/Dbmigrations/public/css/main.css'));
-		
+
 	echo $this->headScript()
 		->appendScript('
 			var _migrationsDataJson = "' . $this->url(array( 'action' => 'data', 'controller' => 'admin', 'module' => 'dbmigrations'), 'mvc', true) . '";
@@ -14,11 +14,11 @@
 		->appendFile($this->libUrl('/js/raphael/plugins/raphael.path.methods.js'))
 		->appendFile($this->libUrl('/Dbmigrations/public/js/branch_migrations.js'))
 		->appendFile($this->libUrl('/Dbmigrations/public/js/main.js'))
-		
+
 ?>
 
 <div class="z_head_module">
-	<img id="z_module_image" src="<? echo $this->libUrl('/Dbmigrations/public/images/admin/ico.png')?>" alt="Инструмент для миграции баз данных"/>
+	<img id="z_module_image" src="<?php echo  $this->libUrl('/Dbmigrations/public/images/admin/ico.png')?>" alt="Инструмент для миграции баз данных"/>
 	<div class="right">
 		<h1>Мигратор<?php echo ($this->subtitle ? ' &rarr; ' . $this->subtitle : '') ?></h1>
 		<p>Инструмент для миграции баз данных</p>

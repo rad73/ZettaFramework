@@ -2,17 +2,17 @@
 
 	$this->headLink()->exchangeArray(array());
 	$this->headScript()->exchangeArray(array());
-	
+
 	echo $this->headLink()
 		->appendStylesheet($this->libUrl('/Service/public/css/admin.css'));
-	
+
 	echo $this->headScript()
 		->appendFile($this->libUrl('/Service/public/js/admin.js'));
-				
+
 ?>
 
 <div class="z_head_module">
-	<img id="z_module_image" src="<? echo $this->libUrl('/Service/public/images/admin/ico.png')?>" alt="Обновления"/>
+	<img id="z_module_image" src="<?php echo $this->libUrl('/Service/public/images/admin/ico.png')?>" alt="Обновления"/>
 	<div class="right">
 		<h1>Обслуживание ZettaCMS<?php echo ($this->subtitle ? ' &rarr; ' . $this->subtitle : '') ?></h1>
 		<p>Обновление и восстановление</p>
