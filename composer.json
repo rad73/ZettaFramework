@@ -18,7 +18,7 @@
         "php":">=5.3",
         "zendframework/zendframework1": "*",
         "dirmax/zfdebug": "*",
-        "phpunit/phpunit": "4.8"
+        "phpunit/phpunit": "*"
     },
     "repositories": [{
         "url": "https://github.com/dirmax/ZFDebug.git",
