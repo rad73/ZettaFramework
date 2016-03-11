@@ -127,3 +127,4 @@
 "File '%value%' is not readable or does not exist";""
 "No record matching '%value%' was found";""
 "A record matching '%value%' was found";""
+"Captcha value is wrong";"Введенные символы не соответствуют изображению"

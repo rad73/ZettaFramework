@@ -50,6 +50,7 @@ class BootstrapQuick extends Zend_Application_Bootstrap_Bootstrap {
 	 */
 	protected function _initConfigRegistry() {
 		Zend_Registry::set('config', new stdClass());
+		Zend_Registry::get('config')->app = (object)$this->getOption('app');
 	}
 
 	/**

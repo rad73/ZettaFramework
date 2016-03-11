@@ -35,7 +35,6 @@ class Bootstrap extends BootstrapQuick {
 	 */
 	protected function _initModules() {
 
-
 		$this->bootstrap('Frontcontroller');
 		$this->bootstrap('Session');
 
