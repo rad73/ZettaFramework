@@ -1,9 +1,5 @@
 <?php
 
-require_once 'PHPUnit/Util/Log/XML.php';
-require_once 'PHPUnit/Framework/TestSuite.php';
-
-
 abstract class Modules_Guitestcase_Framework_TestCase_Abstract {
 
 	/**
@@ -57,7 +53,7 @@ abstract class Modules_Guitestcase_Framework_TestCase_Abstract {
 	 *
 	 */
 	public function setDefaultFormatter() {
-		$this->setFormatter(new PHPUnit_Util_Log_XML());
+		$this->setFormatter(new PHPUnit_Util_Log_JUnit());
 		return $this;
 	}
 
@@ -72,7 +68,7 @@ abstract class Modules_Guitestcase_Framework_TestCase_Abstract {
 			$this->setDefaultFormatter();
 		}
 
-		return $this->_formatter;	
+		return $this->_formatter;
 
 	}
 
@@ -96,7 +92,7 @@ abstract class Modules_Guitestcase_Framework_TestCase_Abstract {
 		if (null == $this->_testResult) {
 			$this->setDefaultTestResult();
 		}
-		
+
 		return $this->_testResult;
 
 	}
@@ -106,7 +102,7 @@ abstract class Modules_Guitestcase_Framework_TestCase_Abstract {
 	 *
 	 * @param PHPUnit_Framework_TestResult $testResult
 	 */
-	
+
 	public function setDefaultTestResult() {
 		$this->setTestResult(new PHPUnit_Framework_TestResult());
 		return $this;
@@ -123,5 +119,5 @@ abstract class Modules_Guitestcase_Framework_TestCase_Abstract {
 		return $this->getFormatter();
 
 	}
-	
+
 }

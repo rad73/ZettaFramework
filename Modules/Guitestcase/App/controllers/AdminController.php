@@ -12,11 +12,11 @@ class Modules_Guitestcase_AdminController extends Zend_Controller_Action {
 	protected $_testCases = array();
 
 	public function init() {
-		
+
 		if (false == Zetta_Acl::getInstance()->isAllowed('admin_module_guitestcase')) {
 			throw new Exception('Access Denied');
 		}
-		
+
 		$this->_helper->getHelper('AjaxContext')
         	->addActionContext('index', 'html')
         	->addActionContext('run', 'html')
@@ -30,12 +30,12 @@ class Modules_Guitestcase_AdminController extends Zend_Controller_Action {
     public function indexAction() {
     	$this->view->testCases = $this->_testCases;
     }
-    
-    
+
+
     public function runAction() {
-    	
+
     	if (
-    		($testCase = $this->_getParam('testcase')) && 
+    		($testCase = System_String::StrToLower($this->_getParam('testcase'))) &&
     		true == array_key_exists($testCase, $this->_testCases)
     	) {
 
@@ -52,7 +52,7 @@ class Modules_Guitestcase_AdminController extends Zend_Controller_Action {
 			else {
 				throw new System_Exception($testCase . ' is not instance of PHPUnit_Framework_TestCase');
 			}
-			
+
 		}
     	else {
     		$this->_forward('index');

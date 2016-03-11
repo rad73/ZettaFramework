@@ -19,7 +19,7 @@ class Modules_Guitestcase_TestCase_Guitestcase extends PHPUnit_Framework_TestCas
 	}
 
 	public function appBootstrap() {
-		
+
 	}
 
 	/**
@@ -27,13 +27,13 @@ class Modules_Guitestcase_TestCase_Guitestcase extends PHPUnit_Framework_TestCas
 	 *
 	 */
 	public function testFormatter() {
-		
-		$this->_testCaseObject->setFormatter(new PHPUnit_Util_Log_XML());
+
+		$this->_testCaseObject->setFormatter(new PHPUnit_Util_Log_JUnit());
 		$this->assertTrue($this->_testCaseObject->getFormatter() instanceof PHPUnit_Framework_TestListener);
 
 		$this->_testCaseObject->setDefaultFormatter();
-		$this->assertTrue($this->_testCaseObject->getFormatter() instanceof PHPUnit_Util_Log_XML);
-		
+		$this->assertTrue($this->_testCaseObject->getFormatter() instanceof PHPUnit_Util_Log_JUnit);
+
 	}
 
 	/**
@@ -41,13 +41,13 @@ class Modules_Guitestcase_TestCase_Guitestcase extends PHPUnit_Framework_TestCas
 	 *
 	 */
 	public function testTestResult() {
-		
+
 		$this->_testCaseObject->setTestResult(new PHPUnit_Framework_TestResult());
 		$this->assertTrue($this->_testCaseObject->getTestResult() instanceof PHPUnit_Framework_TestResult);
 
 		$this->_testCaseObject->setDefaultTestResult();
 		$this->assertTrue($this->_testCaseObject->getTestResult() instanceof PHPUnit_Framework_TestResult);
-		
+
 	}
 
 	/**
@@ -60,34 +60,9 @@ class Modules_Guitestcase_TestCase_Guitestcase extends PHPUnit_Framework_TestCas
 			'Modules_Guitestcase_TestCase_Guitestcase',
 			'_SomeHiddenTest'
 		));
-		
+
 		$this->assertTrue(in_array('Modules_Guitestcase_TestCase_Guitestcase', $this->_testCaseObject->getTestCases()));
 
-	}
-
-	/**
-	 * Проверяем что тесты запускаются
-	 *
-	 */
-	public function testRunTestCase() {
-
-		
-		// Есди тестируем этим классом, то как минимум он должен найтись
-		$result = $this->_testCaseObject->runTestCase(new _SomeHiddenTest());
-		$this->assertTrue($result instanceof SimpleXMLElement);
-
-	}
-
-}
-
-/**
- * Скрытый тест предназначенный для провеки возможности тестирования
- *
- */
-class _SomeHiddenTest extends PHPUnit_Framework_TestCase {
-			
-	public function testRadnom() {
-		$this->assertTrue(!is_numeric(rand()));
 	}
 
 }

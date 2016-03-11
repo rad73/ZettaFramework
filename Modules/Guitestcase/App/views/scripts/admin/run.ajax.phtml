@@ -1,7 +1,10 @@
-<?php 
+<?php
 	if (false == $this->no_header) {
 		echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Тестовый класс "' . $this->result['name'] . '"'));
 	}
+
+	$testsuites = isset($this->result->testsuite) ? $this->result->testsuite : array($this->result->testcase);
+
 ?>
 
 <div class="z_description_test">
@@ -25,34 +28,36 @@
 	<tr class="z_table_head_border">
 		<th colspan="6"></th>
 	</tr>
-	<?php foreach ($this->result->testcase as $testCase) : ?>
-	<?php
-		$log = explode("\n\n", $testCase->failure? $testCase->failure : $testCase->error);
-		if ($testCase->failure) {
-			$status = 'fail';
-		}
-		else if($testCase->error) {
-			$status = 'error';
-		}
-		else {
-			$status = 'assert';
-		}
-	?>
-	<tr class="<?=$status?>">
-		<td class="td_icon"><img src="<?=$this->libUrl('/Guitestcase/public/images/' . $status . '.png')?>" alt="<?=$status?>"/></td>
-		<td class="name"><?= $testCase['name'] ?></td>
-		<td><?= $testCase['line'] ?></td>
-		<td><?= $testCase['assertions'] ?></td>
-		<td><?= $testCase['time'] ?></td>
-		<td class="log"><?= nl2br($log[0]) ?></td>
-	</tr>
+	<?php foreach ($testsuites as $testSuite) : ?>
+		<?php foreach ($testSuite as $testCase) : ?>
+			<?php
+				$log = explode("\n\n", $testCase->failure? $testCase->failure : $testCase->error);
+				if ($testCase->failure) {
+					$status = 'fail';
+				}
+				else if($testCase->error) {
+					$status = 'error';
+				}
+				else {
+					$status = 'assert';
+				}
+			?>
+			<tr class="<?=$status?>">
+				<td class="td_icon"><img src="<?=$this->libUrl('/Guitestcase/public/images/' . $status . '.png')?>" alt="<?=$status?>"/></td>
+				<td class="name"><?= $testCase['name'] ?></td>
+				<td><?= $testCase['line'] ?></td>
+				<td><?= $testCase['assertions'] ?></td>
+				<td><?= $testCase['time'] ?></td>
+				<td class="log"><?= nl2br($log[0]) ?></td>
+			</tr>
+		<?php endforeach; ?>
 	<?php endforeach; ?>
 </table>
 
 <?php if (false == $this->no_header) : ?>
-	
+
 	<div class="z_buttons_placehoder"><!-- --></div>
 	<div class="clear"><!-- --></div>
 	<a href="<?php echo $this->url(array('module' => 'guitestcase', 'controller' => 'admin', 'action' => 'index'), 'mvc', true) ?>" id="z_back_url">&larr; <span>К списку тестов</span></a>
-	
+
 <?php endif ?>
