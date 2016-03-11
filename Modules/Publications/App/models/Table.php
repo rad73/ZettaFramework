@@ -178,7 +178,7 @@ class Modules_Publications_Model_Table extends Zend_Db_Table  {
 	 *
 	 * @return Zend_Db_Rowset
 	 */
-	public function getWithoutRubrics($pageNumber = 1, $onPage = 7) {
+	public function getWithoutRubrics($pageNumber = 1, $onPage = 25) {
 
 		$select = $this->select()
 			->where('route_id IS NULL')
