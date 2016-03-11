@@ -1,4 +1,4 @@
-<?
+<?php
 //учетная запись GA
 $u="user@email";
 $p="password";
