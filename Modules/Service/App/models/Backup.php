@@ -78,11 +78,11 @@ class Modules_Service_Model_Backup  {
 	protected function _backupDB($backupTo) {
 
 		exec('mysqldump'
-			. ' -u' . $this->_configDb->params['username']
-			. ' -h' . $this->_configDb->params['host']
-			. ' -p' . $this->_configDb->params['password']
-			. ' ' . $this->_configDb->params['dbname']
-			. ' > ' . $backupTo . DS . 'database.sql'
+			. ' -u' . $this->_configDb->username
+			. ' -h' . $this->_configDb->host
+			. ' -p' . $this->_configDb->password
+			. ' ' . $this->_configDb->dbname
+			. ' | gzip > ' . $backupTo . DS . 'database.sql.gz'
 		);
 
 		return $this;
@@ -114,7 +114,7 @@ class Modules_Service_Model_Backup  {
 	protected function _backupZetta($backupTo) {
 
 		exec('cd ' . SYSTEM_PATH
-			. ' && tar -cvpzf ' . $backupTo . DS . 'zetta.tgz ./* --exclude="\.git*"'
+			. ' && tar -cvpzf ' . $backupTo . DS . 'zetta.tgz ./*'
 		);
 
 		return $this;
@@ -152,18 +152,18 @@ class Modules_Service_Model_Backup  {
 		$this->backup();
 
 		$dirPath = $this->_backupsDir . DS . $dir;
-		$dbFile = $dirPath . DS . 'database.sql';
+		$dbFile = $dirPath . DS . 'database.sql.gz';
 		$filesZip = $dirPath . DS . 'files.tgz';
 		$zettaZip = $dirPath . DS . 'zetta.tgz';
 
 		if (is_file($dbFile)) {
 
 			// восстанавливаем БД
-			exec('mysql '
-				. ' -u' . $this->_configDb->params['username']
-				. ' -p' . $this->_configDb->params['password']
-				. ' -h' . $this->_configDb->params['host']
-				. ' ' . $this->_configDb->params['dbname'] . ' < ' . $dbFile
+			exec('gunzip < ' . $dbFile . ' | mysql '
+				. ' -u' . $this->_configDb->username
+				. ' -p' . $this->_configDb->password
+				. ' -h' . $this->_configDb->host
+				. ' ' . $this->_configDb->dbname
 			);
 
 		}

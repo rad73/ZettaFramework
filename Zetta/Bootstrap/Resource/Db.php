@@ -53,4 +53,5 @@ class Zetta_Bootstrap_Resource_Db extends Zend_Application_Resource_Db {
 		}
 
 	}
+
 }
