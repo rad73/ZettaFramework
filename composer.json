@@ -1,0 +1,27 @@
+{
+    "config": {
+        "vendor-dir": ".vendor"
+    },
+    "name": "dirmax/zettaframework",
+    "description": "ZettaFramework",
+    "type": "project",
+    "autoload": {
+        "psr-0": {
+            "Zetta_": ""
+        }
+    },
+    "authors": [{
+            "name": "Александр Хрищанович",
+            "email": "dirmax@yandex.ru"
+    }],
+    "require": {
+        "php":">=5.3",
+        "zendframework/zendframework1": "*",
+        "dirmax/zfdebug": "*",
+        "phpunit/phpunit": "4.8"
+    },
+    "repositories": [{
+        "url": "https://github.com/dirmax/ZFDebug.git",
+        "type": "git"
+    }]
+}
