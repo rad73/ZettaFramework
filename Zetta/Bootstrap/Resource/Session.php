@@ -15,19 +15,23 @@ class Zetta_Bootstrap_Resource_Session extends Zend_Application_Resource_Session
 			$this->getBootstrap()->bootstrap('Db');
 		}
 
-		if ($this->getSaveHandler() instanceof Zend_Session_SaveHandler_DbTable) {
+		$options = $this->getOptions();
 
-			$options = $this->getOptions();
+		if (isset($options['saveHandler'])) {
 
-			if (!System_Functions::tableExist($options['saveHandler']['options']['name'])) {
-				$_migrationManager = new Modules_Dbmigrations_Framework_Manager();
-				$_migrationManager->upTo('System_Migrations_CreateTableSession');
-				$this->init();
+			if ($this->getSaveHandler() instanceof Zend_Session_SaveHandler_DbTable) {
+
+				if (!System_Functions::tableExist($options['saveHandler']['options']['name'])) {
+					$_migrationManager = new Modules_Dbmigrations_Framework_Manager();
+					$_migrationManager->upTo('System_Migrations_CreateTableSession');
+					$this->init();
+				}
+
 			}
 
-		}
+			parent::init();
 
-		parent::init();
+		}
 
 	}
 
