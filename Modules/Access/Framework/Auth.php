@@ -2,9 +2,9 @@
 
 /**
  * Класс для авторизации пользователя, он переопределяет синглтон Zend_Auth в дальнейшем следует его интерфейсу
- * 
- * @example 
- * 
+ *
+ * @example
+ *
  * Zend_Auth::getInstance()->getIdentity()
  *
  */
@@ -16,11 +16,11 @@ class Modules_Access_Framework_Auth extends Zend_Auth {
 	 * @var array
 	 */
 	protected $_plugins = array(
-		'Modules_Access_Framework_Auth_Plugin_Internet',
-		'Modules_Access_Framework_Auth_Plugin_RequestRsa',
-		'Modules_Access_Framework_Auth_Plugin_Request',
-		'Modules_Access_Framework_Auth_Plugin_Session',
-		'Modules_Access_Framework_Auth_Plugin_Cookie',
+		Modules_Access_Framework_Auth_Plugin_Internet::class,
+		Modules_Access_Framework_Auth_Plugin_RequestRsa::class,
+		Modules_Access_Framework_Auth_Plugin_Request::class,
+		Modules_Access_Framework_Auth_Plugin_Session::class,
+		Modules_Access_Framework_Auth_Plugin_Cookie::class,
 	);
 
 	protected $_userInfo;
@@ -31,7 +31,7 @@ class Modules_Access_Framework_Auth extends Zend_Auth {
 	 * @return Access_Framework_Auth
 	 */
 	public static function getInstance() {
-		
+
 		if (null === self::$_instance || !self::$_instance instanceof self) {
             self::$_instance = new self();
         }
@@ -53,7 +53,7 @@ class Modules_Access_Framework_Auth extends Zend_Auth {
 		) {
 			$this->setStorage(new Modules_Access_Framework_Auth_Storage_Cookie());
         }
-		
+
 		return parent::getStorage();
 	}
 
@@ -63,16 +63,16 @@ class Modules_Access_Framework_Auth extends Zend_Auth {
      * @return bool		возвращает true в случае успеза авторизации
      */
     public function bootstrap() {
-    	
+
     	foreach ($this->_plugins as $plugin) {
-    		
+
     		if (is_object($plugin)) {
     			$object = $plugin;
     		}
     		else if (is_string($plugin) && class_exists($plugin)) {
     			$object = new $plugin();
     		}
-    		
+
     		if (
     			$object instanceof Modules_Access_Framework_Auth_Plugin_Abstract
     			&& $object->authenticate()
@@ -82,7 +82,7 @@ class Modules_Access_Framework_Auth extends Zend_Auth {
     		}
 
     	}
-    	
+
     	return false;
 
     }
@@ -105,14 +105,14 @@ class Modules_Access_Framework_Auth extends Zend_Auth {
 	}
 
 	public function getUserInfo() {
-		
+
 		if ($this->getIdentity()) {
 			$model = new Modules_Access_Model_Users();
 			return $model->getUser($this->getIdentity()->username);
 		}
-		
+
 	}
-	
+
 	/**
 	 * Безопасное сохранение данных об авторизации
 	 *
@@ -124,13 +124,13 @@ class Modules_Access_Framework_Auth extends Zend_Auth {
 	}
 /*
 	public function getIdentity() {
-    	
+
 		$obj = new stdClass();
 		$obj->username = 'dirmax';
 		$obj->role_name = 'superadmin';
-		
+
 		return $obj;
-		
+
     }
 */
 }
