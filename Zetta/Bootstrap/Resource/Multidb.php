@@ -6,14 +6,20 @@
  */
 class Zetta_Bootstrap_Resource_Multidb extends Zend_Application_Resource_Multidb {
 
+	protected $_db;
+
 	public function init() {
 
-		parent::init();
+		$this->_db = parent::init();
 
-		$this
-			->_saveInRegistry()
-			->_saveConfigRegistry()
-			->_registerSqliteFunctions();
+		if (null != $this->_db) {
+
+			$this
+				->_saveInRegistry()
+				->_saveConfigRegistry()
+				->_registerSqliteFunctions();
+
+		}
 
 		return $this;
 

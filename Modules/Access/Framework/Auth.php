@@ -10,6 +10,9 @@
  */
 class Modules_Access_Framework_Auth extends Zend_Auth {
 
+	protected static $_bootstraped = false;
+
+
 	/**
 	 * Порядок проверки запросов авторизации
 	 *
@@ -28,13 +31,18 @@ class Modules_Access_Framework_Auth extends Zend_Auth {
 	/**
 	 * Паттерн синглтон
 	 *
-	 * @return Access_Framework_Auth
+	 * @return Modules_Access_Framework_Auth
 	 */
-	public static function getInstance() {
+	public static function getInstance($bootstrap = true) {
 
 		if (null === self::$_instance || !self::$_instance instanceof self) {
             self::$_instance = new self();
         }
+
+		if (true === $bootstrap && false === self::$_bootstraped) {
+			self::$_instance->bootstrap();
+			self::$_bootstraped = true;
+		}
 
         return self::$_instance;
 
@@ -122,15 +130,5 @@ class Modules_Access_Framework_Auth extends Zend_Auth {
 		Zend_Auth::getInstance()->getStorage()->write($result);
 		$this->_userInfo = $result;
 	}
-/*
-	public function getIdentity() {
 
-		$obj = new stdClass();
-		$obj->username = 'dirmax';
-		$obj->role_name = 'superadmin';
-
-		return $obj;
-
-    }
-*/
 }

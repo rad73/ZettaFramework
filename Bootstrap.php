@@ -38,6 +38,8 @@ class Bootstrap extends BootstrapQuick {
 		$this->bootstrap('Frontcontroller');
 		$this->bootstrap('Session');
 
+		$a = new Modules_Zfdebuginit_Bootstrap();
+
 		$bootstraps = glob(MODULES_PATH . DS . '*' . DS . 'Bootstrap.php');
 		$bootstraps = array_merge($bootstraps, glob(HEAP_PATH . DS . '*' . DS . 'Bootstrap.php'));
 

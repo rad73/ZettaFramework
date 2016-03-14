@@ -23,11 +23,11 @@ class Modules_Access_Bootstrap extends Zetta_BootstrapModules {
 
 		}
 
-		/* Авторизуем пользователя, теперь везде можем использоваеть Zend_Auth::getInstance() */
-		Modules_Access_Framework_Auth::getInstance()->bootstrap();
+		/* Прописываем свой инстанс в Zend_Auth::getInstance() */
+		Modules_Access_Framework_Auth::getInstance();
 
-		/* Расставляем права доступа */
-		Modules_Access_Framework_Acl::getInstance()->bootstrap();
+		/* Прописываем свой инстанс в Zend_Acl::getInstance() */
+		Modules_Access_Framework_Acl::getInstance();
 
 
 	}

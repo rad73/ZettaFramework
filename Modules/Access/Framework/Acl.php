@@ -11,6 +11,7 @@
 class Modules_Access_Framework_Acl extends Zend_Acl {
 
 	protected static $_instance;
+	protected static $_bootstraped = false;
 
 	protected $_modelRoles;
 	protected $_modelRules;
@@ -21,10 +22,15 @@ class Modules_Access_Framework_Acl extends Zend_Acl {
 	 *
 	 * @return Modules_Access_Framework_Acl
 	 */
-	public static function getInstance() {
+	public static function getInstance($bootstrap = true) {
 
 		if (self::$_instance == null) {
 			self::$_instance = new self();
+		}
+
+		if (true === $bootstrap && false === self::$_bootstraped) {
+			self::$_instance->bootstrap();
+			self::$_bootstraped = true;
 		}
 
 		return self::$_instance;
