@@ -266,7 +266,7 @@ abstract class System_Functions {
 	 */
 	public static function unlinkDir($dirname) {
 
-		$files = glob($dirname . '/*');
+		$files = glob($dirname . '/*', GLOB_NOSORT);
 
 		foreach ($files as $file) {
 

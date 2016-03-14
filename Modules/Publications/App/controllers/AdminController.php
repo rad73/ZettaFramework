@@ -357,7 +357,7 @@ class Modules_Publications_AdminController extends Zend_Controller_Action {
 		// копируем view скрипты
 		System_Functions::Copy($fromFolder . DS . 'views', $toFolder . DS . 'views' . DS . 'scripts' . DS . $name);
 
-		$files = glob($toViewFolder . DS . '*.*');
+		$files = glob($toViewFolder . DS . '*.*', GLOB_NOSORT);
 		$files[] = $toController;
 
 		foreach ($files as $file) {

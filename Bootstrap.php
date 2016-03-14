@@ -38,9 +38,8 @@ class Bootstrap extends BootstrapQuick {
 		$this->bootstrap('Frontcontroller');
 		$this->bootstrap('Session');
 
-		$filesModules = glob(MODULES_PATH . DS . '*' . DS . 'Bootstrap.php');
-		$filesHeap = glob(HEAP_PATH . DS . '*' . DS . 'Bootstrap.php');
-		$bootstraps = array_merge($filesModules, $filesHeap);
+		$bootstraps = glob(MODULES_PATH . DS . '*' . DS . 'Bootstrap.php', GLOB_NOSORT);
+		$bootstraps = array_merge($bootstraps, glob(HEAP_PATH . DS . '*' . DS . 'Bootstrap.php', GLOB_NOSORT));
 
 		$modules = array();
 

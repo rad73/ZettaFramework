@@ -10,10 +10,10 @@ class Modules_Dbmigrations_Framework_Manager {
 	 * @return array
 	 */
 	public function getMigrationClasses() {
-		
+
 		$array = array();
 		foreach (Zend_Registry::get('config')->Dbmigrations->search_pattern as $folder) {
-			$files = glob($folder);
+			$files = glob($folder, GLOB_NOSORT);
 			$array = array_merge($array, $files);
 		}
 
@@ -37,9 +37,9 @@ class Modules_Dbmigrations_Framework_Manager {
 	 * @return array
 	 */
 	public function getMasterBranch() {
-		
+
 		$fName = Zend_Registry::get('config')->Dbmigrations->master;
-		if (file_exists($fName) ) {		
+		if (file_exists($fName) ) {
 			return unserialize(file_get_contents($fName));
 		}
 		else {
@@ -53,7 +53,7 @@ class Modules_Dbmigrations_Framework_Manager {
 	 * @param string $migrationClass
 	 */
 	public function upTo($migrationClass, $params = false, $saveHistory = true) {
-		
+
 		if (false == class_exists($migrationClass)) {
 			return false;
 		}
@@ -62,7 +62,7 @@ class Modules_Dbmigrations_Framework_Manager {
 		$migration->up($params);
 
 		if ($saveHistory) {
-			
+
 			$table = new Modules_Dbmigrations_Model_History();
 			try {
 				$table->info();
@@ -72,13 +72,13 @@ class Modules_Dbmigrations_Framework_Manager {
 				// создаём таблицу истории
 				$this->upTo('Dbmigrations_Migrations_CreateTableHistory');
 			}
-	
+
 			$table->insert(array(
 				'date'	=>	date('Y-m-d H:i:s'),
 				'class_name'	=>	$migrationClass,
 				'comment'	=>	$migration->getComment(),
 			));
-			
+
 		}
 
 	}
@@ -93,7 +93,7 @@ class Modules_Dbmigrations_Framework_Manager {
 		if (false == class_exists($migrationClass)) {
 			$file = System_Init::classToDirName($migrationClass);
 			require_once($file);
-			
+
 			if (false == class_exists($migrationClass)) {
 				return false;
 			}
@@ -115,10 +115,10 @@ class Modules_Dbmigrations_Framework_Manager {
 	public function setCurrentToMaster() {
 
 		$fname = Zend_Registry::get('config')->Dbmigrations->master;
-		
+
 		$current = $this->getCurrentBranch();
 		file_put_contents($fname, serialize($current));
-		
+
 	}
 
 	/**
@@ -138,20 +138,20 @@ class Modules_Dbmigrations_Framework_Manager {
 
 	}
 
-	
+
 	protected function _filesToClass($files) {
-		
+
 		$resultArray = array();
 
 		foreach ($files as $file) {
 			$className = $this->_dirToNameClass($file);
-			
+
 			if (class_exists($className)) {
 				array_push($resultArray, $className);
 			}
 
 		}
-		
+
 		return $resultArray;
 	}
 
@@ -167,17 +167,17 @@ class Modules_Dbmigrations_Framework_Manager {
 	}
 
 	protected function _getClassName($file) {
-		
+
 		$intrest = array(T_CLASS, T_INTERFACE);
 		$tokens = token_get_all(file_get_contents($file));
-		
+
 		for($i = 0, $count = sizeof($tokens); $i < $count; $i++) {
 			if(in_array($tokens[$i][0], $intrest)) {
-				$i = $i+2;          
+				$i = $i+2;
 				return  $tokens[$i][1];
 			}
 		}
-		
+
 	}
 
 }

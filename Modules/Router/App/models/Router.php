@@ -251,7 +251,7 @@ class Modules_Router_Model_Router extends Zend_Db_Table  {
 
 		$return = array();
 
-		$heap_controllers = glob(HEAP_PATH . '/*/App/controllers/*Controller.php');
+		$heap_controllers = glob(HEAP_PATH . '/*/App/controllers/*Controller.php', GLOB_NOSORT);
 
 		foreach ($heap_controllers as $controller) {
 
