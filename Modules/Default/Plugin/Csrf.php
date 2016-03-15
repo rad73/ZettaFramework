@@ -23,7 +23,7 @@ class Modules_Default_Plugin_Csrf extends Zend_Controller_Plugin_Abstract {
 			$request->isPost()
 			&& (!$request->getParam('csrf_hash') || $request->getParam('csrf_hash') != $this->_securitySession->csrf_hash)
 		) {
-			throw new Exception('Access Denied (csrf attack detected)', 401);
+			$this->_setRequestMethodGet($request);
 		}
 
 		$this->_csrf_hash = md5(rand());
@@ -55,6 +55,13 @@ class Modules_Default_Plugin_Csrf extends Zend_Controller_Plugin_Abstract {
 
 		$this->getResponse()->setBody($body);
 
+	}
+
+	/**
+	 * Устанавливаю метод REQUEST_METHOD в GET
+	 */
+	protected function _setRequestMethodGet() {
+		$_SERVER['REQUEST_METHOD'] = 'GET';
 	}
 
 }
