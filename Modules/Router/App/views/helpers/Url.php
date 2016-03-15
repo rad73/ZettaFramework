@@ -18,7 +18,7 @@ class Zetta_View_Helper_Url extends Zend_View_Helper_Abstract {
 
     	if ($name == 'mvc') {
     		$router = $front->getRouter();
-        	$return = $router->assemble($urlOptions, $name, $reset, $encode);
+        	$return = $router->assemble($urlOptions, $name, $reset, $encode) . Zend_Controller_Router_Abstract::URI_DELIMITER;
     	}
     	else {
 

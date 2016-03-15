@@ -167,7 +167,7 @@ var _initBlocks = function () {
 			break;
 			case 'text':
 				_redactor.html(_this, _callback, {
-					toolbar: false,
+					toolbarExternal: '-1',
 					allowedTags: ['br']
 				});
 				_redactor._view._bodyClick({pageX: _parent.offset().left, pageY: _parent.offset().top});
