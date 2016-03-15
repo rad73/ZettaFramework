@@ -1,55 +1,54 @@
-if (!RedactorPlugins) var RedactorPlugins = {};
+(function($)
+{
+    $.Redactor.prototype.filemanager = function()
+    {
+    return {
+        init: function () {
 
-RedactorPlugins.filemanager = {
-	init: function() {
+            if (this.button.get('image').length) this.button.remove('image');
+            if (this.button.get('file').length) this.button.remove('file');
 
-		if (this.buttonGet('image').length) this.buttonRemove('image');
-		if (this.buttonGet('file').length) this.buttonRemove('file');
+            var button = this.button.addBefore ('link', 'image', this.lang.get('image'));
+            this.button.addCallback(button, $.proxy(function () {
+                this.filemanager.makeFilemanager();
+            }, this));
+        },
+        makeFilemanager: function () {
+            var _this = this;
+            this.selection.save();
 
-        this.buttonAddBefore('video', 'image', 'Insert Image', $.proxy(function() {
+            $('body').append('<div id="file_manager" title="Выберите файл"/>');
+            $('#file_manager')
+                .dialog({
+                    resizable: false,
+                    width: 950,
+                    height: 500,
+                    modal: true,
+                    close: function (event, ui) {
+                        $('#file_manager').remove();
+                    }
+                })
+                .elfinder({
+                    url: _baseUrl + '/mvc/editor/index/elfinderconnector/?csrf_hash=' + _csrf_hash,
+                    lang: 'ru',
+                    getFileCallback: function (file, fm) {
 
-        	this.makeFilemanager();
+                        $('#file_manager').remove();
 
-        }, this));
+                        _this.selection.restore();
 
-    },
-    makeFilemanager: function () {
+                        if (-1 == file.mime.indexOf('image')) {
+                            _this.insert.html('<a href="' + file.url + '">' + _this.selection.getHtml() + '</a>');
+                        }
+                        else {
+                            _this.insert.html('<img src="' + file.url + '" alt=""/>' + _this.selection.getHtml());
+                        }
 
-    	var _this = this;
-    	this.selectionSave();
+                    }
 
-    	$('body').append('<div id="file_manager" title="Выберите файл"/>');
-		$('#file_manager')
-			.dialog({
-				resizable: false,
-				width: 950,
-				height: 500,
-				modal: true,
-				close: function( event, ui ) {
-					$('#file_manager').remove();
-				}
-			})
-			.elfinder({
-				url : _baseUrl + '/mvc/editor/index/elfinderconnector/?csrf_hash=' + _csrf_hash,
-				lang: 'ru',
-				getFileCallback: function (file, fm) {
+                });
 
-		        	fm.destroy();
-		        	$('#file_manager').remove();
-
-					_this.selectionRestore()
-
-					if (-1 == file.mime.indexOf('image')) {
-						_this.linkInsert('<a href="' + file.url + '">' + _this.getSelection() + '</a>', _this.getSelection(), file.url);
-					}
-					else {
-		        		_this.execCommand('inserthtml', '<img src="' + file.url + '" alt=""/>');
-					}
-
-				}
-
-			});
-
+        }
     }
-
 };
+})(jQuery);

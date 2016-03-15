@@ -685,14 +685,14 @@ ZETTA {
 	/* всплывающая панель реактора */
 	#zetta_editor_toolbar {
 		position: absolute;
-		min-width: 792px;
+		min-width: 820px;
 		min-height: 31px;
-		z-index: 10005;
+		z-index: 1005;
 		margin-top: -90px;
 	}
 
-		#zetta_editor_toolbar .redactor_toolbar {
-			border: 5px solid #000;
+		#zetta_editor_toolbar .redactor-toolbar {
+			border: 2px solid #000;
 			border-radius: 5px;
 		}
 
