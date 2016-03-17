@@ -86,6 +86,7 @@ class Zetta_Form extends Zend_Form {
 				break;
 			case 'captcha':
 					$options['decorators'] = $this->elementCaptchaDecorators;
+					$options['autocomplete'] = "off";
 
 					$wordLen = isset(Zend_Registry::get('config')->app->captcha['wordLen'])
 						? Zend_Registry::get('config')->app->captcha['wordLen']
@@ -110,7 +111,7 @@ class Zetta_Form extends Zend_Form {
 					    'imgUrl'	=> HTTP_HOST . '/Temp/Captcha/',
 					    'wordLen'	=>  $wordLen,
 					    'lineNoiseLevel'	=> $lineNoiseLevel,
-					    'dotNoiseLevel'	=> $dotNoiseLevel
+					    'dotNoiseLevel'	=> $dotNoiseLevel,
 					);
 
 					$options['prefixPath']['captcha'] = array(
