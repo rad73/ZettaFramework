@@ -43,7 +43,7 @@ class Zetta_Bootstrap_Resource_Db extends Zend_Application_Resource_Db {
 	 */
 	protected function _saveConfigRegistry() {
 
-		Zend_Registry::get('config')->Db = (object)$this->getOptions();
+		Zend_Registry::get('config')->Db = (object)$this->getDbAdapter()->getConfig();
 		return $this;
 
 	}
