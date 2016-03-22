@@ -19,6 +19,7 @@
         "zendframework/zendframework1": "*",
         "leafo/lessphp": "*",
         "leafo/scssphp": "*",
+        "matthiasmullie/minify": "*",
         "dirmax/zfdebug": "*",
         "phpunit/phpunit": "*"
     },

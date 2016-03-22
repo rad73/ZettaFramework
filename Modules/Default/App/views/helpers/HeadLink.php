@@ -1,6 +1,7 @@
 <?php
 
-use Leafo\ScssPhp\Compiler;
+use Leafo\ScssPhp;
+use MatthiasMullie\Minify;
 
 class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 
@@ -9,7 +10,83 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 	const DERIMITER = '__';
 
 
-	public function itemToString(stdClass $item) {
+	public function createData(array $attributes) {
+
+		$item = parent::createData($attributes);
+		return $this->_preprocessCSS($item);
+
+	}
+
+	/**
+	 * Minify css files and implode to one file
+	 * 
+	 * @return self
+	 */
+	public function minify() {
+
+		$filesToMinify = array();
+		$array = $this->getContainer();
+
+		while (list($index, $item) = each($array)) {
+
+            if ($item->rel == 'stylesheet' && false != $this->_getLocalPathFile($item->href)) {
+
+            	$array->offsetUnset($index);
+            	$filesToMinify[] = $item->href;
+            	reset($array);
+
+            }
+
+        }
+
+        $hash = crc32(implode(',', $filesToMinify));
+        $cacheFileName = 'minify' . self::DERIMITER . $hash . '.css';
+        $cacheFilePath = self::TEMP_DIR . DS . $cacheFileName;
+
+        $this->appendStylesheet($cacheFilePath);
+
+        if (!is_readable($savePath = FILE_PATH . $cacheFilePath)) {
+
+        	$content = '';
+
+        	foreach ($filesToMinify as $file) {
+        		$content .= $this->_getFileContent($file);
+        	}
+
+			$minifier = new Minify\CSS($content);
+			$minifiedData = $minifier->minify();
+
+			$this->_clean($cacheFileName);
+			file_put_contents($savePath, $minifiedData);
+
+        }
+
+		return $this;        
+
+	}
+
+	/**
+	 * After output links clean storage
+	 * 
+	 * @param  stdClass $item
+     * @return string
+	 */
+	public function toString($indent = null) {
+		
+		$return = parent::toString($indent);
+		$this->getContainer()->exchangeArray(array());
+
+		return $return;
+
+	}
+
+	/**
+	 * Preprocess sass, scss and less files
+	 * 
+	 * @param stdClass $item
+	 * @retrun stdClass
+	 */
+	protected function _preprocessCSS(stdClass $item) {
 
 		if (($isLess = $this->_isLess($item->href)) || ($isScss = $this->_isScss($item->href))) {
 
@@ -27,8 +104,8 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 						break;
 
 					case $isScss:
-							$compiler = new Compiler();
-							$compiler->setLineNumberStyle(Compiler::LINE_COMMENTS);
+							$compiler = new ScssPhp\Compiler();
+							$compiler->setLineNumberStyle(ScssPhp\Compiler::LINE_COMMENTS);
 							$compiler->setImportPaths($nonCompiledDirName);
 						break;
 				}
@@ -41,7 +118,7 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 
 		}
 
-		return parent::itemToString($item);
+		return $item;
 
 	}
 
@@ -79,8 +156,11 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 	 * @param string $path
 	 * @return bool
 	 */
-	protected function _isFileLocal($path) {
-		return is_readable($path);
+	protected function _getLocalPathFile($path) {
+
+		$parseUrl = parse_url(FILE_PATH . $path);
+		return is_readable($parseUrl['path']) ? realpath($parseUrl['path']) : false;
+
 	}
 
 	/**
@@ -91,8 +171,8 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 	 */
 	protected function _getFileDirectory($pathFile) {
 
-		if ($this->_isFileLocal(FILE_PATH . $pathFile)) {
-			return dirname(FILE_PATH . $pathFile);
+		if ($localPathFile = $this->_getLocalPathFile($pathFile)) {
+			return dirname($localPathFile);
 		}
 
 	}
@@ -105,8 +185,10 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 	 */
 	protected function _getFileContent($pathFile) {
 
-		if ($this->_isFileLocal(FILE_PATH . $pathFile)) {
-			$data = file_get_contents(FILE_PATH . $pathFile);
+		$data = false;
+
+		if ($localPathFile = $this->_getLocalPathFile($pathFile)) {
+			$data = file_get_contents($localPathFile);
 		}
 		else {
 
@@ -137,10 +219,10 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 	protected function _getCompiledFileName($pathFile) {
 
 
-		if ($this->_isFileLocal(FILE_PATH . $pathFile)) {
+		if ($localPathFile = $this->_getLocalPathFile($pathFile)) {
 
-			$fileName = basename($pathFile);
-			$hash = filemtime(FILE_PATH . $pathFile);
+			$fileName = basename($localPathFile);
+			$hash = filemtime($localPathFile);
 
 		}
 		else {
