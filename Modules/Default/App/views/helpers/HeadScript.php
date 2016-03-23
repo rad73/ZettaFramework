@@ -11,7 +11,7 @@ class Zetta_View_Helper_HeadScript extends Zend_View_Helper_HeadScript {
 	 * 
 	 * @return self
 	 */
-	public function minify() {
+	public function minify($suffix = '') {
 
 		$filesToMinify = array();
 		$array = $this->getContainer();
@@ -29,7 +29,7 @@ class Zetta_View_Helper_HeadScript extends Zend_View_Helper_HeadScript {
         }
 
         $hash = crc32(implode(',', $filesToMinify));
-        $cacheFileName = 'jsmin' . self::$DERIMITER . $hash . '.js';
+        $cacheFileName = 'jsmin' . $suffix . self::$DERIMITER . $hash . '.js';
         $cacheFilePath = self::$TEMP_DIR . DS . $cacheFileName;
 
         $this->appendFile($cacheFilePath, 'text/javascript', array('async' => 'async'));
