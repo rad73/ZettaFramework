@@ -37,7 +37,7 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
         }
 
         $hash = crc32(implode(',', $filesToMinify));
-        $cacheFileName = 'min' . self::$DERIMITER . $hash . '.css';
+        $cacheFileName = 'jsmin' . self::$DERIMITER . $hash . '.css';
         $cacheFilePath = self::$TEMP_DIR . DS . $cacheFileName;
 
         $this->appendStylesheet($cacheFilePath);
