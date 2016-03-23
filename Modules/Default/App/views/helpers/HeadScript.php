@@ -32,7 +32,7 @@ class Zetta_View_Helper_HeadScript extends Zend_View_Helper_HeadScript {
         $cacheFileName = 'jsmin' . self::$DERIMITER . $hash . '.js';
         $cacheFilePath = self::$TEMP_DIR . DS . $cacheFileName;
 
-        $this->appendFile($cacheFilePath);
+        $this->appendFile($cacheFilePath, 'text/javascript', array('async' => 'async'));
 
         if (!is_readable($savePath = FILE_PATH . $cacheFilePath)) {
 
