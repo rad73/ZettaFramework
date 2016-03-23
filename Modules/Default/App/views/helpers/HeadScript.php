@@ -29,7 +29,7 @@ class Zetta_View_Helper_HeadScript extends Zend_View_Helper_HeadScript {
         }
 
         $hash = crc32(implode(',', $filesToMinify));
-        $cacheFileName = 'cssmin' . self::$DERIMITER . $hash . '.js';
+        $cacheFileName = 'jsmin' . self::$DERIMITER . $hash . '.js';
         $cacheFilePath = self::$TEMP_DIR . DS . $cacheFileName;
 
         $this->appendFile($cacheFilePath);
