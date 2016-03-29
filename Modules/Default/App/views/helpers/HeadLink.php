@@ -16,7 +16,7 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 
 	/**
 	 * Minify css files and implode to one file
-	 * 
+	 *
 	 * @return self
 	 */
 	public function minify($suffix = '') {
@@ -58,17 +58,19 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 
         }
 
-		return $this;        
+		return $this;
 
 	}
 
 	/**
 	 * Preprocess sass, scss and less files
-	 * 
+	 *
 	 * @param stdClass $item
 	 * @retrun stdClass
 	 */
 	protected function _preprocessCSS(stdClass $item) {
+
+		$isScss = $isLess = false;
 
 		if (($isLess = $this->_isLess($item->href)) || ($isScss = $this->_isScss($item->href))) {
 
@@ -92,6 +94,18 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 						break;
 				}
 
+				$compiler->registerFunction("base64", function($arg) use ($nonCompiledDirName, $isLess, $isScss) {
+
+					$filePath = $isScss ? $arg[0][2][0] : $arg[2][0];
+
+					if ($imageBase64 = $this->_base64Image(realpath($nonCompiledDirName . DS . $filePath))) {
+						$filePath = $imageBase64;
+					}
+				    
+				    return $filePath;
+
+				});
+
 				$compiled = $compiler->compile($this->_getFileContent($nonCompiledFileName));
 				$this->_clean($compiledFileName);
 				file_put_contents($savePath, $compiled);
@@ -106,7 +120,7 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 
 	/**
 	 * Check file is less?
-	 * 
+	 *
 	 * @param string $path
 	 * @return bool
 	 */
@@ -120,7 +134,7 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 
 	/**
 	 * Check file is scss?
-	 * 
+	 *
 	 * @param string $path
 	 * @return bool
 	 */
@@ -129,6 +143,23 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 		if (stristr($path, '.scss') || stristr($path, '.sass')) {
 			return true;
 		}
+
+	}
+
+	/**
+	 * Make css compatible base64 image string
+	 * 
+	 * @param string $imagePath
+	 * @return string
+	 */
+	protected function _base64Image($imagePath) {
+
+		if (is_readable($imagePath)) {
+	    	$nameExploded = explode('.', basename($imagePath));
+	    	return 'data:image/' . end($nameExploded) . ';base64,' . base64_encode(file_get_contents($imagePath));
+	    }
+
+	    return false;
 
 	}
 
