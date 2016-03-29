@@ -156,7 +156,8 @@ class Zetta_View_Helper_HeadLink extends Zend_View_Helper_HeadLink {
 
 		if (is_readable($imagePath)) {
 	    	$nameExploded = explode('.', basename($imagePath));
-	    	return 'data:image/' . end($nameExploded) . ';base64,' . base64_encode(file_get_contents($imagePath));
+	    	$ext = ($end = end($nameExploded)) == 'svg' ? 'svg+xml' : $end;
+	    	return 'data:image/' . $ext . ';base64,' . base64_encode(file_get_contents($imagePath));
 	    }
 
 	    return false;
