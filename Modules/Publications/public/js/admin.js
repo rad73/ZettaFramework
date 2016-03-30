@@ -79,8 +79,16 @@ $(function () {
 		
 		$('input[z_image_dialog=1]').each(function () {
 			
+			var _isImage = $(this).val().match(/\.(jpg|jpeg|png|gif)$/);
+
 			$(this)
-				.after('<span class="z_folder_browse"><!-- --></span><div class="z_temp_image">' + ($(this).val() ? '<img src="' + $(this).val() + '"/>' : '')+ '</div>')
+				.after('<span class="z_folder_browse"><!-- --></span><div class="z_temp_image">' 
+					+ ( 
+						$(this).val() 
+							? _isImage ? '<img src="' + $(this).val() + '"/>' : '<a href="' + $(this).val() + '">' + $(this).val() + '</a>'
+							: ''
+					)
+					+ '</div>')
 				.parents('.form_row').addClass('z_image_browse_row');
 				
 			$(this).focus(function () {
@@ -88,24 +96,31 @@ $(function () {
 			});
 			
 		});
+
+		var _dialogOpen = false;
 			
 		$('input[z_image_dialog=1], .z_folder_browse').click(function () {
 			
+			if (_dialogOpen) return false; _dialogOpen = true;
+
 			var _parent = $(this).parents('.form_row:first')
 				_input = $('input', _parent),
-				_object = $('.z_temp_image', _parent);
-			
+				_object = $('.z_temp_image', _parent);				
+
 			_redactor.image(_object, function (data, object) {
 				
-				var _matches = data.match(/src="(.+?)"/);
+				var _matches = data.match(/(src|href)="(.+?)"/);
 
 				_matches
-					? _input.val(_matches[1])
+					? _input.val(_matches[2])
 					: _input.val('');
 
-			})
-			
+				_dialogOpen = false;
+
+			}, true);
+
 			return false;
+
 		});
 		
 	}

@@ -42,7 +42,7 @@ var _redactor = {
 	 * @param object object							Объект редактирования
 	 * @param function callback(html, object)		Функция при завершении редактирования
 	 */
-	image: function (object, callback) {
+	image: function (object, callback, disableEdit) {
 
 		if (this._objectList[object]) return false;
 
@@ -72,7 +72,7 @@ var _redactor = {
 			.unbind('paste')
 			.bind('paste', function () { return false; });
 
-		if (this._object.html().indexOf('img') == -1) {
+		if (this._object.html().indexOf('img') == -1 || disableEdit) {
 			($.proxy(this._object.redactor('core.getObject').filemanager.makeFilemanager, this._object.redactor('core.getObject')))();
 		}
 		else {
@@ -153,11 +153,9 @@ var _redactor = {
 
 	_view: {
 		onCreate: function () {
+			
 			$('.redactor_box').parent().addClass('in_edit');
-
-			$('.redactor_editor')
-				.unbind('click', this._bodyClick)
-				.bind('click', this._bodyClick);
+			
 
 			$('#zetta_editor_toolbar')
 				.show()
@@ -168,8 +166,6 @@ var _redactor = {
 
 			$('#zetta_editor_toolbar').empty();
 			$('.in_edit').removeClass('in_edit');
-
-			$('.redactor_editor').unbind('click', this._bodyClick);
 
 			$('#zetta_editor_toolbar').hide();
 			$('.zetta_edit_toolbar_fixed').removeClass('zetta_edit_toolbar_fixed');
@@ -205,11 +201,11 @@ var _redactor = {
 			imageUpload: _baseUrl + '/mvc/editor/index/imageupload/?csrf_hash=' + _csrf_hash,
 			fileUpload: _baseUrl + '/mvc/editor/index/fileupload/?csrf_hash=' + _csrf_hash,
 			imageGetJson: _baseUrl + '/mvc/editor/index/images/',
-			focus: false,
 			emptyHtml: '',
             plugins: ['clearformatting', 'undoredo', 'filemanager', 'video', 'table', 'fontfamily', 'fontsize', 'fontcolor', 'pin'],
 			deniedTags: ['html', 'head', 'link', 'body', 'meta', 'style', 'applet'],
-			paragraphy: false,
+			paragraphize: false,
+			focus: true,
 			initCallback: function () {
     			var button = this.button.addFirst ('save', this.lang.get('save'));
 
@@ -217,6 +213,12 @@ var _redactor = {
 		    		_this._object.blur();
 			    	_this.destroy()
 				});
+			},
+			clickCallback: function (e) {
+				_this._view._bodyClick(e);
+			},
+			fileSelectedCallback: function (e) {
+				_redactor._dispatch(e);
 			}
 
 		}, options);

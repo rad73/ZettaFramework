@@ -38,11 +38,15 @@
                         _this.selection.restore();
 
                         if (-1 == file.mime.indexOf('image')) {
-                            _this.insert.html('<a href="' + file.url + '">' + _this.selection.getHtml() + '</a>');
+                            _this.insert.set('<a href="' + file.url + '">' + file.url  + '</a>');
                         }
                         else {
-                            _this.insert.html('<img src="' + file.url + '" alt=""/>' + _this.selection.getHtml());
+                            _this.insert.set('<img src="' + file.url + '" alt=""/>');
                         }
+
+                        setTimeout(function () {
+                            _this.core.setCallback('fileSelected', file.url);
+                        }, 10);
 
                     }
 
