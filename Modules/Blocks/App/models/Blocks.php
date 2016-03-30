@@ -39,12 +39,19 @@ class Modules_Blocks_Model_Blocks extends Zetta_Db_Table  {
 	 * @param string $blockName		имя блока
 	 * @return Zend_Db_Row
 	 */
-	public function getBlock($blockName) {
+	public function getBlock($blockName, $inherit = true) {
 
 		foreach($this->fetchFull() as $i=>$row) {
 
 			if ($row->block_name == $blockName) {
-				return $row;
+
+				if (true == $inherit) {
+					return $row;
+				}
+				else if ($this->_currentRouteId == $row->route_id) {
+					return $row;
+				}
+
 			}
 
 		}
