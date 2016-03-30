@@ -38,7 +38,7 @@ class Zetta_View_Helper_Block extends Zend_View_Helper_Abstract {
 
     public function block($blockName, $blockType = 'html', $defaultValue = false, $inherit = true) {
 
-    	$block = $this->_blockModel->getBlock($blockName);
+    	$block = $this->_blockModel->getBlock($blockName, $inherit);
     	$this->view->block = $block;
     	$this->view->block_name = $blockName;
     	$this->view->block_type = $blockType;

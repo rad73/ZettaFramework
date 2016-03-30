@@ -821,6 +821,7 @@ ZETTA {
 
 .z_admin_block {
 	border: 1px dotted rgb(28, 190, 97);
+	min-width: 30px;
 }
 
 	.z_admin_block .z_icons_editable {
