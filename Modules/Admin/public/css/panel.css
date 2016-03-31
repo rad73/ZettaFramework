@@ -699,7 +699,7 @@ ZETTA {
 
 	/* Настройки ui.jquery */
 	.zetta_front .ui-front, .zetta_front .ui-widget {
-		z-index: 10100;
+		z-index: 10100 !important;
 	}
 
 		.zetta_front .ui-sortable-helper,
@@ -717,6 +717,7 @@ ZETTA {
 
 		.zetta_front .ui-widget-overlay {
 			background-repeat: repeat;
+			z-index: 10090 !important;
 		}
 
 		.zetta_front .ui-dialog P .ui-icon {

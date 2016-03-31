@@ -31,6 +31,7 @@
                 .elfinder({
                     url: _baseUrl + '/mvc/editor/index/elfinderconnector/?csrf_hash=' + _csrf_hash,
                     lang: 'ru',
+                    useBrowserHistory: false,
                     getFileCallback: function (file, fm) {
 
                         $('#file_manager').remove();
