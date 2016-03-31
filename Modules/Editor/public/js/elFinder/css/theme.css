@@ -565,6 +565,7 @@
   background-color: #f2f2f2;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.1) inset;
   border-radius: 6px;
+  border: none;
 }
 .elfinder .elfinder-cwd-view-icons .elfinder-cwd-file:hover *,
 .elfinder .elfinder-cwd-view-icons .elfinder-cwd-file:active *,
