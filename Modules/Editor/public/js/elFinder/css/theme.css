@@ -51,7 +51,8 @@
 }
 /* File Icons */
 /* default settings */
-.elfinder-cwd-icon {
+.elfinder-cwd-icon,
+.elfinder-cwd-view-list td .elfinder-cwd-icon {
   background-image: none;
   overflow: hidden;
 }
