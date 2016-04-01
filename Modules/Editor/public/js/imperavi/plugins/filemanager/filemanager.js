@@ -14,8 +14,9 @@
             }, this));
         },
         makeFilemanager: function () {
+            
             var _this = this;
-            this.selection.save();
+            _this.selection.get();
 
             $('body').append('<div id="file_manager" title="Выберите файл"/>');
             $('#file_manager')
@@ -31,19 +32,21 @@
                 .elfinder({
                     url: _baseUrl + '/mvc/editor/index/elfinderconnector/?csrf_hash=' + _csrf_hash,
                     lang: 'ru',
+                    allowShortcuts: false,
                     useBrowserHistory: false,
                     getFileCallback: function (file, fm) {
 
                         $('#file_manager').remove();
 
-                        _this.selection.restore();
+                        var _html = (-1 == file.mime.indexOf('image'))
+                            ? '<a href="' + file.url + '">' + file.url  + '</a>'
+                            : '<img src="' + file.url + '" alt=""/>';
 
-                        if (-1 == file.mime.indexOf('image')) {
-                            _this.insert.set('<a href="' + file.url + '">' + file.url  + '</a>');
-                        }
-                        else {
-                            _this.insert.set('<img src="' + file.url + '" alt=""/>');
-                        }
+                        (typeof(_this.opts.replaceFull) != 'undefined' && _this.opts.replaceFull == true)
+                            ? _this.insert.set(_html)
+                            : _this.insert.html(_html);
+
+                        _this.code.sync();
 
                         setTimeout(function () {
                             _this.core.setCallback('fileSelected', file.url);

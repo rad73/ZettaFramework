@@ -66,7 +66,7 @@ var _redactor = {
 
 		}
 
-		this._create({toolbarExternal: 'null'});
+		this._create({toolbarExternal: 'null', focus: false, saveWhenFileSelected: true, replaceFull: true});
 
 		this._object
 			.unbind('paste')
@@ -146,7 +146,6 @@ var _redactor = {
 
 		if (_destroy == true) {
 			this.destroy();
-
 		}
 
 	},
@@ -218,7 +217,11 @@ var _redactor = {
 				_this._view._bodyClick(e);
 			},
 			fileSelectedCallback: function (e) {
-				_redactor._dispatch(e);
+				
+				if (options && typeof options.saveWhenFileSelected  != 'undefined' && options.saveWhenFileSelected == true) {
+					_redactor._dispatch(e);
+				}
+
 			}
 
 		}, options);

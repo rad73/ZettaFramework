@@ -115,6 +115,8 @@ $(function () {
 					? _input.val(_matches[2])
 					: _input.val('');
 
+				_object.html(data);
+
 				_dialogOpen = false;
 
 			}, true);
