@@ -66,7 +66,13 @@ var _redactor = {
 
 		}
 
-		this._create({toolbarExternal: 'null', focus: false, saveWhenFileSelected: true, replaceFull: true});
+		this._create({
+			toolbarExternal: 'null', 
+			focus: false, 
+			saveWhenFileSelected: true, 
+			replaceFull: true,
+			paragraphize: true
+		});
 
 		this._object
 			.unbind('paste')
@@ -203,7 +209,7 @@ var _redactor = {
 			emptyHtml: '',
             plugins: ['clearformatting', 'undoredo', 'filemanager', 'video', 'table', 'fontfamily', 'fontsize', 'fontcolor', 'pin'],
 			deniedTags: ['html', 'head', 'link', 'body', 'meta', 'style', 'applet'],
-			paragraphize: false,
+			paragraphize: true,
 			focus: true,
 			initCallback: function () {
     			var button = this.button.addFirst ('save', this.lang.get('save'));
