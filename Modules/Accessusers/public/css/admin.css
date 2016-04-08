@@ -53,12 +53,14 @@
 	}
 
 	#z_admin_panel #z_usermenu_widget .z_ico_profile {
-		background: url('../images/admin/ico_profile.png') no-repeat;
+		background: url('../images/admin/ico_profile.svg') no-repeat;
+		background-size: 16px;
 		margin-right: 20px;
 	}
 	
 	#z_admin_panel #z_usermenu_widget .z_ico_super_profile {
-		background: url('../images/admin/ico_super_profile.png') no-repeat;
+		background: url('../images/admin/ico_super_profile.svg') no-repeat;
+		background-size: 16px;
 		margin-right: 20px;
 	}
 
@@ -69,5 +71,6 @@
 	}
 	
 	#z_usermenu_widget .z_exit {
-		background: transparent url('../images/admin/ico_exit.png') no-repeat;
+		background: transparent url('../images/admin/ico_exit.svg') no-repeat;
+		background-size: 16px;
 	}	

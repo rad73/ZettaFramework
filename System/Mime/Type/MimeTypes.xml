@@ -137,6 +137,8 @@
 		<avi description="" value="video/x-msvideo">video/x-msvideo</avi>
 		<movie description="" value="video/x-sgi-movie">video/x-sgi-movie</movie>
 		<ice description="" value="x-conference-xcooltalk">x-conference-xcooltalk</ice>
+		<svg description="" value="image/svg+xml">image/svg+xml</svg>
+		<svgz description="" value="image/svg+xml">image/svg+xml</svgz>
 	</MimeTypes>
 	<DefaultMimeTypes description="MIME тип по умолчанию" value="application/octet-stream">application/octet-stream</DefaultMimeTypes>
 </config>

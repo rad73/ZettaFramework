@@ -142,11 +142,12 @@ ZETTA {
 			}
 
 		#z_admin_panel #z_manage_link {
-			background: url('../images/panel/ico_manage.png') no-repeat;
+			background: url('../images/panel/ico_manage.svg') no-repeat;
 			text-decoration: none;
 			position: absolute;
 			top: 15px;
 			left: 135px;
+			background-size: 16px 16px;
 		}
 
 			#z_admin_panel #z_manage_link SPAN {
@@ -233,6 +234,10 @@ ZETTA {
 			margin-right: 0;
 		}
 
+			#z_admin_panel .z_widget_item A IMG {
+				width: 16px;
+			}
+
 
 	#z_ajax_loader {
 		top: 7px;
@@ -309,6 +314,7 @@ ZETTA {
 
 			#z_window .z_item IMG {
 				margin-right: 15px;
+    			width: 26px;
 			}
 
 		#z_window #z_close {
@@ -359,6 +365,7 @@ ZETTA {
 
 		#z_window #z_module_image {
 			float: left;
+			width: 26px;
 		}
 
 		#z_window H1 {

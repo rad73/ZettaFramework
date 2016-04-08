@@ -104,6 +104,10 @@ class Zetta_Form extends Zend_Form {
 						? Zend_Registry::get('config')->app->captcha['provider']
 						: 'Image';
 
+					$expiration = isset(Zend_Registry::get('config')->app->captcha['expiration'])
+						? Zend_Registry::get('config')->app->captcha['expiration']
+						: '600';
+
 					$options['captcha'] = array(
 					    'captcha' => $provider,
 					    'font' => SYSTEM_PATH . '/public/font/captcha_font.ttf',
@@ -112,6 +116,7 @@ class Zetta_Form extends Zend_Form {
 					    'wordLen'	=>  $wordLen,
 					    'lineNoiseLevel'	=> $lineNoiseLevel,
 					    'dotNoiseLevel'	=> $dotNoiseLevel,
+					    'expiration'	=> $expiration,
 					);
 
 					$options['prefixPath']['captcha'] = array(
