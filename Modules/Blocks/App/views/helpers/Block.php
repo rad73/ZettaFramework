@@ -36,7 +36,7 @@ class Zetta_View_Helper_Block extends Zend_View_Helper_Abstract {
 
 	}
 
-    public function block($blockName, $blockType = 'html', $defaultValue = false, $inherit = true) {
+    public function block($blockName, $blockType = 'html', $defaultValue = false, $inherit = true, $vsprintfParams = false) {
 
     	$block = $this->_blockModel->getBlock($blockName, $inherit);
     	$this->view->block = $block;
@@ -57,7 +57,7 @@ class Zetta_View_Helper_Block extends Zend_View_Helper_Abstract {
 			$return = $this->view->render('block/adminWrapper.phtml');
     	}
 
-    	return $return;
+    	return is_array($vsprintfParams) && !$this->isAdmin() ? vsprintf($return, $vsprintfParams) : $return;
 
     }
 

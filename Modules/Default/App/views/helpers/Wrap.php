@@ -10,7 +10,7 @@ class Zetta_View_Helper_Wrap extends Zend_View_Helper_Abstract {
 	 * @param string $text
 	 * @return string
 	 */
-    public function wrap($name, $function = false, $placeholderName = 'body', $model = null, $params = array()) {
+    public function wrap($name, $function = false, $placeholderName = 'body', $model = null) {
 		
     	if ('content_item' == $placeholderName || 'content' == $placeholderName) {
     		$this->view->placeholder($placeholderName)->captureStart();
@@ -29,8 +29,13 @@ class Zetta_View_Helper_Wrap extends Zend_View_Helper_Abstract {
     		Zend_View_Helper_Placeholder_Registry::getRegistry()->deleteContainer($placeholderName);
     	}
     	
+        if (sizeof($model)) {
+            foreach ($model as $k=>$v) {
+                $this->view->$k =  $v;
+            }
+        }
         $this->view->$placeholderName = $return ? $return : $resultEcho;
-		$this->view->params = $params;
+                
 		$return = $this->view->render($name);
 		
 		unset($this->view->$placeholderName);
