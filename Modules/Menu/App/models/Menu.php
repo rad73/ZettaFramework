@@ -78,7 +78,7 @@ class Modules_Menu_Model_Menu extends Zetta_Db_Table  {
 					$return[$i]['parent_id'] = $row['parent_route_id'];
 					$return[$i]['disable'] = $parentDisable;
 
-					unset($return[$i]['route_id'], $return[$i]['parent_route_id'], $return[$i]['childs']);
+					unset($return[$i]['parent_route_id'], $return[$i]['childs']);
 
 					if (sizeof($sections)) {
 						foreach ($sections as $item) {
@@ -273,7 +273,7 @@ class Modules_Menu_Model_Menu extends Zetta_Db_Table  {
 
 				foreach ($parents as $row) {
 
-					if ($row['item_id'] == $root_id) {
+					if ($row['route_id'] == $root_id) {
 						return $row['childs'];
 					}
 					else {
