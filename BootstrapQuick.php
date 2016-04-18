@@ -79,6 +79,7 @@ class BootstrapQuick extends Zend_Application_Bootstrap_Bootstrap {
 		}
 
 		Zend_Registry::set('Logger', $logger);
+		Zend_Registry::set('Debugger', new Zend_Log(new Zetta_Log_Writers_Memory()));
 
 	}
 
