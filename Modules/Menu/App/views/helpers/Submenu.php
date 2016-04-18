@@ -6,10 +6,10 @@
  */
 class Zetta_View_Helper_Submenu extends Zend_View_Helper_Action {
 
-    public function submenu($level = 1) {
+    public function submenu($level = 1, $menuId = 1) {
 
     	$menuModel = new Modules_Menu_Model_Menu();
-    	$submenuItems = $menuModel->getSubmenu($level);
+    	$submenuItems = $menuModel->getSubmenu($level, $menuId);
 
     	$view = $this->view;
 
@@ -18,8 +18,6 @@ class Zetta_View_Helper_Submenu extends Zend_View_Helper_Action {
 			->addBasePath(HEAP_PATH . DS . 'Menu/App/views')
 		;
 
-
-    	$menuModel = new Modules_Menu_Model_Menu();
     	$view->tree = $submenuItems;
 
     	$return = '';

@@ -244,9 +244,10 @@ class Modules_Menu_Model_Menu extends Zetta_Db_Table  {
 	 * Получаем субменю определённого уровня
 	 *
 	 * @param int $level	Уровень с которого выводить
+	 * @param int $menuId	Из какого меню брать разделы
 	 * @return array
 	 */
-	public function getSubmenu($level) {
+	public function getSubmenu($level, $menuId = 1) {
 
 		$router = Modules_Router_Model_Router::getInstance();
 
@@ -266,7 +267,7 @@ class Modules_Menu_Model_Menu extends Zetta_Db_Table  {
 				$root_id = $current_route_id;
 			}
 
-			$primary_menu = $this->getMenuTree(1);	// в свойствах главного меню лежат разделы которые нужно выключить
+			$primary_menu = $this->getMenuTree($menuId);	// в свойствах главного меню лежат разделы которые нужно выключить
 
 			$_getChilds = function($parents, $root_id) use (&$_getChilds) {
 
