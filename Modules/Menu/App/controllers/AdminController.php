@@ -224,7 +224,7 @@ class Modules_Menu_AdminController extends Zend_Controller_Action {
 				$where = $this->_modelMenu->getAdapter()->quoteInto('item_id = ?', $row['id']);
 	
 				$this->_modelMenu->updateSection(array(
-					'parent_id'		=> $row['parent_id'] ? $row['parent_id'] : new Zend_Db_Expr('NULL'),
+					'parent_id'		=> isset($row['parent_id']) ? $row['parent_id'] : new Zend_Db_Expr('NULL'),
 					'sort'			=> $row['sort'],
 				), $where);
 	

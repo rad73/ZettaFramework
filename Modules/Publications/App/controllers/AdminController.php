@@ -249,7 +249,7 @@ class Modules_Publications_AdminController extends Zend_Controller_Action {
 		if (!$this->_rubric) throw new Exception('rubric_id не определён');
 
 		$this->_modelPublications->setRouteId($this->getParam('route_id'));
-		$this->view->publications = $this->_modelPublications->fetchAll($this->_modelPublications->select()->order('sort'));
+		$this->view->publications = $this->_modelPublications->fetchAll($this->_modelPublications->select()->order('sort')->order('publication_id'));
 		$this->view->route_id = $this->getParam('route_id');
 		$this->view->route = Modules_Router_Model_Router::getInstance()->getItem($this->getParam('route_id'));
 

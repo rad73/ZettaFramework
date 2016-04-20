@@ -182,7 +182,9 @@ class Modules_Publications_Model_Table extends Zend_Db_Table  {
 
 		$select = $this->select()
 			->where('route_id IS NULL')
-			->order('sort');
+			->order('sort')
+			->order('publication_id')
+		;
 
 		$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
 		$paginator->setCurrentPageNumber($pageNumber);
