@@ -174,6 +174,26 @@ class Modules_Publications_Model_Table extends Zend_Db_Table  {
 	}
 
 	/**
+	 * Получаем публикации c рубрикой
+	 *
+	 * @return Zend_Db_Rowset
+	 */
+	public function getWithRubrics($pageNumber = 1, $onPage = 25) {
+
+		$select = $this->select()
+			->order('sort')
+			->order('publication_id')
+		;
+
+		$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
+		$paginator->setCurrentPageNumber($pageNumber);
+		$paginator->setItemCountPerPage($onPage);
+
+		return $paginator;
+
+	}
+
+	/**
 	 * Получаем публикации без рубрики
 	 *
 	 * @return Zend_Db_Rowset
