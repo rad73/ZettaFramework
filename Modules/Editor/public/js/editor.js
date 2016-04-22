@@ -71,7 +71,7 @@ var _redactor = {
 			focus: false, 
 			saveWhenFileSelected: true, 
 			replaceFull: true,
-			paragraphize: true
+			paragraphize: false
 		});
 
 		this._object
