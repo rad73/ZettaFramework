@@ -189,6 +189,7 @@ class Modules_Publications_AdminController extends Zend_Controller_Action {
 				'errormsg'	=> $form->getValue('errormsg'),
 				'list_values'	=> $form->getValue('list_values'),
 				'hidden_front'	=> $form->getValue('hidden_front'),
+				'hidden_admin'	=> $form->getValue('hidden_admin'),
 			);
 
 			if ($field_id) {
