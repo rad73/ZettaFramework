@@ -26,9 +26,7 @@ class Zetta_View_Helper_Menu extends Zend_View_Helper_Abstract {
     		$return = $this->view->render('menu/index.phtml');
     	}
     	
-    	
-    	$_user = Zend_auth::getInstance()->getIdentity();
-		if ($_user && strstr($_user->role_name, 'admin')) {
+		if (Zetta_Acl::getInstance()->isAllowed('admin_module_menu')) {
 			$this->view->content = $return;
 			$return = $this->view->render('menu/adminWrapper.phtml');
 		}

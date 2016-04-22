@@ -168,7 +168,7 @@ class Modules_Access_AdminController extends Zend_Controller_Action {
 			$where = $this->_modelRoles->getAdapter()->quoteInto('name = ?', $row['id']);
 
 			$this->_modelRoles->update(array(
-				'role_parent'	=> $row['parent_id'] ? $row['parent_id'] : Zetta_Acl::getInstance()->getMyGroup(),
+				'role_parent'	=> isset($row['parent_id']) ? $row['parent_id'] : Zetta_Acl::getInstance()->getMyGroup(),
 				'sort'			=> $row['sort'],
 			), $where);
 

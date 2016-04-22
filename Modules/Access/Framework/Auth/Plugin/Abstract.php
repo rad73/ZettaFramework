@@ -44,7 +44,6 @@ abstract class Modules_Access_Framework_Auth_Plugin_Abstract implements Zend_Aut
 				return true;
 			}
 			else {
-				Zend_Auth::getInstance()->clearIdentity();
 				$this->_errors = $result->getMessages();
 				$this->_resultObject = null;
 				return false;

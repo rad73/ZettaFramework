@@ -102,6 +102,7 @@ class Modules_Access_Framework_Auth extends Zend_Auth {
      */
     public function addPlugin(Modules_Access_Framework_Auth_Plugin_Abstract $name) {
     	array_push($this->_plugins, $name);
+    	return $this;
     }
 
 	/**

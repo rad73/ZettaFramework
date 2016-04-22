@@ -11,13 +11,13 @@ class Modules_Access_Framework_Auth_Plugin_Session extends Modules_Access_Framew
 	public function authenticate() {
 
 		$storage = new Zend_Auth_Storage_Session();
-				
+
 		if (false == $storage->isEmpty()) {
 
 			Zend_Auth::getInstance()->setStorage($storage);
 			$authRequest = Zend_Auth::getInstance()->getStorage()->read();
-			
-			if (is_object($authRequest)) {
+
+			if (is_object($authRequest) && isset($authRequest->username) && isset($authRequest->password)) {
 			
 				$this
 					->setUserName($authRequest->username)
@@ -25,9 +25,6 @@ class Modules_Access_Framework_Auth_Plugin_Session extends Modules_Access_Framew
 	
 				return parent::authenticate();
 				
-			}
-			else {
-				Zend_Auth::getInstance()->logOut();
 			}
 
 		}
