@@ -792,3 +792,200 @@ body .redactor-box-fullscreen {
 	width: 100%;
 	box-shadow: 0px 0px 10px #000 !important;
 }
+
+
+#z_window .redactor-editor {
+  position: relative;
+  overflow: auto;
+  margin: 0 !important;
+  padding: 10px;
+  padding-bottom: 5px;
+  outline: none;
+  background: none;
+  background: #fff;
+  box-shadow: none !important;
+  white-space: normal;
+  border: 1px solid #eee;
+}
+#z_window .redactor-editor:focus {
+  outline: none;
+}
+
+#z_window .form_row .redactor-box {
+	border: 1px solid #aaa;
+	width: 690px;
+}
+
+#z_window .redactor-editor {
+	min-height: 150px;
+	background: #fff;
+}
+
+#z_window .redactor-box a {
+	color: #000;
+}
+
+
+/*
+	##############################################
+	 CONTENT STYLES
+	##############################################
+*/
+#z_window .redactor-editor code,
+#z_window .redactor-editor pre {
+  font-family: Menlo, Monaco, monospace, sans-serif !important;
+  cursor: text;
+}
+#z_window .redactor-editor div,
+#z_window .redactor-editor p,
+#z_window .redactor-editor ul,
+#z_window .redactor-editor ol,
+#z_window .redactor-editor table,
+#z_window .redactor-editor dl,
+#z_window .redactor-editor blockquote,
+#z_window .redactor-editor pre {
+  font-size: 14px;
+  line-height: 1.6em;
+}
+#z_window .redactor-editor a {
+  color: #15c;
+  text-decoration: underline;
+}
+#z_window .redactor-editor object,
+#z_window .redactor-editor embed,
+#z_window .redactor-editor video,
+#z_window .redactor-editor img {
+  max-width: 100%;
+  width: auto;
+}
+#z_window .redactor-editor video,
+#z_window .redactor-editor img {
+  height: auto;
+}
+#z_window .redactor-editor div,
+#z_window .redactor-editor p,
+#z_window .redactor-editor ul,
+#z_window .redactor-editor ol,
+#z_window .redactor-editor table,
+#z_window .redactor-editor dl,
+#z_window .redactor-editor figure,
+#z_window .redactor-editor blockquote,
+#z_window .redactor-editor pre {
+  margin: 0;
+  margin-bottom: 15px;
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+#z_window .redactor-editor iframe,
+#z_window .redactor-editor object,
+#z_window .redactor-editor hr {
+  margin-bottom: 15px;
+}
+#z_window .redactor-editor blockquote {
+  margin-left: 1.6em !important;
+  padding: 0;
+  text-align: left;
+  color: #777;
+  font-style: italic;
+}
+#z_window .redactor-editor blockquote:before,
+#z_window .redactor-editor blockquote:after {
+  content: '';
+}
+#z_window .redactor-editor ul,
+#z_window .redactor-editor ol {
+  padding-left: 2em;
+}
+#z_window .redactor-editor ul ul,
+#z_window .redactor-editor ol ol,
+#z_window .redactor-editor ul ol,
+#z_window .redactor-editor ol ul {
+  margin: 2px;
+  padding: 0;
+  padding-left: 2em;
+  border: none;
+}
+#z_window .redactor-editor ol ol li {
+  list-style-type: lower-alpha;
+}
+#z_window .redactor-editor ol ol ol li {
+  list-style-type: lower-roman;
+}
+#z_window .redactor-editor dl dt {
+  font-weight: bold;
+}
+#z_window .redactor-editor dd {
+  margin-left: 1em;
+}
+#z_window .redactor-editor table {
+  border-collapse: collapse;
+  font-size: 1em;
+  width: 100%;
+}
+#z_window .redactor-editor table td,
+#z_window .redactor-editor table th {
+  padding: 5px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+#z_window .redactor-editor table thead td,
+#z_window .redactor-editor table th {
+  font-weight: bold;
+  border-bottom-color: #888;
+}
+#z_window .redactor-editor code {
+  background-color: #d8d7d7;
+}
+#z_window .redactor-editor pre {
+  padding: 1em;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background: #f8f8f8;
+  font-size: 90%;
+}
+#z_window .redactor-editor hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+#z_window .redactor-editor h1,
+#z_window .redactor-editor h2,
+#z_window .redactor-editor h3,
+#z_window .redactor-editor h4,
+#z_window .redactor-editor h5,
+#z_window .redactor-editor h6 {
+  font-weight: bold;
+  color: #000;
+  padding: 0;
+  background: none;
+  text-rendering: optimizeLegibility;
+  margin: 0 0 .5em 0;
+}
+#z_window .redactor-editor h1,
+#z_window .redactor-editor h2,
+#z_window .redactor-editor h3,
+#z_window .redactor-editor h4 {
+  line-height: 1.3;
+}
+#z_window .redactor-editor h1 {
+  font-size: 36px;
+}
+#z_window .redactor-editor h2 {
+  font-size: 24px;
+  margin-bottom: .7em;
+}
+#z_window .redactor-editor h3 {
+  font-size: 21px;
+}
+#z_window .redactor-editor h4 {
+  font-size: 18px;
+}
+#z_window .redactor-editor h5 {
+  font-size: 16px;
+}
+#z_window .redactor-editor h6 {
+  font-size: 12px;
+  text-transform: uppercase;
+}

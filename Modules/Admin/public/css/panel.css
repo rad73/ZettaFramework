@@ -527,20 +527,6 @@ ZETTA {
 					width: 196px;
 				}
 
-			#z_window .form_row .redactor_box {
-				border: 1px solid #aaa;
-				width: 690px;
-			}
-
-			#z_window .redactor_editor {
-				min-height: 150px;
-				background: #fff;
-			}
-
-			#z_window .redactor_box A {
-				color: #333;
-			}
-
 
 		/* иконки доступные по умолчанию */
 		#z_window .z_icons {
@@ -751,10 +737,6 @@ ZETTA {
 		margin: 0 !important;
  		padding: 0 !important;
  	*/
-	}
-
-	.redactor_box, .redactor_box textarea {
-	    background: none !important;
 	}
 
 	.z_admin_wrapper .z_icons_editable {
