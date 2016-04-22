@@ -17,6 +17,7 @@ class Modules_Publications_Bootstrap extends Zetta_BootstrapModules {
 			$_migrationManager = new Modules_Dbmigrations_Framework_Manager();
 			$_migrationManager->upTo('Modules_Publications_Migrations_CreatePublicationListTable');
 			$_migrationManager->upTo('Modules_Publications_Migrations_CreatePublicationFieldsTable');
+			$_migrationManager->upTo('Modules_Publications_Migrations_AddHiddenAdminFieledToFields');
 
 		}
 

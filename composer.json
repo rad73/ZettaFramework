@@ -17,8 +17,8 @@
     "require": {
         "php":">=5.5",
         "zendframework/zendframework1": "*",
-        "leafo/lessphp": "*",
         "leafo/scssphp": "*",
+        "oyejorge/less.php": "*",
         "matthiasmullie/minify": "*",
         "dirmax/zfdebug": "*",
         "phpunit/phpunit": "*"

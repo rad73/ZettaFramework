@@ -175,6 +175,7 @@ class Publications_Framework_Form extends Zetta_Form {
 		foreach ($fields as $i=>$field) {
 
 			if (ZETTA_FRONT && $field->hidden_front) continue;
+			if (!ZETTA_FRONT && $field->hidden_admin) continue;
 
 			$arrayFields[$i] = $field->toArray();
 			$arrayFields[$i]['options'] = $field->toArray();
