@@ -250,7 +250,9 @@ class Modules_Publications_AdminController extends Zend_Controller_Action {
 		if (!$this->_rubric) throw new Exception('rubric_id не определён');
 
 		$this->_modelPublications->setRouteId($this->getParam('route_id'));
-		$this->view->publications = $this->_modelPublications->fetchAll($this->_modelPublications->select()->order('sort')->order('publication_id'));
+		$this->view->publications = $this->_modelPublications->getWithRubrics($this->getParam('page', 1));
+		$this->view->paginator = $this->view->publications;
+		
 		$this->view->route_id = $this->getParam('route_id');
 		$this->view->route = Modules_Router_Model_Router::getInstance()->getItem($this->getParam('route_id'));
 
@@ -325,7 +327,7 @@ class Modules_Publications_AdminController extends Zend_Controller_Action {
 		}
 		else {
 
-			$post = $form->getPostData();
+			$post = $this->_extendFormPostData($form->getPostData());
 
 			if ($route_id) {
 				$post['route_id'] = $route_id;
@@ -372,6 +374,10 @@ class Modules_Publications_AdminController extends Zend_Controller_Action {
 
 		}
 
+	}
+
+	protected function _extendFormPostData($post) {
+		return $post;
 	}
 
 }
