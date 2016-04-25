@@ -1,7 +1,8 @@
 <?php
+	$page = Zend_Controller_Front::getInstance()->getRequest()->getParam('page');
 	$backUrl = $this->route_id
-	? $this->url(array('module' => 'publications', 'controller' => 'admin', 'action' => 'view', 'rubric_id' => $this->rubric->rubric_id, 'route_id' => $this->route_id), 'mvc', true)
-	: $this->url(array('module' => 'publications', 'controller' => 'admin', 'action' => 'routes', 'rubric_id' => $this->rubric->rubric_id), 'mvc', true);
+	? $this->url(array('module' => 'publications', 'controller' => 'admin', 'action' => 'view', 'rubric_id' => $this->rubric->rubric_id, 'route_id' => $this->route_id, 'page' => $page), 'mvc', true)
+	: $this->url(array('module' => 'publications', 'controller' => 'admin', 'action' => 'routes', 'rubric_id' => $this->rubric->rubric_id, 'page' => $page), 'mvc', true);
 ?>
 
 <script type="text/javascript">$.History.go('<?php echo $backUrl ?>');</script>
