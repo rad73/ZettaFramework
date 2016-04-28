@@ -39,6 +39,10 @@ class Zetta_View_Helper_Url extends Zend_View_Helper_Abstract {
 
     		}
 
+            if (false == $reset) {
+                $urlOptions = array_merge($_GET, $urlOptions);
+            }
+
 	    	$currentUrl = $front->getBaseUrl() . $current['url'];
 	    	$options = array();
 	    	foreach ($urlOptions as $key=>$val) {
