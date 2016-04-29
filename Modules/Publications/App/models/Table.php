@@ -181,6 +181,7 @@ class Modules_Publications_Model_Table extends Zend_Db_Table  {
 	public function getWithRubrics($pageNumber = 1, $onPage = 25) {
 
 		$select = $this->select()
+			->where('route_id = ?', $this->_route_id)
 			->order('sort')
 			->order('publication_id')
 		;
