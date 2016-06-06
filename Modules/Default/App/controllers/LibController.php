@@ -46,14 +46,16 @@ class Modules_Default_LibController extends Zend_Controller_Action {
 
     		$this->getResponse()
     			->setHeader('Content-type', self::getMime($this->_needFile))	// засылаем тип документа
-    			->setHeader('Content-type', self::getMime($this->_needFile))	// засылаем тип документа
     			
     			->setHeader('Etag', self::getEtag($this->_needFile))			// засылаем текущую евизию документа
     			->setHeader('Last-Modified', $lastModified)
 
     			->setHeader('Expires', gmdate("D, d M Y H:i:s", time() + 86400 * 365) . ' GMT')	// год кэширования на файл
-    			->setHeader('Cache-Control', 'max-age=' . 86400 * 365);
-    			
+    			->setHeader('Cache-Control', 'max-age=' . 86400 * 365)
+
+                ->setHeader('Content-Length', filesize($this->_needFile));
+
+
     		echo file_get_contents($this->_needFile);
 
     	}
