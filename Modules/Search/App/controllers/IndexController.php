@@ -17,7 +17,6 @@ class Modules_Search_IndexController extends Zend_Controller_Action {
 		else {
 			$this->_indexHandle = Zend_Search_Lucene::create(TEMP_PATH . '/Search');
 		}
-		Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive());
 		
 	}
 	

@@ -32,7 +32,7 @@ class Zetta_ErrorHandler  {
 				$error = error_get_last();
 			}
 
-			if ($error) {
+			if ($error && !stristr($error['file'], 'Zend/Search/Lucene')) {
 
 				if (Zend_Registry::isRegistered('Logger')) {
 
