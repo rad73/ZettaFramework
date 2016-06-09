@@ -6,6 +6,8 @@ class Zetta_Form extends Zend_Form {
 
 	protected $_formID = null;
 
+	protected $_view;
+
 
 	protected $elementDecorators = array(
 	    'ViewHelper',
@@ -108,11 +110,12 @@ class Zetta_Form extends Zend_Form {
 						? Zend_Registry::get('config')->app->captcha['expiration']
 						: '600';
 
+
 					$options['captcha'] = array(
 					    'captcha' => $provider,
 					    'font' => SYSTEM_PATH . '/public/font/captcha_font.ttf',
 					    'imgDir'	=> TEMP_PATH . DS . 'Captcha',
-					    'imgUrl'	=> HTTP_HOST . '/Temp/Captcha/',
+					    'imgUrl'	=> $this->_view->baseUrl() . '/Temp/Captcha/',
 					    'wordLen'	=>  $wordLen,
 					    'lineNoiseLevel'	=> $lineNoiseLevel,
 					    'dotNoiseLevel'	=> $dotNoiseLevel,
@@ -144,6 +147,8 @@ class Zetta_Form extends Zend_Form {
 	}
 
 	public function __construct($options = null) {
+
+		$this->_view = Zend_Layout::getMvcInstance()->getView();
 
 		$this->setAttrib('class', 'zetta_form');
 		$this->addPrefixPath('Zetta_Form_Element', 'Zetta/Form/Element/', 'element');
