@@ -15,7 +15,16 @@ class Zetta_Form extends Zend_Form {
 	    array(array('data'  => 'HtmlTag'), array('tag' => 'div', 'class' => 'element text')),
 	    array(array('description' => 'Description'), array('tag' => 'i', 'class' => 'element_description')),
 	    array(array('label' => 'Label'), array('class' => 'label')),
-	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row clearfix')),
+	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row form_row__text clearfix')),
+	);
+
+	protected $elementSelectDecorators = array(
+	    'ViewHelper',
+	    'Errors',
+	    array(array('data'  => 'HtmlTag'), array('tag' => 'div', 'class' => 'element select')),
+	    array(array('description' => 'Description'), array('tag' => 'i', 'class' => 'element_description')),
+	    array(array('label' => 'Label'), array('class' => 'label')),
+	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row form_row__select clearfix')),
 	);
 
 	protected $elementCheckboxDecorators = array(
@@ -24,7 +33,7 @@ class Zetta_Form extends Zend_Form {
 	    array(array('data'  => 'HtmlTag'), array('tag' => 'div', 'class' => 'element checkbox')),
 		array(array('description' => 'Description'), array('tag' => 'i', 'class' => 'element_description')),
 	    array(array('label' => 'Label'), array('class' => 'label checkbox_label', 'placement' => 'append')),
-	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row clearfix')),
+	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row form_row__checkbox clearfix')),
 	);
 
 	protected $elementRadioDecorators = array(
@@ -33,7 +42,7 @@ class Zetta_Form extends Zend_Form {
 	    array(array('data'  => 'HtmlTag'), array('tag' => 'div', 'class' => 'element radio')),
 		array(array('description' => 'Description'), array('tag' => 'i', 'class' => 'element_description')),
 	    array(array('label' => 'Label'), array('class' => 'label radio_label', 'placement' => 'prepend')),
-	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row form_row_radio clearfix')),
+	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row form_row__radio clearfix')),
 	);
 
 	protected $elementSubmitDecorators = array(
@@ -41,7 +50,7 @@ class Zetta_Form extends Zend_Form {
 	    'Errors',
 	    array(array('data'  => 'HtmlTag'), array('tag' => 'div', 'class' => 'element submit')),
 		array(array('description' => 'Description'), array('tag' => 'i', 'class' => 'element_description')),
-	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row z_buttons_placehoder clearfix')),
+	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row form_row__button z_buttons_placehoder clearfix')),
 	);
 
 	protected $elementCaptchaDecorators = array(
@@ -50,7 +59,7 @@ class Zetta_Form extends Zend_Form {
 	    array(array('data'  => 'HtmlTag'), array('tag' => 'div', 'class' => 'element captcha')),
 		array(array('description' => 'Description'), array('tag' => 'i', 'class' => 'element_description')),
 	    array(array('label' => 'Label'), array('class' => 'label')),
-	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row clearfix')),
+	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row form_row__captcha clearfix')),
 	);
 
 	protected $elementFileDecorators = array(
@@ -59,7 +68,7 @@ class Zetta_Form extends Zend_Form {
 	    array(array('data'  => 'HtmlTag'), array('tag' => 'div', 'class' => 'element file')),
 		array(array('description' => 'Description'), array('tag' => 'i', 'class' => 'element_description')),
 	    array(array('label' => 'Label'), array('class' => 'label')),
-	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row clearfix')),
+	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row form_row__file clearfix')),
 	);
 
 
@@ -69,13 +78,16 @@ class Zetta_Form extends Zend_Form {
 	    array(array('data'  => 'HtmlTag'), array('tag' => 'div', 'class' => 'element hidden')),
 		array(array('description' => 'Description'), array('tag' => 'i', 'class' => 'element_description')),
 	    array(array('label' => 'Label'), array('class' => 'label')),
-	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'hidden')),
+	    array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'form_row form_row__hidden hidden')),
 	);
 
 
 	public function addElement($element, $name = null, $options = null) {
 
 		switch ($element) {
+			case 'select':
+					$options['decorators'] = $this->elementSelectDecorators;
+				break;
 			case 'checkbox':
 					$options['decorators'] = $this->elementCheckboxDecorators;
 				break;

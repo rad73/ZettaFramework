@@ -13,8 +13,6 @@ class Modules_Search_CronController extends Zend_Controller_Action {
 
 		ini_set('max_execution_time', 0);
 
-		Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive());
-
 		$indexPath = TEMP_PATH . '/Search';
 		$files = glob($indexPath . '/*.*', GLOB_NOSORT);
 		// чистим старй индекс
