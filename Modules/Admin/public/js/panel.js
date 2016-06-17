@@ -101,7 +101,7 @@ $(function () {
 
 	}
 
-	$('#z_close, #z_overlay').click(function () {
+	$('#z_close').click(function () {
 		_hideManageWindow();
 		document.location.reload();
 		return false;
