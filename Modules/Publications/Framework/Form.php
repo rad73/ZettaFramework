@@ -122,7 +122,7 @@ class Publications_Framework_Form extends Zetta_Form {
 
 			if ($field['type'] == 'date' || $field['type'] == 'datetime') {
 
-				$string_date = $this->getValue($field['name']) . ($field['type'] == 'datetime' ? ' ' . Zend_Controller_Front::getRequest()->getParam($field['name'] . '_time') : '');
+				$string_date = $this->getValue($field['name']) . ($field['type'] == 'datetime' ? ' ' . Zend_Controller_Front::getInstance()->getRequest()->getParam($field['name'] . '_time') : '');
 				$parse_date = date_parse($string_date);
 
 				$arrayData[ $field['name'] ] = sprintf('%04d-%02d-%02d' .($field['type'] == 'datetime' ? ' %02d:%02d' : '') , $parse_date['year'], $parse_date['month'], $parse_date['day'], $parse_date['hour'], $parse_date['minute']);
