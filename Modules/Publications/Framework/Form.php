@@ -128,7 +128,7 @@ class Publications_Framework_Form extends Zetta_Form {
 				$arrayData[ $field['name'] ] = sprintf('%04d-%02d-%02d' .($field['type'] == 'datetime' ? ' %02d:%02d' : '') , $parse_date['year'], $parse_date['month'], $parse_date['day'], $parse_date['hour'], $parse_date['minute']);
 
 			}
-			else if ($field['type'] == 'multiCheckbox') {
+			else if ($field['type'] == 'multiCheckbox' && sizeof($this->getValue($field['name']))) {
 				$arrayData[ $field['name'] ] = '÷' . implode('÷', $this->getValue($field['name'])) . '÷';
 			}
 			else if ($field['type'] == 'file') {
