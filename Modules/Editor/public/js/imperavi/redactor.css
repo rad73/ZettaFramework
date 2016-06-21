@@ -43,18 +43,18 @@
 	z-index: auto;
 }
 .redactor-box-fullscreen {
-	z-index: 1051;
+	z-index: 100051;
 }
 .redactor-toolbar {
-	z-index: 100;
+	z-index: 10000;
 }
 .redactor-dropdown {
-	z-index: 1052;
+	z-index: 100052;
 }
 #redactor-modal-overlay,
 #redactor-modal-box,
 #redactor-modal {
-	z-index: 1053;
+	z-index: 100053;
 }
 /*
 	Fullscreen
