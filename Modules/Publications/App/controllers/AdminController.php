@@ -273,7 +273,7 @@ class Modules_Publications_AdminController extends Zend_Controller_Action {
 		if (!$this->_rubric) throw new Exception('rubric_id не определён');
 
 		$data = $this->getParam('data');
-		$this->_modelPublications->sort($data['current'], $data['next'], $data['prev']);
+		$this->_modelPublications->sort($data['current'], isset($data['next']) ? $data['next'] : false , isset($data['prev']) ? $data['prev'] : false);
 
 	}
 
