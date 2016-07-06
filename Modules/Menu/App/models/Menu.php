@@ -315,20 +315,21 @@ class Modules_Menu_Model_Menu extends Zetta_Db_Table  {
 		if (sizeof($tree)) {
 			foreach ($tree as &$row) {
 
-				if ($row['type'] == 'router' && in_array($row['route_id'], $this->_parents)) {
-					$row['current'] = true;
-					return true;
-				}
-				else if (sizeof($matches) > 1 && $row['url'] == $matches[1]) {
-					$row['current'] = true;
-					return true;
-				}
-				else {
+				if (sizeof($this->_setCurrents($row['childs']))) {
 					$row['current'] = $this->_setCurrents($row['childs']);
 				}
 
+				if (in_array($row['route_id'], $this->_parents)) {
+					$row['current'] = true;
+					return true;
+				}
+				else if (sizeof($matches) > 1 && $row['url'] == $matches[1]) {	// не уверен в правильности этого решения
+					$row['current'] = true;
+					return true;
+				}
 
 			}
+
 		}
 
 		return false;
