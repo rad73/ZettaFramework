@@ -44,10 +44,12 @@ class Modules_Cron_Migrations_CreateCronTable extends Dbmigrations_Framework_Abs
 			'last_run_start'	=> array(
 				'type'	=>	'datetime',
 				'comment'	=>	'Когда был последний запуск (начало)',
+				'null'	=> 1
 			),
 			'last_run_finish'	=> array(
 				'type'	=>	'datetime',
 				'comment'	=>	'Когда был последний запуск (конец)',
+				'null'	=> 1
 			),
 			'in_progress'	=> array(
 				'type'	=>	'char',

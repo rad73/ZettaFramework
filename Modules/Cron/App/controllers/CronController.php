@@ -26,7 +26,7 @@ class Modules_Cron_CronController extends Zend_Controller_Action {
 
 		$tasks = $this->_model->fetchAll(
 			$sql = $this->_model->select()
-				->where('in_progress IS NULL')
+				->where('in_progress IS NULL OR last_run_start < ?', date('Y-m-d H:i:s', strtotime("-10 minute")))
 				->where('active = 1')
 		);
 
