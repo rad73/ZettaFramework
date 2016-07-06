@@ -182,8 +182,8 @@ class Publications_Framework_Form extends Zetta_Form {
 
 			if ($field['validator']) {
 
-				$classValidate = class_exists($field['validator'])
-					? new $field['validator']($field)
+				$classValidate = preg_match('/new (.*)\(.*/iU', $field['validator'], $matches)
+					? new $matches[1]($field)
 					: new Publications_Framework_Validator_CustomRegexp($field);
 
 				$arrayFields[$i]['options']['validators'] = array(
