@@ -150,7 +150,8 @@ var _initBlocks = function () {
 		var _this = $('.z_redactor', _parent),
 			_callback = function (html, object) {
 
-				var _block_name = _parent.data('block-name');
+				var _block_name = _parent.data('block-name'),
+					_block_type = _parent.data('block-type');
 
 				$.post(_urlBlockSave, {format: 'json', block_name: _block_name, content: html, route_id: _route_id, csrf_hash: _csrf_hash}, function () {
 
@@ -168,7 +169,9 @@ var _initBlocks = function () {
 			case 'text':
 				_redactor.html(_this, _callback, {
 					toolbarExternal: '-1',
-					allowedTags: ['br']
+					allowedTags: ['br'],
+					paragraphize: false,
+					linebreaks: true
 				});
 				_redactor._view._bodyClick({pageX: _parent.offset().left, pageY: _parent.offset().top});
 			break;
