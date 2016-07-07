@@ -110,7 +110,7 @@ class Modules_Menu_Model_Menu extends Zetta_Db_Table  {
 				foreach ($sections as $i=>$item) {
 
 					$return[$i] = $item;
-					if ($item['external_link']) {
+					if ($item['type'] == 'external') {
 						$return[$i]['url'] = $item['external_link'];
 					}
 					else {
@@ -301,38 +301,42 @@ class Modules_Menu_Model_Menu extends Zetta_Db_Table  {
 	private $_parents = array();
 	protected function _setCurrents(&$tree) {
 
+		$router = Modules_Router_Model_Router::getInstance();
+		$currentRoute = $router->current();
+
 		if (sizeof($this->_parents) == 0) {
-			$router = Modules_Router_Model_Router::getInstance();
-			$current = $router->current();
-			if ($current) {
-				$this->_parents = $router->getParentsId($current['route_id']);
+
+			if ($currentRoute) {
+				$this->_parents = $router->getParentsId($currentRoute['route_id']);
 			}
 		}
 
 		$currentUrl = Zend_Controller_Front::getInstance()->getRequest()->getPathInfo();
 		preg_match('|(.*/)(.*\.html)?|', $currentUrl, $matches);	// отрубаем *.html от пути
 
+		$currentExist = false;
 		if (sizeof($tree)) {
+
 			foreach ($tree as &$row) {
 
 				if (sizeof($this->_setCurrents($row['childs']))) {
 					$row['current'] = $this->_setCurrents($row['childs']);
 				}
 
-				if (in_array($row['route_id'], $this->_parents)) {
+				if (
+					in_array($row['route_id'], $this->_parents) 
+					|| (isset($currentRoute['route_id']) && $row['route_id'] == $currentRoute['route_id'])
+					|| (sizeof($matches) > 1 && $row['url'] == $matches[1])
+				) {
+					$currentExist = true;
 					$row['current'] = true;
-					return true;
-				}
-				else if (sizeof($matches) > 1 && $row['url'] == $matches[1]) {	// не уверен в правильности этого решения
-					$row['current'] = true;
-					return true;
 				}
 
 			}
 
 		}
 
-		return false;
+		return $currentExist;
 
 	}
 

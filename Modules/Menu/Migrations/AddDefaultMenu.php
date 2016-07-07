@@ -17,7 +17,7 @@ class Modules_Menu_Migrations_AddDefaultMenu extends Dbmigrations_Framework_Abst
 		
 		$model->insert(array(
 			'menu_id'	=> 1,
-			'name'		=> 'Главная меню',
+			'name'		=> 'Главное меню',
 			'type'		=> 'router',
 			'parent_route_id'	=> '1',
 		));
