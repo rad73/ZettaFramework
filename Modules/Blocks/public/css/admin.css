@@ -90,3 +90,7 @@
 .z_blocks_disabled .z_admin_wrapper {
 	box-shadow: none !important;
 }
+
+.redactor-box + .z_icons_editable {
+	opacity: .4;
+}

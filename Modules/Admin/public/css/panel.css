@@ -748,7 +748,7 @@ ZETTA {
 	}
 
 		.in_edit .z_icons_editable {
-			opacity: 0.3;
+			opacity: 0.4;
 		}
 
 		.z_icons_editable A,
@@ -790,7 +790,7 @@ ZETTA {
 
 
 .z_admin_menu {
-	box-shadow: inset 0px 0px 0px 1px rgba(246, 112, 22, 0.3);
+	box-shadow: inset 0px 0px 0px 1px rgba(246, 112, 22, 0.4);
 }
 
 	.z_admin_menu:hover {
@@ -802,7 +802,7 @@ ZETTA {
 	}
 
 .z_admin_publications {
-	box-shadow: inset 0px 0px 0px 1px rgba(40, 101, 202, 0.3);
+	box-shadow: inset 0px 0px 0px 1px rgba(40, 101, 202, 0.4);
 }
 
 	.z_admin_publications:hover {
@@ -816,7 +816,7 @@ ZETTA {
 
 
 .z_admin_block {
-	box-shadow: inset 0px 0px 0px 1px rgba(28, 190, 97, 0.3);
+	box-shadow: inset 0px 0px 0px 1px rgba(28, 190, 97, 0.4);
 	min-width: 30px;
 }
 
@@ -828,11 +828,18 @@ ZETTA {
 		box-shadow: inset 0px 0px 0px 1px rgba(28, 190, 97, 1);
 	}
 
-.z_inherit_block { }
+.z_inherit_block {
+	box-shadow: inset 0px 0px 0px 1px rgba(170, 170, 170, 0.0.4);
+}
+
+	.z_inherit_block:hover {
+		box-shadow: inset 0px 0px 0px 1px rgba(170, 170, 170, 1);
+	}
 
 	.z_inherit_block .z_icons_editable {
 		background: #aaa;
 	}
+
 
 #z_window .in_edit {
 	border: none !important;

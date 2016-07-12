@@ -67,7 +67,7 @@ $(function () {
 
 		});
 
-		$('#z_window input[type=submit]').addClass('ui-button');
+		$('#z_window *[type=submit]').addClass('ui-button');
 		$('#z_window .ui-button').length
 			? $('#z_window .ui-button').button()
 			: {};
