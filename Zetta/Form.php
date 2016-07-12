@@ -8,6 +8,11 @@ class Zetta_Form extends Zend_Form {
 
 	protected $_view;
 
+	protected $_formElementsDecorator = array(
+	    'FormElements',
+	    'Form',
+	    array(array('tag' => 'HtmlTag'), array('tag' => 'div'))
+	);
 
 	protected $elementDecorators = array(
 	    'ViewHelper',
@@ -96,6 +101,7 @@ class Zetta_Form extends Zend_Form {
 					$options['decorators'] = $this->elementRadioDecorators;
 				break;
 			case 'submit':
+			case 'button':
 					$options['decorators'] = $this->elementSubmitDecorators;
 				break;
 			case 'captcha':
@@ -160,6 +166,8 @@ class Zetta_Form extends Zend_Form {
 
 	public function __construct($options = null) {
 
+		$this->setDecorators($this->_formElementsDecorator);
+
 		$this->_view = Zend_Layout::getMvcInstance()->getView();
 
 		$this->setAttrib('class', 'zetta_form');
@@ -173,6 +181,7 @@ class Zetta_Form extends Zend_Form {
 				'value'	=> $this->_formID
 			));
 		}
+
 
 	}
 

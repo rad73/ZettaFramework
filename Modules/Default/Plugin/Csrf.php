@@ -50,8 +50,8 @@ class Modules_Default_Plugin_Csrf extends Zend_Controller_Plugin_Abstract {
 		$body = $this->getResponse()->getBody();
 
 		//  записываем тоукен в каждую форму
-		$field = $this->_view->formHidden('csrf_hash', $this->_securitySession->csrf_hash);
-		$body = str_ireplace('</form>', $field . '</form>', $body);
+		$field = $this->_view->formHidden('csrf_hash', $this->_securitySession->csrf_hash, array('id' => false));
+		$body = str_ireplace('</form>', str_ireplace('id=""', '', $field) . '</form>', $body);
 
 		$this->getResponse()->setBody($body);
 

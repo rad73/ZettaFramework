@@ -88,5 +88,5 @@
 }
 
 .z_blocks_disabled .z_admin_wrapper {
-	border: none !important;
+	box-shadow: none !important;
 }

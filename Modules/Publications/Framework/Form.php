@@ -110,7 +110,7 @@ class Publications_Framework_Form extends Zetta_Form {
 
 		$this->addElements($elements);
 
-		$this->addElement('submit', 'submit', array('title' => $this->getAttrib('submitTitle') ? $this->getAttrib('submitTitle') : 'Отправить'));
+		$this->addElement('button', 'submit', array('type' => 'submit', 'title' => $this->getAttrib('submitTitle') ? $this->getAttrib('submitTitle') : 'Отправить'));
 
 		return $this;
 
@@ -178,7 +178,10 @@ class Publications_Framework_Form extends Zetta_Form {
 			if (!ZETTA_FRONT && $field->hidden_admin) continue;
 
 			$arrayFields[$i] = $field->toArray();
-			$arrayFields[$i]['options'] = $field->toArray();
+			$arrayFields[$i]['options'] = array(
+				'data-validator'	=> $field->validator,
+				'data-errormsg'	=> $field->errormsg
+			);
 
 			if ($field['validator']) {
 

@@ -724,7 +724,6 @@ ZETTA {
 
 .z_admin_wrapper {
 	position: relative;
-	border: 1px dashed #1cbe61;
 	-moz-box-sizing:    border-box;
    -webkit-box-sizing: border-box;
 	box-sizing:         border-box;
@@ -741,8 +740,8 @@ ZETTA {
 
 	.z_admin_wrapper .z_icons_editable {
 		position: absolute;
-		top: -1px;
-		right: -1px;
+		top: 0px;
+		right: 0px;
 		font-size: 12px;
 		background: #1cbe61;
 		/* z-index: 10000; */
@@ -774,7 +773,6 @@ ZETTA {
 		}
 
 	.z_redactor {
-		min-height: 25px;
 		cursor: default;
 	}
 
@@ -792,16 +790,24 @@ ZETTA {
 
 
 .z_admin_menu {
-	border: 1px dotted rgb(246, 112, 22);
+	box-shadow: inset 0px 0px 0px 1px rgba(246, 112, 22, 0.3);
 }
+
+	.z_admin_menu:hover {
+		box-shadow: inset 0px 0px 0px 1px rgba(246, 112, 22, 1);
+	}
 
 	.z_admin_menu .z_icons_editable {
 		background: #f67016;
 	}
 
 .z_admin_publications {
-	border: 1px dotted rgb(40, 101, 202);
+	box-shadow: inset 0px 0px 0px 1px rgba(40, 101, 202, 0.3);
 }
+
+	.z_admin_publications:hover {
+		box-shadow: inset 0px 0px 0px 1px rgba(40, 101, 202, 1);
+	}
 
 	.z_admin_publications .z_icons_editable {
 		background: #2865ca;
@@ -810,7 +816,7 @@ ZETTA {
 
 
 .z_admin_block {
-	border: 1px dotted rgb(28, 190, 97);
+	box-shadow: inset 0px 0px 0px 1px rgba(28, 190, 97, 0.3);
 	min-width: 30px;
 }
 
@@ -818,16 +824,14 @@ ZETTA {
 		background: #1cbe61;
 	}
 
-.z_inherit_block {
-		border: 1px dotted #aaa;
+	.z_admin_block:hover {
+		box-shadow: inset 0px 0px 0px 1px rgba(28, 190, 97, 1);
 	}
 
-		.z_inherit_block .z_icons_editable {
-			background: #aaa;
-		}
+.z_inherit_block { }
 
-	.z_admin_wrapper:hover, .in_edit {
-		border-style: solid !important;
+	.z_inherit_block .z_icons_editable {
+		background: #aaa;
 	}
 
 #z_window .in_edit {
