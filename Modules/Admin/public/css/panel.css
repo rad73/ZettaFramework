@@ -818,6 +818,7 @@ ZETTA {
 .z_admin_block {
 	box-shadow: inset 0px 0px 0px 1px rgba(28, 190, 97, 0.4);
 	min-width: 30px;
+	min-height: 1px;
 }
 
 	.z_admin_block .z_icons_editable {
