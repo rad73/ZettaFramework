@@ -101,6 +101,8 @@ class Publications_Framework_Form extends Zetta_Form {
 			}
 
 		}
+		
+		$this->getElement($name)->setAttrib('list_values', null);
 
 		return $elementObject;
 
@@ -180,7 +182,11 @@ class Publications_Framework_Form extends Zetta_Form {
 			$arrayFields[$i] = $field->toArray();
 			$arrayFields[$i]['options'] = array(
 				'data-validator'	=> $field->validator,
-				'data-errormsg'	=> $field->errormsg
+				'data-errormsg'	=> $field->errormsg,
+				'list_values'	=> $field->list_values,
+				'name'	=> $field->name,
+				'title'	=> $field->title,
+				'value'	=> $field->default,
 			);
 
 			if ($field['validator']) {
