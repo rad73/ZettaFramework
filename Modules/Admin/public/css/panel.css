@@ -829,7 +829,7 @@ ZETTA {
 	}
 
 .z_inherit_block {
-	box-shadow: inset 0px 0px 0px 1px rgba(170, 170, 170, 0.0.4);
+	box-shadow: inset 0px 0px 0px 1px rgba(170, 170, 170, 0.4);
 }
 
 	.z_inherit_block:hover {
