@@ -87,7 +87,7 @@ $(function () {
 			});
 
 
-		$('textarea[type=html]').each(function () {
+		$('textarea[data-type=html]').each(function () {
 
 			_redactor.destroy(this);
 
