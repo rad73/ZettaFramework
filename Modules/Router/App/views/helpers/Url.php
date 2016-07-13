@@ -54,7 +54,7 @@ class Zetta_View_Helper_Url extends Zend_View_Helper_Abstract {
                 }
 
                 foreach ($val as $row) {
-                    $options[] = $key . '=' . ($encode ? urlencode($row) : $row);
+                    $options[] = urlencode($key) . '=' . ($encode ? urlencode($row) : $row);
                 }
 
 	    	}
