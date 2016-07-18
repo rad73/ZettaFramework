@@ -68,7 +68,6 @@ var _redactor = {
 
 		this._create({
 			toolbarExternal: 'null', 
-			focus: false, 
 			saveWhenFileSelected: true, 
 			replaceFull: true,
 			paragraphize: false
@@ -210,7 +209,6 @@ var _redactor = {
             plugins: ['clearformatting', 'undoredo', 'filemanager', 'video', 'table', 'fontfamily', 'fontsize', 'fontcolor', 'pin'],
 			deniedTags: ['html', 'head', 'link', 'body', 'meta', 'style', 'applet'],
 			paragraphize: true,
-			focus: true,
 			initCallback: function () {
     			var button = this.button.addFirst ('save', this.lang.get('save'));
 
@@ -247,7 +245,7 @@ var _redactor = {
 
 }
 
-$(document).click(function (e) {
+$(document).mousedown(function (e) {
 	_redactor._dispatch(e);
 });
 
