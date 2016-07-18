@@ -11,7 +11,7 @@ class Zetta_Form extends Zend_Form {
 	protected $_formElementsDecorator = array(
 	    'FormElements',
 	    'Form',
-	    array(array('tag' => 'HtmlTag'), array('tag' => 'div'))
+	    array(array('tag' => 'HtmlTag'), array('tag' => 'div', 'class' => 'wrap_zetta_form'))
 	);
 
 	protected $elementDecorators = array(
