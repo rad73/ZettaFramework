@@ -181,6 +181,7 @@ class Publications_Framework_Form extends Zetta_Form {
 
 			$arrayFields[$i] = $field->toArray();
 			$arrayFields[$i]['options'] = array(
+				'data-type'	=> $field->type,
 				'data-validator'	=> $field->validator,
 				'data-errormsg'	=> $field->errormsg,
 				'list_values'	=> $field->list_values,
