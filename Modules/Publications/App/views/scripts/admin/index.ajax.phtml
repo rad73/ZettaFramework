@@ -2,12 +2,20 @@
 
 <ul class="sortable no_list z_publications_list">
 	<?php 
+		$exist = false;
 		if (sizeof($this->list)) {
-			echo $this->partialLoop('admin/partialList.phtml', $this->list);
+			foreach ($this->list as $row) {
+				if ($row->allowed) {
+					$exist = true;
+					echo $this->partial('admin/partialList.phtml', $row);
+				}
+			}
 		}
-		else {
+
+		if (!$exist) {
 			?>Не добавлено ни одного типа публикаций.<?php
 		}
+
 	?>
 </ul>
 
