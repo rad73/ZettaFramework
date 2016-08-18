@@ -22,7 +22,7 @@
             $('#file_manager')
                 .dialog({
                     resizable: false,
-                    width: 950,
+                    width: 980,
                     height: 500,
                     modal: true,
                     close: function (event, ui) {

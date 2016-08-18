@@ -1,10 +1,17 @@
-<aside class="z_admin_wrapper z_admin_publications">
+<?php 
+$modelPublicationTypes = new Modules_Publications_Model_List();
+$publicationTypeInfo = $modelPublicationTypes->getRubricInfo($this->pub_rubric_id);
 
-	<?php echo $this->content ?>
-	
-	<aside class="z_icons_editable z_icon_add">
-		<a href="<?php echo $this->url(array('module' => 'Publications', 'controller' => 'admin', 'action' => 'addpublication', 'rubric_id' => $this->pub_rubric_id, 'route_id' => $this->route_id, 'uniq_id' => $this->uniq_id), 'mvc', true) ?>" class="icon icon-plus"></a>
+if (($publicationTypeInfo->allowed)) : ?>
+	<aside class="z_admin_wrapper z_admin_publications">
+
+		<?php echo $this->content ?>
+		
+		<aside class="z_icons_editable z_icon_add">
+			<a href="<?php echo $this->url(array('module' => 'Publications', 'controller' => 'admin', 'action' => 'addpublication', 'rubric_id' => $this->pub_rubric_id, 'route_id' => $this->route_id, 'uniq_id' => $this->uniq_id), 'mvc', true) ?>" class="icon icon-plus"></a>
+		</aside>
+		
 	</aside>
-	
-</aside>
-
+<?php else : 
+	echo $this->content;
+endif;

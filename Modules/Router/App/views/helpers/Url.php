@@ -22,22 +22,14 @@ class Zetta_View_Helper_Url extends Zend_View_Helper_Abstract {
     	}
     	else {
 
-    		$menu_routes = Modules_Router_Model_Router::getInstance();
+            $module = array_key_exists('module', $urlOptions) ? $urlOptions['module'] : $front->getRequest()->getModuleName();
+            $controller = array_key_exists('controller', $urlOptions) ? $urlOptions['controller'] : $front->getRequest()->getControllerName();
+            $action = array_key_exists('action', $urlOptions) ? $urlOptions['action'] : $front->getRequest()->getActionName();
 
-    		if (array_key_exists('route_id', $urlOptions)) {
-
-    			$current = $menu_routes->getItem($urlOptions['route_id']);
-
-    		}
-    		else {
-
-    			$module = array_key_exists('module', $urlOptions) ? $urlOptions['module'] : $front->getRequest()->getModuleName();
-		    	$controller = array_key_exists('controller', $urlOptions) ? $urlOptions['controller'] : $front->getRequest()->getControllerName();
-		    	$action = array_key_exists('action', $urlOptions) ? $urlOptions['action'] : $front->getRequest()->getActionName();
-
-	    		$current = $menu_routes->getRoute($module, $controller, $action);
-
-    		}
+            $menu_routes = Modules_Router_Model_Router::getInstance();
+    		$current = (array_key_exists('route_id', $urlOptions))
+    			? $menu_routes->getItem($urlOptions['route_id'])
+	    		: $menu_routes->getRoute($module, $controller, $action);
 
             if (false == $reset) {
                 $urlOptions = array_merge($_GET, $urlOptions);

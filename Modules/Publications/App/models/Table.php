@@ -193,7 +193,7 @@ class Modules_Publications_Model_Table extends Zend_Db_Table  {
 			->order('publication_id')
 		;
 
-		$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
+		$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbTableSelect($select));
 		$paginator->setCurrentPageNumber($pageNumber);
 		$paginator->setItemCountPerPage($onPage);
 
@@ -214,7 +214,7 @@ class Modules_Publications_Model_Table extends Zend_Db_Table  {
 			->order('publication_id')
 		;
 
-		$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
+		$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbTableSelect($select));
 		$paginator->setCurrentPageNumber($pageNumber);
 		$paginator->setItemCountPerPage($onPage);
 

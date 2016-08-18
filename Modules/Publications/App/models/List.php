@@ -5,6 +5,19 @@ class Modules_Publications_Model_List extends Zetta_Db_Table  {
 	protected $_name = 'publications_list';
 
 	/**
+	 * @var Zetta_Acl
+	 */
+	protected $_acl;
+
+
+	public function __construct($config = array(), $definition = null) {
+		
+		$this->_acl = Zetta_Acl::getInstance();
+		parent::__construct($config, $definition);
+
+	}
+
+	/**
 	 * Получаем информацию о типе публикаций
 	 *
 	 * @param int|string $rubric_id
@@ -93,5 +106,30 @@ class Modules_Publications_Model_List extends Zetta_Db_Table  {
 		return parent::delete($where);
 
 	}
+
+
+	/**
+	 * Переписываем стандартный _fetch с учётом выборки связанных данных
+	 *
+	 * @param Zend_Db_Table_Select $select
+	 */
+	protected function _fetch(Zend_Db_Table_Select $select) {
+
+		$rows = parent::_fetch($select);
+
+		foreach ($rows as &$row) {
+
+			$idResource = 'publication_' . $row['table_name'];
+
+			$row['allowed'] = ($this->_acl->has($idResource) && !$this->_acl->isAllowed($idResource))
+				? false
+				: true;
+
+		}
+
+		return $rows;
+
+	}
+
 
 }

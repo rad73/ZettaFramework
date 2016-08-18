@@ -46,7 +46,7 @@ class Modules_Admin_Plugin_Panel extends Zend_Controller_Plugin_Abstract {
 			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/video/video.js'))
 			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/lang/ru.js'))
 
-			->appendFile($this->_view->libUrl('/Editor/public/js/elFinder/js/elfinder.min.js'))
+			->appendFile($this->_view->libUrl('/Editor/public/js/elFinder/js/elfinder.full.js'))
 			->appendFile($this->_view->libUrl('/Editor/public/js/elFinder/js/i18n/elfinder.ru.js'))
 
 			->appendFile($this->_view->libUrl('/Editor/public/js/editor.js'))
