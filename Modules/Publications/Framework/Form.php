@@ -90,6 +90,9 @@ class Publications_Framework_Form extends Zetta_Form {
 					if ('routes' == $options['list_values']) {
 						$this->getElement($name)->addMultiOptions(Modules_Router_Model_Router::getInstance()->getRoutesTreeHash());
 					}
+					else if ($list_values = json_decode($options['list_values'])) {
+						$this->getElement($name)->addMultiOptions((array)$list_values);
+					}
 					else {
 						$model = new Modules_Publications_Model_Table($options['list_values']);
 						$options = $model->getAssocArray('publication_id', 'name');

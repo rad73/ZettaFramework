@@ -12,7 +12,7 @@ class Zetta_View_Helper_Wrap extends Zend_View_Helper_Abstract {
 	 */
     public function wrap($name, $function = false, $placeholderName = 'body', $model = null) {
 		
-    	if ('content_item' == $placeholderName || 'content' == $placeholderName) {
+    	if (stristr($placeholderName, 'content')) {
     		$this->view->placeholder($placeholderName)->captureStart();
     		$function();
     		$this->view->placeholder($placeholderName)->captureEnd();

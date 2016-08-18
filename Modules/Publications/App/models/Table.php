@@ -45,13 +45,18 @@ class Modules_Publications_Model_Table extends Zend_Db_Table  {
 				if ($row->list_values) {
 
 					if (false == array_key_exists($row->list_values, self::$linkedData)) {
+
 						if ('routes' == $row->list_values) {
 							self::$linkedData[$row->list_values] = Modules_Router_Model_Router::getInstance()->getRoutesTreeHash();
+						}
+						else if ($list_values = json_decode($row->list_values)) {
+							self::$linkedData[$row->list_values] = $list_values;
 						}
 						else {
 							$model = new self($row->list_values);
 							self::$linkedData[$row->list_values] = $model->fetchAll()->toArray();
 						}
+
 					}
 
 					self::$linkedFieldsTableData[$this->_cleanName . '_' . $row->name] = self::$linkedData[$row->list_values];

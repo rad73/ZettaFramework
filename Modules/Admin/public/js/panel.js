@@ -14,7 +14,9 @@ $(function () {
 		var _panel_manage = $('#z_window'),
 			_panel_overlay = $('#z_overlay');
 
-		_panel_manage.fadeIn() && _panel_overlay.fadeIn();
+		_panel_manage.fadeIn() && _panel_overlay.fadeIn(function () {
+			$(_panel_manage).trigger('z_window_show');
+		});
 
 	}
 	var _hideManageWindow = function () {

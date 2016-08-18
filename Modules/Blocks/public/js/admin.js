@@ -37,7 +37,7 @@ var _initBlocks = function () {
 
 	_destroyBlocks();
 
-	$('#z_blocks_wrapper').removeClass('z_blocks_disabled');
+	$('#z_blocks_wrapper').removeClass('z_blocks_disabled').addClass('z_blocks_enabled');
 
 	$('.icon-pencil, .icon-lock, .icon-unlock').click(function () {
 
@@ -186,5 +186,5 @@ var _initBlocks = function () {
 
 var _destroyBlocks = function () {
 	$('.z_admin_block .icon-pencil, .z_admin_block .icon-lock, .z_admin_block .icon-unlock, .z_redactor').unbind('click');
-	$('#z_blocks_wrapper').addClass('z_blocks_disabled');
+	$('#z_blocks_wrapper').addClass('z_blocks_disabled').removeClass('z_blocks_enabled');
 }
