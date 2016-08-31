@@ -102,19 +102,6 @@ class Modules_Cron_CronController extends Zend_Controller_Action {
 
 			}
 
-			foreach ($tasks as $task) {
-
-				// записываем успешное выполнение для всех остальных которые не успели попасть в поток
-	        	$model->update(array(
-					'in_progress'	=> new Zend_Db_Expr('NULL'),
-					'last_run_finish'	=> new Zend_Db_Expr('NOW()')
-				), $model->getAdapter()->quoteInto('cron_id = ?', $task->cron_id));
-
-				$time = microtime(true) - $time_start;
-				Zend_Registry::get('Logger')->info($str = 'Cron: ' . $task->task  . ' завершено за ' . round($time, 3) . ' сек.');
-
-			}
-
 		}
 
 	}
