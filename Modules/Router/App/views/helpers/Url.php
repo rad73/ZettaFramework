@@ -27,9 +27,15 @@ class Zetta_View_Helper_Url extends Zend_View_Helper_Abstract {
             $action = array_key_exists('action', $urlOptions) ? $urlOptions['action'] : $front->getRequest()->getActionName();
 
             $menu_routes = Modules_Router_Model_Router::getInstance();
-    		$current = (array_key_exists('route_id', $urlOptions))
-    			? $menu_routes->getItem($urlOptions['route_id'])
-	    		: $menu_routes->getRoute($module, $controller, $action);
+            if (array_key_exists('route_id', $urlOptions)) {
+                $current = $menu_routes->getItem($urlOptions['route_id']);
+            }
+            else if (!array_key_exists('action', $urlOptions)) {
+                $current = $menu_routes->current();
+            }
+            else {
+                $current = $menu_routes->getRoute($module, $controller, $action);
+            }
 
             if (false == $reset) {
                 $urlOptions = array_merge($_GET, $urlOptions);
