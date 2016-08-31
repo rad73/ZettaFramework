@@ -100,7 +100,7 @@ class Modules_Publications_Model_Table extends Zend_Db_Table  {
      */
     public function insert(array $data) {
 
-    	if (false != array_key_exists('sort', $data)) {
+    	if (false == array_key_exists('sort', $data)) {
 			$rowMaxSort = $this->fetchRow($this->select()->from($this->info('name'), array(new Zend_Db_Expr("MAX(sort) AS sort"))));
 			$data['sort'] = ($rowMaxSort) ? (int)$rowMaxSort->sort + 1 : 1;
 		}
