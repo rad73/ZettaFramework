@@ -209,6 +209,7 @@ var _redactor = {
             plugins: ['clearformatting', 'undoredo', 'filemanager', 'video', 'table', 'fontfamily', 'fontsize', 'fontcolor', 'pin'],
 			deniedTags: ['html', 'head', 'link', 'body', 'meta', 'style', 'applet'],
 			paragraphize: true,
+			cleanSpaces: false,
 			initCallback: function () {
     			var button = this.button.addFirst ('save', this.lang.get('save'));
 
