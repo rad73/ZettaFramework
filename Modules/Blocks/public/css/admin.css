@@ -94,3 +94,7 @@
 .redactor-box + .z_icons_editable {
 	opacity: .4;
 }
+
+.z_redactor {
+	min-height: 10px;
+}

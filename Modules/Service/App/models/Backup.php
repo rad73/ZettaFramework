@@ -128,11 +128,15 @@ class Modules_Service_Model_Backup  {
 	 */
 	protected function _cleanOldBackups() {
 
+		$daySaveBaskups = isset(Zend_Registry::get('SiteConfig')->backups_days_life)
+			? Zend_Registry::get('SiteConfig')->backups_days_life
+			: 7;
+
 		$backups = glob($this->_backupsDir . '/*', GLOB_ONLYDIR);
 
 		foreach ($backups as $dir) {
 
-			if (time() - 7 * 24 * 3600 >= filemtime($dir)) {
+			if (time() - $daySaveBaskups * 24 * 3600 >= filemtime($dir)) {
 				System_Functions::unlinkDir($dir);
 			}
 
