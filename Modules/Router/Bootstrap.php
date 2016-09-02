@@ -27,13 +27,8 @@ class Modules_Router_Bootstrap extends Zetta_BootstrapModules {
 
 		Zend_Registry::set('Router', Modules_Router_Model_Router::getInstance());
 
-		$currentRoute = Modules_Router_Model_Router::getInstance()->current();
-		Zend_Registry::set('RouteCurrent', $currentRoute);
-		Zend_Registry::set('RouteCurrentId', $currentRoute['route_id']);
-
-		defined('ZETTA_FRONT')	|| define('ZETTA_FRONT', $currentRoute['route_id'] ? true : false);
-
 		Zend_Controller_Front::getInstance()
+			->registerPlugin(new Modules_Router_Plugin_FindRouteCurrent(), -1000100)
 			->registerPlugin(new Modules_Router_Plugin_ViewVars());
 
 	}

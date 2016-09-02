@@ -118,7 +118,9 @@ class Modules_Router_Model_Router extends Zend_Db_Table  {
 
 		if (!$this->_current) {
 
-			$url = Zend_Controller_Front::getInstance()->getRequest()->getPathInfo();
+			$request = Zend_Controller_Front::getInstance()->getRequest();
+
+			$url = $request->getPathInfo();
 			$url = $url ? $url : '/';
 			$this->_current = $this->findByUrl($url);
 
