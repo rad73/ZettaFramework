@@ -29,6 +29,26 @@ abstract class System_String {
 	}
 
 	/**
+	 * Перевод каждого слова в строке в верхний регистр
+	 *
+	 * @param string $string
+	 * @return string
+	 */
+	public static function WordsToUpper($string) {
+		return mb_convert_case($string, MB_CASE_TITLE, "UTF-8");
+	}
+
+	/**
+	 * Делаем первую букву в строке в верхнем регистре
+	 *
+	 * @param string $string
+	 * @return string
+	 */
+	public static function UcFirst($string) {
+		return self::StrToUpper(self::Substr($string, 0, 1)) . self::StrToLower(self::Substr($string, 1));
+	}
+
+	/**
 	 * Транслитерация
 	 *
 	 * @param string $string
