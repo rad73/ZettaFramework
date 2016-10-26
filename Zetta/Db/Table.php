@@ -9,6 +9,26 @@ class Zetta_Db_Table extends Zend_Db_Table {
 	 */
 	private static $_fullData = null;
 
+	/**
+	 * Имя адаптера
+	 *
+	 * @var string
+	 */
+	protected $_adapterName;
+
+
+	public function init() {
+
+		if (
+			Zend_Registry::isRegistered("dbs")
+			&& isset(Zend_Registry::get("dbs")[$this->_adapterName])
+		) {
+	    	$this->_setAdapter(Zend_Registry::get("dbs")[$this->_adapterName]);
+		}
+
+		parent::init();
+
+	}
 
 	/**
 	 * Выборка всех данных из таблицы и сохранение их в self::$_fullData
@@ -24,6 +44,30 @@ class Zetta_Db_Table extends Zend_Db_Table {
 		}
 
 		return self::$_fullData[$tableName];
+
+	}
+
+	/**
+	 * Получаем данные в виде ассоциацивного массива вида ключ => значение
+	 *
+	 * @param string $keyId		ID ключа будущего массива
+	 * @param string $valueId	ID значения будущего массива
+	 * @param Zend_Db_Select $select
+	 * @return array
+	 */
+	public function fetchAssoc($keyId, $valueId, Zend_Db_Select $select = null) {
+
+		$data = array();
+		$select = $select ? $select : $this->select();
+		$stmt = $this->getAdapter()->query($select->from($this->info('name'), array($keyId, $valueId)));
+
+        while ($row = $stmt->fetch(Zend_Db::FETCH_NUM)) {
+            $data[$row[0]] = $row[1];
+        }
+
+		$stmt->closeCursor();
+
+        return $data;
 
 	}
 
