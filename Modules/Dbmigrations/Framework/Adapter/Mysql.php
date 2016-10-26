@@ -149,7 +149,7 @@ class Dbmigrations_Framework_Adapter_Mysql implements Dbmigrations_Framework_Ada
 		return implode(' ', array(
 			$this->_db->quoteIdentifier($columnName),
 			$options['type'],
-			(isset($options['length']) ? '(' . $this->_db->quote($options['length'], 'INTEGER') . ')' : ''),
+			(isset($options['length']) ? '(' . $options['length'] . ')' : ''),
 			(isset($options['unsigned']) ? 'unsigned' : ''),
 			(isset($options['null']) ? 'NULL' : 'NOT NULL'),
 			(isset($options['default']) ? 'DEFAULT ' . $this->_db->quote($options['default']) : ''),

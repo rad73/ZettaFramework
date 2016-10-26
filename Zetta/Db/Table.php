@@ -19,8 +19,13 @@ class Zetta_Db_Table extends Zend_Db_Table {
 
 	public function init() {
 
+		if (defined('static::TABLE_NAME')) {
+			$this->_name = static::TABLE_NAME;
+		}
+
 		if (
-			Zend_Registry::isRegistered("dbs")
+			isset($this->_adapterName)
+			&& Zend_Registry::isRegistered("dbs")
 			&& isset(Zend_Registry::get("dbs")[$this->_adapterName])
 		) {
 	    	$this->_setAdapter(Zend_Registry::get("dbs")[$this->_adapterName]);

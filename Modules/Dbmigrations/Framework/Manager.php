@@ -54,11 +54,16 @@ class Modules_Dbmigrations_Framework_Manager {
 	 */
 	public function upTo($migrationClass, $params = false, $saveHistory = true) {
 
-		if (false == class_exists($migrationClass)) {
+		if (is_string($migrationClass) && class_exists($migrationClass)) {
+			$migration = new $migrationClass;
+		}
+		else if ($migrationClass instanceof Dbmigrations_Framework_Abstract) {
+			$migration = $migrationClass;
+		}
+		else {
 			return false;
 		}
 
-		$migration = new $migrationClass;
 		$migration->up($params);
 
 		if ($saveHistory) {
@@ -75,7 +80,7 @@ class Modules_Dbmigrations_Framework_Manager {
 
 			$table->insert(array(
 				'date'	=>	date('Y-m-d H:i:s'),
-				'class_name'	=>	$migrationClass,
+				'class_name'	=>	get_class($migration),
 				'comment'	=>	$migration->getComment(),
 			));
 
@@ -104,7 +109,6 @@ class Modules_Dbmigrations_Framework_Manager {
 
 		$migration = new $migrationClass;
 		$migration->down($params);
-
 
 	}
 
@@ -146,7 +150,7 @@ class Modules_Dbmigrations_Framework_Manager {
 		foreach ($files as $file) {
 			$className = $this->_dirToNameClass($file);
 
-			if (class_exists($className)) {
+			if ($className && class_exists($className)) {
 				array_push($resultArray, $className);
 			}
 
@@ -170,13 +174,41 @@ class Modules_Dbmigrations_Framework_Manager {
 
 		$intrest = array(T_CLASS, T_INTERFACE);
 		$tokens = token_get_all(file_get_contents($file));
+		$namespace = '';
+		$classes = array();
 
 		for($i = 0, $count = sizeof($tokens); $i < $count; $i++) {
-			if(in_array($tokens[$i][0], $intrest)) {
-				$i = $i+2;
-				return  $tokens[$i][1];
+
+			if ($tokens[$i][0] === T_NAMESPACE) {
+
+				for ($j = $i+1; $j < $count; ++$j) {
+
+					if ($tokens[$j][0] === T_STRING)
+			            $namespace .= ($namespace ? '\\' : '') . $tokens[$j][1];
+			        elseif ($tokens[$j] === '{' || $tokens[$j] === ';')
+			            break;
+
+			    }
+
 			}
+
+			if ($tokens[$i][0]===T_CLASS) {
+
+				for ($j=$i+1;$j<$count;++$j) {
+
+			        if ($tokens[$j] === '{') {
+			            $classes[] = ($namespace ? $namespace . '\\' : '') . $tokens[$i+2][1];
+			        }
+
+				}
+
+			}
+
 		}
+
+		$classes = array_values($classes);
+
+		return sizeof($classes) ? $classes[0] : false;
 
 	}
 
