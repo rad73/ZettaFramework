@@ -53,9 +53,11 @@ abstract class Zetta_BootstrapModules  {
 
 		if ($this->_selfClassName != 'Zetta_BootstrapModules') {
 
-			$classElementArraay = explode('_', $this->_selfClassName);
-			$this->_moduleName = $classElementArraay[sizeof($classElementArraay) - 2];
-			$this->_modulePrefix = sizeof($classElementArraay) > 2 ? $classElementArraay[0] . '_' : '';
+			$separator = strrpos($this->_selfClassName, '\\') !== false ? '\\' : '_';
+ 			$classElementArray = explode($separator, $this->_selfClassName);
+
+			$this->_moduleName = $classElementArray[sizeof($classElementArray) - 2];
+			$this->_modulePrefix = sizeof($classElementArray) > 2 ? $classElementArray[0] . '_' : '';
 
 			$this->_modulePath = ($this->_modulePrefix ? MODULES_PATH : HEAP_PATH) . DS . $this->_moduleName;
 

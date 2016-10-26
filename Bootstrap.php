@@ -35,6 +35,7 @@ class Bootstrap extends BootstrapQuick {
 	 */
 	protected function _initModules() {
 
+		$this->bootstrap('Autoloader');
 		$this->bootstrap('Frontcontroller');
 		$this->bootstrap('Session');
 
@@ -54,6 +55,16 @@ class Bootstrap extends BootstrapQuick {
 			if (class_exists($bootstrapClass, false)) {
 
 				$moduleBootstrap = new $bootstrapClass();
+	            $moduleBootstrap->bootstrap();
+
+	            $modules[$prefix . $temp[sizeof($temp) - 2]] = dirname($path);
+
+			}
+
+			$bootstrapClassNS = str_replace('_', '\\', $bootstrapClass);
+			if (class_exists($bootstrapClassNS, false)) {
+
+				$moduleBootstrap = new $bootstrapClassNS();
 	            $moduleBootstrap->bootstrap();
 
 	            $modules[$prefix . $temp[sizeof($temp) - 2]] = dirname($path);
