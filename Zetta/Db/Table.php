@@ -23,6 +23,10 @@ class Zetta_Db_Table extends Zend_Db_Table {
 			$this->_name = static::TABLE_NAME;
 		}
 
+		if (defined('static::CONNECTION')) {
+			$this->_adapterName = static::CONNECTION;
+		}
+
 		if (
 			isset($this->_adapterName)
 			&& Zend_Registry::isRegistered("dbs")

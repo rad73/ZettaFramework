@@ -7,7 +7,7 @@ abstract class Dbmigrations_Framework_Abstract implements Dbmigrations_Framework
 	protected $_db;
 
 	public function __construct() {
-		$this->_setAdapter();
+		$this->_setDb();
 	}
 
 	/**
@@ -17,19 +17,19 @@ abstract class Dbmigrations_Framework_Abstract implements Dbmigrations_Framework
 	 */
 	protected function _setAdapter() {
 
-		$this->_db = $db = Zend_Registry::get('db');
+		$db = $this->_db;
 
 		switch (true) {
-			
+
 			case $db instanceof Zend_Db_Adapter_Mysqli:
 			case $db instanceof Zend_Db_Adapter_Pdo_Mysql:
 					$this->_adapter = new Dbmigrations_Framework_Adapter_Mysql($db);
 				break;
-				
+
 			case $db instanceof Zend_Db_Adapter_Pdo_Sqlite:
 					$this->_adapter = new Dbmigrations_Framework_Adapter_Sqlite($db);
 				break;
-			
+
 		}
 
 		return $this;
@@ -38,18 +38,22 @@ abstract class Dbmigrations_Framework_Abstract implements Dbmigrations_Framework
 
 	/**
 	 * Сохраняем ссылку на БД
-	 * 
+	 *
 	 * @return Dbmigrations_Abstract
 	 *
 	 */
-	protected function _setDb() {
+	protected function _setDb(Zend_Db_Adapter_Abstract $db = null) {
+
+		$this->_db = $db ? $db : Zend_Registry::get('db');
+		$this->_setAdapter();
+
 		return $this;
 	}
 
 	public function getComment() {
-		return $this->_comment;	
+		return $this->_comment;
 	}
-	
+
 	public function createTable($name, $columns) {
 		$this->_adapter->createTable($name, $columns);
 	}
@@ -73,15 +77,15 @@ abstract class Dbmigrations_Framework_Abstract implements Dbmigrations_Framework
 	public function dropForeignKey($table, $keyName) {
 		$this->_adapter->dropForeignKey($table, $keyName);
 	}
-	
+
 	public function	addColumn($table, $name, $options = array()) {
 		$this->_adapter->addColumn($table, $name, $options);
 	}
-	
+
 	public function	dropColumn($table, $name) {
 		$this->_adapter->dropColumn($table, $name);
 	}
-	
+
 	public function	alterColumn($table, $name, $newName, $options = array()) {
 		$this->_adapter->alterColumn($table, $name, $newName, $options);
 	}

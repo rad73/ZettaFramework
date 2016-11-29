@@ -93,9 +93,20 @@ abstract class System_Functions {
      * @param string $tableName
      * @return bool
      */
-    public static function tableExist($tableName) {
+    public static function tableExist($tableName, $connectionName = false) {
 
-		$databaseTables = Zend_Registry::get('db')->listTables();
+		if (
+			$connectionName !== false
+			&& Zend_Registry::isRegistered('dbs')
+			&& isset(Zend_Registry::get('dbs')[$connectionName])
+		) {
+			$connection = Zend_Registry::get('dbs')[$connectionName];
+		}
+		else {
+			$connection = Zend_Registry::get('db');
+		}
+
+		$databaseTables = $connection->listTables();
     	return in_array($tableName, $databaseTables);
 
     }
