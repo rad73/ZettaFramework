@@ -15,7 +15,6 @@ class Zetta_Bootstrap_Resource_Autoloader extends Zend_Application_Resource_Reso
 
 		$this->_pushPhpNSAutoloader();
 
-
 	}
 
 	/**
@@ -24,11 +23,12 @@ class Zetta_Bootstrap_Resource_Autoloader extends Zend_Application_Resource_Reso
 	 */
 	protected function _pushPhpNSAutoloader() {
 
-		$this->_autoloader->pushAutoloader(function($className) {
+		// статичный метод сделан специально, чтобы избежать замыкания в _GLOBALS (нарушает работу PHPUnit)
+		$this->_autoloader->pushAutoloader((static function($className) {
 			if (stristr($className, '\\') !== false) {
-	            Zend_Loader_Autoloader::autoload(str_replace('\\', '_', $className));
+				Zend_Loader_Autoloader::autoload(str_replace('\\', '_', $className));
 			}
-        });
+        }));
 
 		return $this;
 
