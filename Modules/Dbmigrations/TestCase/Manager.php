@@ -12,7 +12,6 @@ class Modules_Dbmigrations_TestCase_Manager extends PHPUnit_Framework_TestCase {
 	public function tearDown() {
 		unset($this->_object);
 	}
-
 	public function testGetMigrationClasses() {
 
 		$classes = $this->_object->getMigrationClasses();
@@ -30,7 +29,8 @@ class Modules_Dbmigrations_TestCase_Manager extends PHPUnit_Framework_TestCase {
 
 	}
 
-
+	/*
+	@deprecated
 	public function testGetMasterBranch() {
 
 		$master = $this->_object->getMasterBranch();
@@ -38,6 +38,7 @@ class Modules_Dbmigrations_TestCase_Manager extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(is_array($master));
 
 	}
+	*/
 
 	public function testUpTo() {
 		$this->_object->upTo('Temp_Migration');
