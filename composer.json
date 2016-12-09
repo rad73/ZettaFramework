@@ -21,7 +21,9 @@
         "oyejorge/less.php": "*",
         "matthiasmullie/minify": "*",
         "dirmax/zfdebug": "*",
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+		"phpunit/dbunit": "*",
+		"phpunit/php-invoker": "*"
     },
     "repositories": [{
         "url": "https://github.com/dirmax/ZFDebug.git",
