@@ -1,6 +1,6 @@
 <?php
 
-class Modules_Publications_Model_Table extends Zend_Db_Table  {
+class Modules_Publications_Model_Table extends Zetta_Db_Table  {
 
 	const PREFIX_TABLE = 'publications__';
 
