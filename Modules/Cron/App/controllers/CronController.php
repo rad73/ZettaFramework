@@ -71,7 +71,7 @@ class Modules_Cron_CronController extends Zend_Controller_Action {
 						'last_run_finish'	=> new Zend_Db_Expr('NULL')
 					), $model->getAdapter()->quoteInto('cron_id = ?', $task->cron_id));
 
-					$taskUrl = HTTP_HOST . $task->task . '?secret_key=' . Zend_Registry::get('config')->Db->staticSalt;
+					$taskUrl = (stripos($task->task, 'http') === false ? HTTP_HOST : '')  . $task->task . '?secret_key=' . Zend_Registry::get('config')->Db->staticSalt;
 					$id = $async->get($taskUrl);
 					$task_id[$id] = $task;
 
