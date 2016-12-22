@@ -16,17 +16,21 @@
     }],
     "require": {
         "php":">=5.5",
+		"dirmax/zfdebug": "*",
+        "dirmax/phpthumb": "*",
         "zendframework/zendframework1": "*",
         "leafo/scssphp": "*",
         "oyejorge/less.php": "*",
         "matthiasmullie/minify": "*",
-        "dirmax/zfdebug": "*",
         "phpunit/phpunit": "*",
 		"phpunit/dbunit": "*",
 		"phpunit/php-invoker": "*"
     },
     "repositories": [{
         "url": "https://github.com/dirmax/ZFDebug.git",
+        "type": "git"
+    },{
+        "url": "https://github.com/dirmax/PHPThumb.git",
         "type": "git"
     }]
 }

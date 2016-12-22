@@ -126,13 +126,13 @@ abstract class System_Functions {
 	 * @param array(w, h) $sizes
 	 * @return string
 	 */
-	public static function getThumbUrl($path, $sizes = array(200, 100), $watermarked = false) {
+	public static function getThumbUrl($path, $sizes = array(200, 100), $watermarked = false, $prefix = '') {
 
 		$name = basename($path);
 		$temp = explode('.', $name);
 		$ext = end($temp);
 		$dir = dirname($path);
-		return $dir . '/thumbs/' . str_replace('.' . $ext, '', $name) . '_' . $sizes[0] .'x' . $sizes[1] . ($watermarked ? '_w' : '') . '.' . $ext;
+		return $dir . DS . 'thumbs' . DS . $prefix . str_replace('.' . $ext, '', $name) . '_' . $sizes[0] .'x' . $sizes[1] . ($watermarked ? '_w' : '') . '.' . $ext;
 
 	}
 
@@ -143,48 +143,26 @@ abstract class System_Functions {
 	 * @param string $imageDest		путь куда сохранить превью
 	 * @param int $width			ширина
 	 * @param int $height			высота
+	 * @param int $quality			качество сохраняемой картинки
 	 * @return bool
 	 */
-	public static function createThumb($imageSrc, $imageDest, $width, $height) {
+	public static function createThumb($imageSrc, $imageDest, $width, $height, $quality = 85) {
 
-		if (false == is_file($imageSrc)) {
-			throw new Exception('Image ' . $imageSrc . ' not found');
+		$thumb = new \PHPThumb\GD($imageSrc);
+		$dimensions = $thumb->getCurrentDimensions();
+
+		if ($dimensions['width']) {
+
+			$thumb->setOptions(array('jpegQuality' => $quality));
+			$thumb->setFormat(strtoupper(pathinfo($imageDest, PATHINFO_EXTENSION)));
+			$thumb->resizeToSquare($width, $height);
+			$thumb->save($imageDest);
+
+			return $imageDest;
+
 		}
 
-		$size = getimagesize($imageSrc);
-		$format = strtolower(substr($size['mime'], strpos($size['mime'], '/') + 1));
-
-		$icfunc = 'imagecreatefrom' . $format;
-		$ifunc = "image" . $format;
-
-		$x_ratio = $width / $size[0];
-		$y_ratio = $height / $size[1];
-		$ratio       = max($x_ratio, $y_ratio);
-		$use_x_ratio = ($x_ratio == $ratio);
-
-		$new_width   = $use_x_ratio  ? $width  : floor($size[0] * $ratio);
-		$new_height  = !$use_x_ratio ? $height : floor($size[1] * $ratio);
-		$new_left    = $use_x_ratio  ? 0 : floor(($width - $new_width) / 2);
-		$new_top     = !$use_x_ratio ? 0 : floor(($height - $new_height) / 2);
-
-		$isrc = $icfunc($imageSrc);
-		imagealphablending($isrc, true);
-
-		$idest = imagecreatetruecolor($new_width, $new_height);
-		imagealphablending($idest, false);
-		imagesavealpha($idest, true);
-
-		imagecopyresampled($idest, $isrc, 0, 0, 0, 0,
-		$new_width, $new_height, $size[0], $size[1]);
-
-		$func = 'image' . $format;
-		$func($idest, $imageDest);
-		chmod($imageDest, 0777);
-
-		imagedestroy($isrc);
-		imagedestroy($idest);
-
-		return $imageDest;
+		return false;
 
 	}
 
@@ -195,41 +173,28 @@ abstract class System_Functions {
 	 * @param string $imageDest		путь куда сохранить превью
 	 * @param int $width			ширина
 	 * @param int $height			высота
+	 * @param int $quality			качество сохраняемой картинки
 	 * @return bool
 	 */
-	public static function createThumbWatermark($imageSrc, $imageDest, $width, $height) {
+	public static function createThumbWatermark($imageSrc, $imageDest, $width, $height, $quality = 85) {
+		
+		$thumb = new \PHPThumb\GD($imageSrc, array(), array(
+			new PHPThumb\Plugins\Watermark(0, 0, USER_FILES_PATH . DS . 'watermark.png')
+		));
+		$dimensions = $thumb->getCurrentDimensions();
 
-		$thumbPath = self::createThumb($imageSrc, $imageDest, $width, $height);
-		$watermarkPath = USER_FILES_PATH . DS . 'watermark.png';
+		if ($dimensions['width']) {
 
-		if (is_file($watermarkPath)) {
+			$thumb->setOptions(array('jpegQuality' => $quality));
+			$thumb->setFormat(strtoupper(pathinfo($imageDest, PATHINFO_EXTENSION)));
+			$thumb->resizeToSquare($width, $height);
+			$thumb->save($imageDest);
 
-			$size = getimagesize($imageSrc);
-			$format = strtolower(substr($size['mime'], strpos($size['mime'], '/') + 1));
-
-			$icfunc = 'imagecreatefrom' . $format;
-			$ifunc = "image" . $format;
-
-			$isrc = $icfunc($thumbPath);
-			$sizeStamp = getimagesize($watermarkPath);
-
-			imagealphablending($isrc, true);
-			imagesavealpha($isrc, true);
-
-			$stamp = imagecreatefrompng($watermarkPath);
-
-			imagecopyresampled($isrc, $stamp, ($width / 2) - ($sizeStamp[0] / 2), $height / 2, 0, 0, imagesx($stamp), imagesy($stamp), imagesx($stamp), imagesy($stamp));
-
-			$func = 'image' . $format;
-			$func($isrc, $thumbPath);
-			chmod($thumbPath, 0777);
-
-			imagedestroy($isrc);
-			imagedestroy($stamp);
+			return $imageDest;
 
 		}
 
-		return $thumbPath;
+		return false;
 
 	}
 
