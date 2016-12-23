@@ -1,6 +1,3 @@
-google.load("elements", "1", {packages: "keyboard"});
-
-	
 $(function () {
 	
 	{	/* Отправка формы */
@@ -23,44 +20,5 @@ $(function () {
 	}
 
 	$('#username').focus();
-	
-	{	/* Работаем с клавиатурой от google */
-		
-		var _kbd = new google.elements.keyboard.Keyboard(['en']);
-		_kbd.setVisible(false);
-		
-		var _toggleGoogleKbd = function (mode) {
-	
-			if ($('#kbd').is(':visible') || mode == 'hide') {
-				$('#kbd').fadeOut();
-			}
-			else {
-				$('#kbd').fadeIn();
-				$('#auth_password').focus();
-			}
-		
-		}
-		
-		$('#protected_ico').click (function () {
-			_toggleGoogleKbd();
-			return false;
-		});
-		
-		$(window).blur(function () {
-			_toggleGoogleKbd('hide');
-		});
-		
-		$(document).keypress (
-    		function ( e ) {
-    			if ( e.keyCode == 27 ) {
-    				_toggleGoogleKbd('hide');
-    			}
-    			
-    		}
-    	);
-		
-	}
-
-	
 
 });

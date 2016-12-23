@@ -15,7 +15,6 @@ class Modules_Access_LoginController extends Zend_Controller_Action {
     	}
     	
 		$this->_helper->layout->setLayout('login');
-		$this->view->safetyPassword = Zend_Registry::get('config')->Access->safetyPassword;
 
 	}
 
