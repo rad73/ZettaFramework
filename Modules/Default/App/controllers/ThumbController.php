@@ -40,8 +40,8 @@ class Modules_Default_ThumbController extends Modules_Default_LibController {
 			  [9]=> string(4) ".jpg"			// расширение уменьшенной копии
 			}
 		*/
-
-    	if (sizeof($matches) == 10) {
+	
+    	if (sizeof($matches) >= 9) {
 			
 			$prefixFolder = $matches[1];
     		
