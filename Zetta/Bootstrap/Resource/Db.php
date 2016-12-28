@@ -9,6 +9,10 @@ class Zetta_Bootstrap_Resource_Db extends Zend_Application_Resource_Db {
 	protected $_db;
 
 	public function init() {
+		
+		if ($this->getBootstrap()->hasPluginResource('multidb')) {
+			return $this->getBootstrap()->bootstrap('multidb');
+		}
 
 		$this->_db = parent::init();
 

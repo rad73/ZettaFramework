@@ -7,11 +7,5 @@
  *
  */
 class Modules_Service_Bootstrap extends Zetta_BootstrapModules {
-
-	public function bootstrap() {
-		
-		parent::bootstrap();
-				
-	}
 	
 }

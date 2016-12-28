@@ -7,9 +7,5 @@
  *
  */
 class Modules_Logger_Bootstrap extends Zetta_BootstrapModules {
-
-	public function bootstrap() {
-		parent::bootstrap();
-	}
 	
 }
