@@ -10,15 +10,15 @@ class Modules_Seo_Bootstrap extends Zetta_BootstrapModules {
 
 	public function bootstrap() {
 
+		parent::bootstrap();
+		
 		if (!System_Functions::tableExist('seo')) {
 			
 			$_migrationManager = new Modules_Dbmigrations_Framework_Manager();
 			$_migrationManager->upTo('Modules_Seo_Migrations_CreateTableSeo');
 
 		}
-		
-		parent::bootstrap();
-		
+				
 		$this->_registerPlugins();
 
 	}

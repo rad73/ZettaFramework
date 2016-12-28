@@ -8,7 +8,6 @@ class Modules_Zfdebuginit_Bootstrap extends Zetta_BootstrapModules {
 	public function bootstrap() {
 
 		parent::bootstrap();
-
 		$this->_registerPlugins();
 
 	}

@@ -10,6 +10,8 @@
  */
 class Modules_Access_Framework_Acl extends Zend_Acl {
 
+	CONST GUEST_GROUP = 'guest';
+
 	protected static $_instance;
 	protected static $_bootstraped = false;
 
@@ -56,9 +58,15 @@ class Modules_Access_Framework_Acl extends Zend_Acl {
 
 	public function bootstrap() {
 
-		$this
-			->_initRoles()
-			->_initRules();
+		if ($this->getMyGroup() != self::GUEST_GROUP) {
+		
+			$this
+				->_initRoles()
+				->_initRules();
+				
+		}
+		
+		return $this;
 
 	}
 
@@ -177,7 +185,7 @@ class Modules_Access_Framework_Acl extends Zend_Acl {
 			return $auth->role_name;
 		}
 		else {
-			return 'guest';
+			return self::GUEST_GROUP;
 		}
 
 	}
