@@ -78,7 +78,7 @@ class Modules_Zfdebuginit_Plugin_Debug_Logger extends ZFDebug_Controller_Plugin_
             return $return . '</ol>';
 
         }
-
+		
     }
 
     protected function _getIcon($priority) {
