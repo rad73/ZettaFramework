@@ -31,8 +31,7 @@ class Modules_Access_Framework_Acl extends Zend_Acl {
 		}
 
 		if (true === $bootstrap && false === self::$_bootstraped) {
-			self::$_instance->bootstrap();
-			self::$_bootstraped = true;
+			self::$_bootstraped = self::$_instance->bootstrap();
 		}
 
 		return self::$_instance;
@@ -64,9 +63,11 @@ class Modules_Access_Framework_Acl extends Zend_Acl {
 				->_initRoles()
 				->_initRules();
 				
+			return true;
+				
 		}
 		
-		return $this;
+		return false;
 
 	}
 
