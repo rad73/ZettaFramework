@@ -93,20 +93,16 @@ class Modules_Default_LibController extends Zend_Controller_Action {
     	$baseUri = $this->getRequest()->getBaseUrl() . '/zlib'/* . $this->_getParam('controller')*/;
     	$findFilePath = str_ireplace($baseUri, '', $requestUri['path']);
     	
-    	if (file_exists(SYSTEM_PATH . DS . $findFilePath)) {
-    		$file = SYSTEM_PATH . DS . $findFilePath;
+    	if (is_readable(SYSTEM_PATH . DS . $findFilePath)) {
+    		return SYSTEM_PATH . DS . $findFilePath;
     	}
-    	else if (file_exists(SYSTEM_PATH . DS . 'Modules' . DS . $findFilePath)) {
-    		$file = SYSTEM_PATH . DS . 'Modules' . DS . $findFilePath;
+    	else if (is_readable(SYSTEM_PATH . DS . 'Modules' . DS . $findFilePath)) {
+    		return SYSTEM_PATH . DS . 'Modules' . DS . $findFilePath;
     	}
-    	else {
-	    	$file =  SYSTEM_PATH . DS . 'public' . $findFilePath;
+    	else if (is_readable(SYSTEM_PATH . DS . 'public' . $findFilePath)) {
+	    	return SYSTEM_PATH . DS . 'public' . $findFilePath;
     	}
     	
-    	if (is_file($file)) {
-    		return realpath($file);
-    	}
-
     }
 
     /**

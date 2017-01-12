@@ -10,10 +10,10 @@ class Zetta_View_Helper_Block extends Zend_View_Helper_Abstract {
 
 	public function setView(Zend_View_Interface $view) {
 
-		parent::setView($view);
+		$this->view = clone $view;
 
 		$this->view
-    		->addBasePath(HEAP_PATH . DS . 'Blocks/App/views')
+    		->setBasePath(HEAP_PATH . DS . 'Blocks/App/views')
     		->addBasePath(MODULES_PATH . DS . 'Blocks/App/views');
 
     	$this->_blockModel = new Modules_Blocks_Model_Blocks();
@@ -45,12 +45,15 @@ class Zetta_View_Helper_Block extends Zend_View_Helper_Abstract {
     	$this->view->content = $block ? $block->content : $defaultValue;
     	$this->view->inherit = $inherit;
 
-    	try {
-    		$return = $this->view->render('block_' . $blockName . '/index.phtml');
-    	}
-    	catch (Exception $e) {
-    		$return = $this->view->render('block/index.phtml');
-    	}
+		// @todo slow perfomance
+    	//try {
+    	//	$return = $this->view->render('block_' . $blockName . '/index.phtml');
+    	//}
+    	//catch (Exception $e) {
+    	//	$return = $this->view->render('block/index.phtml');
+    	//}
+
+		$return = $this->view->render('block/index.phtml');
 
     	if ($this->isAdmin()) {
     		$this->view->content = $return;

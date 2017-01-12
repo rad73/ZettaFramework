@@ -67,8 +67,10 @@ abstract class Zetta_BootstrapModules  {
 
 			if (Zend_Registry::isRegistered('view')) {
 
-				Zend_Registry::get('view')
-					->addHelperPath($this->_modulePath . '/App/views/helpers', 'Zetta_View_Helper_');
+				if (is_readable($this->_modulePath . '/App/views/helpers')) {
+					Zend_Registry::get('view')
+						->addHelperPath($this->_modulePath . '/App/views/helpers', 'Zetta_View_Helper_');
+				}
 
 			}
 
