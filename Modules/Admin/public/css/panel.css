@@ -752,7 +752,7 @@ ZETTA {
 		}
 
 		.z_icons_editable A,
-		.z_icons_editable VAR
+		.z_blocks_enabled .z_icons_editable VAR
 		{
 			color: #fff !important;
 			padding: 4px 0 !important;;
@@ -763,7 +763,7 @@ ZETTA {
 			cursor: pointer;
 		}
 
-		.z_icons_editable .icon-pencil, .z_icons_editable .icon {
+		.z_blocks_enabled .z_icons_editable .icon-pencil, .z_blocks_enabled .z_icons_editable .icon {
 			display: block;
 			float: left;
 		}

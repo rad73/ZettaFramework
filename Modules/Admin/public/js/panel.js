@@ -130,7 +130,7 @@ $(function () {
     _reinitFavorites();
 
 
-    $('.z_icons_editable A:not(.no_ajax)')
+    $('.z_icons_editable A:not(.no_ajax), .z_admin_link')
     	.unbind('click')
     	.click(function () {
     		$.History.go($(this).attr('href'));
