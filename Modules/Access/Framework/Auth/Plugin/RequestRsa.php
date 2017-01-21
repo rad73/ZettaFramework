@@ -21,10 +21,12 @@ class Modules_Access_Framework_Auth_Plugin_RequestRsa extends Modules_Access_Fra
 	
 	public function authenticate() {
 		
+		$request = Zend_Controller_Front::getInstance()->getRequest();
+		
 		if (
-			sizeof($_POST)
-			&& ($hash = Zend_Controller_Front::getInstance()->getRequest()->getParam('auth_hash'))
-			&& ($username = Zend_Controller_Front::getInstance()->getRequest()->getParam('username'))
+			!$request->isGet() 
+			&& ($hash = $request->getParam('auth_hash'))
+			&& ($username = $request->getParam('username'))
 		) {
 
 			$this
