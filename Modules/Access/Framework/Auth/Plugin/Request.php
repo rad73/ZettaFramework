@@ -18,7 +18,7 @@ class Modules_Access_Framework_Auth_Plugin_Request extends Modules_Access_Framew
 		$request = Zend_Controller_Front::getInstance()->getRequest();
 		
 		if (
-			sizeof($_POST)
+			!$request->isGet() 
 			&& ($password = $request->getParam('auth_password'))
 			&& @($username = $request->getParam('username'))
 		) {
