@@ -17,7 +17,7 @@ class Modules_Zfdebuginit_Plugin_Widget extends Zend_Controller_Plugin_Abstract 
 		if (array_key_exists('z_zfdebuginit_enabled', $_COOKIE) && true == $_COOKIE['z_zfdebuginit_enabled']) {
 			$this->_isEnable = true;
 		}
-				
+		
 	}
 	
 	public function routeStartup(Zend_Controller_Request_Abstract $request) {
@@ -28,7 +28,7 @@ class Modules_Zfdebuginit_Plugin_Widget extends Zend_Controller_Plugin_Abstract 
 			Zetta_Acl::getInstance()->isAllowed('admin_module_zfdebuginit')
 			&& Zetta_Acl::getInstance()->isAllowed('admin')
 		) {
-						
+			
 			$this->_view->renderWidget(MODULES_PATH . DS . 'Zfdebuginit/App/views', 'admin/widget.phtml', array(
 				'enabled'	=> $this->_isEnable
 			));
@@ -54,7 +54,13 @@ class Modules_Zfdebuginit_Plugin_Widget extends Zend_Controller_Plugin_Abstract 
 			 */
 			$dbKey = array_search('Database', $options['plugins']);
 		
-			if (Zend_Registry::isRegistered('db') && $db = Zend_Registry::get('db') && isset($dbKey)) {
+			if (Zend_Registry::isRegistered('dbs') && isset($dbKey)) {
+				$options['plugins']['Database'] = array('adapter' => array());
+				foreach (Zend_Registry::get('dbs') as $key=>$db) {
+					$options['plugins']['Database']['adapter'][$key] = $db; 
+				}
+			}
+			else if (Zend_Registry::isRegistered('db') && $db = Zend_Registry::get('db') && isset($dbKey)) {
 				$options['plugins']['Database'] = array('adapter' => array('standard' => Zend_Registry::get('db'))); 
 			}
 			
@@ -64,8 +70,7 @@ class Modules_Zfdebuginit_Plugin_Widget extends Zend_Controller_Plugin_Abstract 
 			 * Кэш
 			 */
 			$cacheKey = array_search('Cache', $options['plugins']);
-			
-			
+		
 			if (Zend_Registry::isRegistered('cache') && $db = Zend_Registry::get('cache') && isset($cacheKey)) {
 				$options['plugins']['Cache'] = array('backend' => Zend_Registry::get('cache')->getBackend()); 
 			}
