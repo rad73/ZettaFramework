@@ -19,7 +19,7 @@ class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_St
 		$_currentControllerDir = $this->getControllerDirectory($_formatedModuleName);
 		$_classNameFile = $_currentControllerDir . DS .  $this->classToFilename($this->getControllerClass($_request));
 
-		if (false == file_exists($_classNameFile)) {
+		if (false == Zend_Loader::isReadable($_classNameFile)) {
 			// файл не существует значит будем искать в MODULES_PATH
 			$_modulesControllerDir = $this->_modulesControllerDirectory();
 			$this

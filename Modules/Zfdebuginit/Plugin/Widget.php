@@ -43,8 +43,6 @@ class Modules_Zfdebuginit_Plugin_Widget extends Zend_Controller_Plugin_Abstract 
     
     protected function _registerPanel() {
     	
-		set_include_path(get_include_path() . PATH_SEPARATOR . LIBRARY_PATH . '/ZFDebug/library/');
-		
 		$_config = Zend_Registry::get('config')->Zfdebuginit;
 
 		if ($this->_isEnable || isset($_REQUEST[$_config->getvar])) {

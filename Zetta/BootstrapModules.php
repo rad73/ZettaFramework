@@ -117,8 +117,9 @@ abstract class Zetta_BootstrapModules  {
 		    'basePath'      => $this->_modulePath . DS . 'App',
 		    'namespace'     => ''
 		));
-
+		
 		$resourceLoader
+			->addResourceType('controller', 'controllers/',  $this->_modulePrefix . $this->_moduleName)
 			->addResourceType('model', 'models/',  $this->_modulePrefix . $this->_moduleName . '_Model')
 			->addResourceType('validator', 'validators/',  $this->_modulePrefix . $this->_moduleName . '_Validator');
 
@@ -130,8 +131,9 @@ abstract class Zetta_BootstrapModules  {
 			));
 
 			$resourceLoader
-				->addResourceType('model', 'models/',  'Modules_' . $this->_moduleName . '_Model')
-				->addResourceType('validator', 'validators/',  'Modules_' . $this->_moduleName . '_Validator');
+				->addResourceType('controller', 'controllers/',  'Heap_' . $this->_moduleName)
+				->addResourceType('model', 'models/',  'Heap_' . $this->_moduleName . '_Model')
+				->addResourceType('validator', 'validators/',  'Heap_' . $this->_moduleName . '_Validator');
 
 		}
 

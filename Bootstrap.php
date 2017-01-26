@@ -12,9 +12,8 @@ class Bootstrap extends BootstrapQuick {
 		parent::_initOptParams();
 	}
 
-	protected function _initIncludePath() {
-		parent::_initIncludePath();
-		$this->bootstrap('View');
+	protected function _initLoader() {
+		parent::_initLoader();
 	}
 
 	protected function _initConfigRegistry() {
@@ -38,6 +37,7 @@ class Bootstrap extends BootstrapQuick {
 		$this->bootstrap('Frontcontroller');
 		$this->bootstrap('Db');
 		$this->bootstrap('Session');
+		$this->bootstrap('View');
 		
 		$bootstraps = glob(MODULES_PATH . DS . '*' . DS . 'Bootstrap.php');
 		$bootstraps = array_merge($bootstraps, glob(HEAP_PATH . DS . '*' . DS . 'Bootstrap.php'));

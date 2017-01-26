@@ -33,16 +33,8 @@ class BootstrapQuick extends Zend_Application_Bootstrap_Bootstrap {
 	 * Устанавливаем путь к системным папкам
 	 * таким как Zend Fremawork library и библиотеки CMS
 	 */
-	protected function _initIncludePath() {
-
-		set_include_path(implode(PATH_SEPARATOR, array(
-			FILE_PATH,
-			MODULES_PATH,
-			HEAP_PATH,
-			get_include_path()))
-		);
+	protected function _initLoader() {
 		$this->bootstrap('Autoloader');
-
 	}
 
 	/**
