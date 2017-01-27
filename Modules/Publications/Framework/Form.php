@@ -1,6 +1,6 @@
 <?php
 
-class Publications_Framework_Form extends Zetta_Form {
+class Modules_Publications_Framework_Form extends Zetta_Form {
 
 	/**
 	 * Модель типов публикаций
@@ -197,7 +197,7 @@ class Publications_Framework_Form extends Zetta_Form {
 
 				$classValidate = preg_match('/new (.*)\(.*/iU', $field['validator'], $matches)
 					? new $matches[1]($field)
-					: new Publications_Framework_Validator_CustomRegexp($field);
+					: new Modules_Publications_Framework_Validator_CustomRegexp($field);
 
 				$arrayFields[$i]['options']['validators'] = array(
 					'custom'	=> $classValidate
