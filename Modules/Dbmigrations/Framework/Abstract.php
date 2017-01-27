@@ -1,6 +1,6 @@
 <?php
 
-abstract class Dbmigrations_Framework_Abstract implements Dbmigrations_Framework_Adapter_Interface {
+abstract class Modules_Dbmigrations_Framework_Abstract implements Modules_Dbmigrations_Framework_Adapter_Interface {
 
 	protected $_adapter;
 	protected $_comment;
@@ -13,7 +13,7 @@ abstract class Dbmigrations_Framework_Abstract implements Dbmigrations_Framework
 	/**
 	 * Подключаем адаптер миграций
 	 *
-	 * @return Dbmigrations_Abstract
+	 * @return Modules_Dbmigrations_Abstract
 	 */
 	protected function _setAdapter() {
 
@@ -23,11 +23,11 @@ abstract class Dbmigrations_Framework_Abstract implements Dbmigrations_Framework
 
 			case $db instanceof Zend_Db_Adapter_Mysqli:
 			case $db instanceof Zend_Db_Adapter_Pdo_Mysql:
-					$this->_adapter = new Dbmigrations_Framework_Adapter_Mysql($db);
+					$this->_adapter = new Modules_Dbmigrations_Framework_Adapter_Mysql($db);
 				break;
 
 			case $db instanceof Zend_Db_Adapter_Pdo_Sqlite:
-					$this->_adapter = new Dbmigrations_Framework_Adapter_Sqlite($db);
+					$this->_adapter = new Modules_Dbmigrations_Framework_Adapter_Sqlite($db);
 				break;
 
 		}
@@ -39,7 +39,7 @@ abstract class Dbmigrations_Framework_Abstract implements Dbmigrations_Framework
 	/**
 	 * Сохраняем ссылку на БД
 	 *
-	 * @return Dbmigrations_Abstract
+	 * @return Modules_Dbmigrations_Abstract
 	 *
 	 */
 	protected function _setDb(Zend_Db_Adapter_Abstract $db = null) {

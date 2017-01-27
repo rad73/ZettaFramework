@@ -6,7 +6,7 @@
  * @author Александр Хрищанович
  *
  */
-class Modules_Router_Migrations_AddRedirectUrlField extends Dbmigrations_Framework_Abstract {
+class Modules_Router_Migrations_AddRedirectUrlField extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Добавляем поле redirect_url';
 

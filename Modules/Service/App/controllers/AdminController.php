@@ -1,8 +1,5 @@
 <?php
 
-require_once 'UpdateController.php';
-require_once 'BackupController.php';
-
 class Modules_Service_AdminController extends Zend_Controller_Action {
 
 	public function init() {

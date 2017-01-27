@@ -6,7 +6,7 @@
  * @author Александр Хрищанович
  *
  */
-class Modules_Access_Migrations_CreateUsersTable extends Dbmigrations_Framework_Abstract {
+class Modules_Access_Migrations_CreateUsersTable extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание таблицы пользователей';
 

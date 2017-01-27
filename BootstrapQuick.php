@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Zend/Application/Bootstrap/Bootstrap.php';
-
 class BootstrapQuick extends Zend_Application_Bootstrap_Bootstrap {
 
 	/**

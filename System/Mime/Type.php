@@ -1,5 +1,4 @@
 <?php
-require_once 'Zend/Config/Xml.php';
 
 class System_Mime_Type {
 

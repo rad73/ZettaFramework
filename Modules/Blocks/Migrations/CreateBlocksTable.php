@@ -6,7 +6,7 @@
  * @author Александр Хрищанович
  *
  */
-class Blocks_Migrations_CreateBlocksTable extends Dbmigrations_Framework_Abstract {
+class Modules_Blocks_Migrations_CreateBlocksTable extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание таблицы для редактируемых блоков';
 	protected $_tableName = 'blocks';

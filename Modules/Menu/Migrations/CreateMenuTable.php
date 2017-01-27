@@ -6,7 +6,7 @@
  * @author Александр Хрищанович
  *
  */
-class Modules_Menu_Migrations_CreateMenuTable extends Dbmigrations_Framework_Abstract {
+class Modules_Menu_Migrations_CreateMenuTable extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание таблицы меню';
 

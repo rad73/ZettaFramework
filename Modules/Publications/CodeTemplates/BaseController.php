@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Modules/Publications/App/controllers/IndexController.php';
-
 /**
  * @description {description}
  *

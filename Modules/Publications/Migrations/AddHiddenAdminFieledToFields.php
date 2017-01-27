@@ -6,7 +6,7 @@
  * @author Александр Хрищанович
  *
  */
-class Modules_Publications_Migrations_AddHiddenAdminFieledToFields extends Dbmigrations_Framework_Abstract {
+class Modules_Publications_Migrations_AddHiddenAdminFieledToFields extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание поля "hidden_admin" в таблице полей публикаций';
 

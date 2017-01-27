@@ -1,7 +1,5 @@
 <?php
 
-require_once 'System/Rsa/Keygen.php';
-
 /**
  * Попытка авторизации с запроса
  * 

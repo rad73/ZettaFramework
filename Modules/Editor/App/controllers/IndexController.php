@@ -1,6 +1,5 @@
 <?php
 
-
 class Modules_Editor_IndexController extends Zend_Controller_Action {
 
 	public function init() {
@@ -15,9 +14,7 @@ class Modules_Editor_IndexController extends Zend_Controller_Action {
 	}
 
 	public function elfinderconnectorAction() {
-
 		require_once 'Modules/Editor/public/js/elFinder/php/connector.minimal.php';
-
 	}
 
     public function imagesAction() {

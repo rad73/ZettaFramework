@@ -4,7 +4,7 @@
  * Миграция по созданию таблицы ресурсов
  *
  */
-class Modules_Access_Migrations_CreateResourceTable extends Dbmigrations_Framework_Abstract {
+class Modules_Access_Migrations_CreateResourceTable extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание таблицы ресурсов';
 

@@ -1,6 +1,6 @@
 <?php
 
-class Modules_Cron_Migrations_CreateCronTable extends Dbmigrations_Framework_Abstract {
+class Modules_Cron_Migrations_CreateCronTable extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание таблицы планировщика';
 
