@@ -21,6 +21,7 @@ class Bootstrap extends BootstrapQuick {
 	}
 
 	protected function _initSiteConfig() {
+		$this->bootstrap('View');
 		$bootsrapSettings = new Modules_Settings_Bootstrap();
 		$bootsrapSettings->bootstrap();
 	}
@@ -37,7 +38,6 @@ class Bootstrap extends BootstrapQuick {
 		$this->bootstrap('Frontcontroller');
 		$this->bootstrap('Db');
 		$this->bootstrap('Session');
-		$this->bootstrap('View');
 		
 		$bootstraps = glob(MODULES_PATH . DS . '*' . DS . 'Bootstrap.php');
 		$bootstraps = array_merge($bootstraps, glob(HEAP_PATH . DS . '*' . DS . 'Bootstrap.php'));
