@@ -23,14 +23,12 @@ class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_St
 			// файл не существует значит будем искать в MODULES_PATH
 			$_modulesControllerDir = $this->_modulesControllerDirectory();
 			$this
-				->addControllerDirectory($_modulesControllerDir, $_formatedModuleName)
-				->addControllerDirectory($_modulesControllerDir, strtolower($_formatedModuleName));
+				->addControllerDirectory($_modulesControllerDir, $_formatedModuleName);
 		}
 		else {
 			// файл существует зададим высший приоритет
 			$this
-				->addControllerDirectory($_currentControllerDir, $_formatedModuleName)
-				->addControllerDirectory($_currentControllerDir, strtolower($_formatedModuleName));
+				->addControllerDirectory($_currentControllerDir, $_formatedModuleName);
 		}
 
 		$dirModuleName = $this->getControllerDirectory($_formatedModuleName);

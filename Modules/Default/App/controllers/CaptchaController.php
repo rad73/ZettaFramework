@@ -1,4 +1,5 @@
 <?php
+require_once 'LibController.php';
 
 class Modules_Default_CaptchaController extends Modules_Default_LibController {
 	
