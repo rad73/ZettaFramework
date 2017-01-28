@@ -6,7 +6,7 @@
  * @author Александр Хрищанович
  *
  */
-class Modules_Seo_Migrations_CreateTableSeo extends Dbmigrations_Framework_Abstract {
+class Modules_Seo_Migrations_CreateTableSeo extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание таблицы для seo';
 

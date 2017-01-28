@@ -4,7 +4,7 @@
  * Миграция по созданию таблицы правил
  *
  */
-class Modules_Access_Migrations_CreateRulesTable extends Dbmigrations_Framework_Abstract {
+class Modules_Access_Migrations_CreateRulesTable extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание таблицы правил';
 

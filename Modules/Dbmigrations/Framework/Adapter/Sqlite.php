@@ -1,6 +1,6 @@
 <?php
 
-class Dbmigrations_Framework_Adapter_Sqlite implements Dbmigrations_Framework_Adapter_Interface {
+class Modules_Dbmigrations_Framework_Adapter_Sqlite implements Modules_Dbmigrations_Framework_Adapter_Interface {
 
 	protected $_db;
 
@@ -177,7 +177,7 @@ class Dbmigrations_Framework_Adapter_Sqlite implements Dbmigrations_Framework_Ad
 	 * @param string $table
 	 * @param string $column
 	 * @param array $keys
-	 * @return Dbmigrations_Adapter_Mysql
+	 * @return Modules_Dbmigrations_Adapter_Mysql
 	 */
 	protected function _createKeys($table, $column, $keys) {
 
@@ -197,7 +197,7 @@ class Dbmigrations_Framework_Adapter_Sqlite implements Dbmigrations_Framework_Ad
 	 * @param string $table
 	 * @param string $column
 	 * @param array $references
-	 * @return Dbmigrations_Adapter_Mysql
+	 * @return Modules_Dbmigrations_Adapter_Mysql
 	 */
 	protected function _createReferences($table, $column, $references) {
 

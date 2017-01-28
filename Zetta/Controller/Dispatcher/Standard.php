@@ -23,14 +23,12 @@ class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_St
 			// файл не существует значит будем искать в MODULES_PATH
 			$_modulesControllerDir = $this->_modulesControllerDirectory();
 			$this
-				->addControllerDirectory($_modulesControllerDir, $_formatedModuleName)
-				->addControllerDirectory($_modulesControllerDir, strtolower($_formatedModuleName));
+				->addControllerDirectory($_modulesControllerDir, $_formatedModuleName);
 		}
 		else {
 			// файл существует зададим высший приоритет
 			$this
-				->addControllerDirectory($_currentControllerDir, $_formatedModuleName)
-				->addControllerDirectory($_currentControllerDir, strtolower($_formatedModuleName));
+				->addControllerDirectory($_currentControllerDir, $_formatedModuleName);
 		}
 
 		$dirModuleName = $this->getControllerDirectory($_formatedModuleName);
@@ -127,7 +125,6 @@ class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_St
         if (!$this->isDispatchable($request)) {
             $controller = $request->getControllerName();
             if (!$this->getParam('useDefaultControllerAlways') && !empty($controller)) {
-                require_once 'Zend/Controller/Dispatcher/Exception.php';
                 throw new Zend_Controller_Dispatcher_Exception('Invalid controller specified (' . $request->getControllerName() . ')');
             }
 
@@ -164,7 +161,6 @@ class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_St
         $controller = new $moduleClassName($request, $this->getResponse(), $this->getParams());
         if (!($controller instanceof Zend_Controller_Action_Interface) &&
             !($controller instanceof Zend_Controller_Action)) {
-            require_once 'Zend/Controller/Dispatcher/Exception.php';
             throw new Zend_Controller_Dispatcher_Exception(
                 'Controller "' . $moduleClassName . '" is not an instance of Zend_Controller_Action_Interface'
             );

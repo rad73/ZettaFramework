@@ -6,7 +6,7 @@
  * @author Александр Хрищанович
  *
  */
-class Modules_Menu_Migrations_AddDefaultMenu extends Dbmigrations_Framework_Abstract {
+class Modules_Menu_Migrations_AddDefaultMenu extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Добавляем главное меню по умолчанию';
 

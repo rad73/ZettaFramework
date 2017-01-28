@@ -41,6 +41,8 @@ abstract class Zetta_BootstrapModules  {
 	 */
 	protected $_modulePrefix;
 
+	protected static $_bootstraped = array();
+
 
 	/**
 	 * Базовый bootstrap
@@ -49,31 +51,9 @@ abstract class Zetta_BootstrapModules  {
 	public function bootstrap() {
 
 		$this->_selfClassName = get_class($this);
-		$this->_front = Zend_Controller_Front::getInstance();
 
-		if ($this->_selfClassName != 'Zetta_BootstrapModules') {
-
-			$separator = strrpos($this->_selfClassName, '\\') !== false ? '\\' : '_';
- 			$classElementArray = explode($separator, $this->_selfClassName);
-
-			$this->_moduleName = $classElementArray[sizeof($classElementArray) - 2];
-			$this->_modulePrefix = sizeof($classElementArray) > 2 ? $classElementArray[0] . '_' : '';
-
-			$this->_modulePath = ($this->_modulePrefix ? MODULES_PATH : HEAP_PATH) . DS . $this->_moduleName;
-
-			$this
-				->_loadResource()
-				->_loadConfig();
-
-			if (Zend_Registry::isRegistered('view')) {
-
-				if (is_readable($this->_modulePath . '/App/views/helpers')) {
-					Zend_Registry::get('view')
-						->addHelperPath($this->_modulePath . '/App/views/helpers', 'Zetta_View_Helper_');
-				}
-
-			}
-
+		if ($this->_selfClassName != 'Zetta_BootstrapModules' && false == $this->isBootstraped($this->_selfClassName)) {
+			$this->_bootstrap();
 		}
 
 	}
@@ -86,6 +66,16 @@ abstract class Zetta_BootstrapModules  {
 	public function getModulePrefix() {
 		return $this->_modulePrefix;
 	}
+	
+	/**
+	 * Проверяем Bootstraped ли уже класс
+	 *
+	 * @return string
+	 */
+	public function isBootstraped($className) {
+		return isset(self::$_bootstraped[$className]);
+	}
+
 
 	/**
 	 * Getter для $_modulePath
@@ -95,7 +85,6 @@ abstract class Zetta_BootstrapModules  {
 	public function getModulePath() {
 		return $this->_modulePath;
 	}
-
 
 	/**
 	 * Getter для $_moduleName
@@ -162,6 +151,44 @@ abstract class Zetta_BootstrapModules  {
 		}
 
 		return $this;
+
+	}
+	
+	/**
+	 * Базовый _bootstrap
+	 *
+	 */
+	protected function _bootstrap() {
+		
+
+		if ($this->_selfClassName != 'Zetta_BootstrapModules' && false == $this->isBootstraped($this->_selfClassName)) {
+
+			$this->_front = Zend_Controller_Front::getInstance();
+
+			$separator = strrpos($this->_selfClassName, '\\') !== false ? '\\' : '_';
+ 			$classElementArray = explode($separator, $this->_selfClassName);
+
+			$this->_moduleName = $classElementArray[sizeof($classElementArray) - 2];
+			$this->_modulePrefix = sizeof($classElementArray) > 2 ? $classElementArray[0] . '_' : '';
+
+			$this->_modulePath = ($this->_modulePrefix ? MODULES_PATH : HEAP_PATH) . DS . $this->_moduleName;
+
+			$this
+				->_loadResource()
+				->_loadConfig();
+
+			if (Zend_Registry::isRegistered('view')) {
+
+				if (is_readable($this->_modulePath . '/App/views/helpers')) {
+					Zend_Registry::get('view')
+						->addHelperPath($this->_modulePath . '/App/views/helpers', 'Zetta_View_Helper_');
+				}
+
+			}
+			
+			self::$_bootstraped[$this->_selfClassName] = $this->_selfClassName;
+
+		}
 
 	}
 

@@ -6,7 +6,7 @@
  * Доступные значения - регулярка | email | url
  *
  */
-class Publications_Framework_Validator_CustomRegexp extends Zend_Validate_Abstract {
+class Modules_Publications_Framework_Validator_CustomRegexp extends Zend_Validate_Abstract {
 
     protected $_field;
 

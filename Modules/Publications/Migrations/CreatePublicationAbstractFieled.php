@@ -6,7 +6,7 @@
  * @author Александр Хрищанович
  *
  */
-class Modules_Publications_Migrations_CreatePublicationAbstractFieled extends Dbmigrations_Framework_Abstract {
+class Modules_Publications_Migrations_CreatePublicationAbstractFieled extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание поля в таблицах хранения публикаций';
 

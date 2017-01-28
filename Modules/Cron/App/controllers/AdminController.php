@@ -66,7 +66,6 @@ class Modules_Cron_AdminController extends Zend_Controller_Action {
 					->where('cron_id = ?', $this->getParam('cron_id'))
 			);
 			
-			require_once 'CronController.php';
 			Modules_Cron_CronController::RunTasks(array($task));
 			
 			$this->view->clearVars();

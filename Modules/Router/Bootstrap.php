@@ -8,9 +8,9 @@
  */
 class Modules_Router_Bootstrap extends Zetta_BootstrapModules {
 
-	public function bootstrap() {
+	public function _bootstrap() {
 
-		parent::bootstrap();
+		parent::_bootstrap();
 
 		if (!System_Functions::tableExist('routes')) {
 

@@ -1,6 +1,6 @@
 <?php
 
-class Dbmigrations_Migrations_CreateTableHistory extends Dbmigrations_Framework_Abstract {
+class Modules_Dbmigrations_Migrations_CreateTableHistory extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание таблицы для логирования миграций у текущего разработчика';
 	protected $_tableName = 'dbmigrations_history';

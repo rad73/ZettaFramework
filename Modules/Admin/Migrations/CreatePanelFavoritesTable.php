@@ -6,7 +6,7 @@
  * @author Александр Хрищанович
  *
  */
-class Modules_Admin_Migrations_CreatePanelFavoritesTable extends Dbmigrations_Framework_Abstract {
+class Modules_Admin_Migrations_CreatePanelFavoritesTable extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание таблицы избранных пунктов у пользователя';
 

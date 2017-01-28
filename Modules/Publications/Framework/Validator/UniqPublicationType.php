@@ -4,7 +4,7 @@
  * Проверка на уникальность типа публикации
  *
  */
-class Publications_Framework_Validator_UniqPublicationType extends Zend_Validate_Abstract {
+class Modules_Publications_Framework_Validator_UniqPublicationType extends Zend_Validate_Abstract {
 	
 	const ERROR = "'%value%' must be unique type of publications";
  

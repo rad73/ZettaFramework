@@ -303,7 +303,7 @@ class Modules_Publications_AdminController extends Zend_Controller_Action {
 
 		if (!$this->_rubric) throw new Exception('rubric_id не определён');
 
-		$form = new Publications_Framework_Form($this->_rubric->table_name);
+		$form = new Modules_Publications_Framework_Form($this->_rubric->table_name);
 
 		if ($form->getElement('uniq_id') && $this->getParam('uniq_id')) {
 			$form->getElement('uniq_id')->setValue($this->getParam('uniq_id'));

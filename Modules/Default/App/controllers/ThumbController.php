@@ -1,7 +1,5 @@
 <?php
-
-require_once 'Modules/Default/App/controllers/LibController.php';
-
+require_once 'LibController.php';
 
 class Modules_Default_ThumbController extends Modules_Default_LibController {
 	

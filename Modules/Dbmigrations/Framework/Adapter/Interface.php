@@ -1,6 +1,6 @@
 <?php
 
-interface Dbmigrations_Framework_Adapter_Interface {
+interface Modules_Dbmigrations_Framework_Adapter_Interface {
 
 	public function createTable($name, $columns);
 	public function dropTable($name);

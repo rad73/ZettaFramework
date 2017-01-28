@@ -6,7 +6,7 @@
  * @author Александр Хрищанович
  *
  */
-class Modules_Router_Migrations_AddDefaultRoutes extends Dbmigrations_Framework_Abstract {
+class Modules_Router_Migrations_AddDefaultRoutes extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Добавляем роуты по умолчанию';
 

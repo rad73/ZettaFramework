@@ -50,7 +50,7 @@ class Modules_Dbmigrations_TestCase_Manager extends PHPUnit_Framework_TestCase {
 
 }
 
-class Temp_Migration extends Dbmigrations_Framework_Abstract {
+class Temp_Migration extends Modules_Dbmigrations_Framework_Abstract {
 
 	public function up($params = array()) {
 		$this->createTable('temp_migration', array(

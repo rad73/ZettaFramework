@@ -1,6 +1,6 @@
 <?php
 
-class System_Migrations_CreateTableSession extends Dbmigrations_Framework_Abstract {
+class System_Migrations_CreateTableSession extends Modules_Dbmigrations_Framework_Abstract {
 
 	protected $_comment = 'Создание таблицы сессий';
 	protected $_tableName = 'sessions';

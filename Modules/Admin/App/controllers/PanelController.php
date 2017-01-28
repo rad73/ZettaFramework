@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Modules/Admin/App/models/Panel.php';
-
 class Modules_Admin_PanelController extends Zend_Controller_Action {
 
 	protected $_user;
@@ -72,6 +70,5 @@ class Modules_Admin_PanelController extends Zend_Controller_Action {
 		$this->_forward('favoriteslist');
 		
 	}
-
     
 }

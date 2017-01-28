@@ -2,9 +2,9 @@
 
 class Modules_Default_Bootstrap extends Zetta_BootstrapModules {
 
-	public function bootstrap() {
+	public function _bootstrap() {
 
-		parent::bootstrap();
+		parent::_bootstrap();
 
 		Zend_Controller_Front::getInstance()
 			->registerPlugin(new Zend_Controller_Plugin_ActionStack())

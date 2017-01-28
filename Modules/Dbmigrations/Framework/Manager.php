@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Dbmigrations/App/models/History.php';
+require_once 'Modules/Dbmigrations/App/models/History.php';
 
 class Modules_Dbmigrations_Framework_Manager {
 
@@ -57,7 +57,7 @@ class Modules_Dbmigrations_Framework_Manager {
 		if (is_string($migrationClass) && class_exists($migrationClass)) {
 			$migration = new $migrationClass;
 		}
-		else if ($migrationClass instanceof Dbmigrations_Framework_Abstract) {
+		else if ($migrationClass instanceof Modules_Dbmigrations_Framework_Abstract) {
 			$migration = $migrationClass;
 		}
 		else {
@@ -75,7 +75,7 @@ class Modules_Dbmigrations_Framework_Manager {
 			catch (Exception $e) {
 				// таблицы истории миграций нету
 				// создаём таблицу истории
-				$this->upTo('Dbmigrations_Migrations_CreateTableHistory');
+				$this->upTo('Modules_Dbmigrations_Migrations_CreateTableHistory');
 			}
 
 			$table->insert(array(
@@ -97,7 +97,6 @@ class Modules_Dbmigrations_Framework_Manager {
 
 		if (false == class_exists($migrationClass)) {
 			$file = System_Init::classToDirName($migrationClass);
-			require_once($file);
 
 			if (false == class_exists($migrationClass)) {
 				return false;
