@@ -1,6 +1,6 @@
 <?php
 
-class Router_Framework_Validator_Uri extends Zend_Validate_Abstract {
+class Modules_Router_Framework_Validator_Uri extends Zend_Validate_Abstract {
 	
 	const ERROR = "'%value%' must be unique subsection";
  
