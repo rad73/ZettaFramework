@@ -47,31 +47,35 @@ class Modules_Publications_IndexController extends Zend_Controller_Action {
 
 	public function init() {
 		
-		$this->_modelList = new Modules_Publications_Model_List();
-		$this->_modelFields = new Modules_Publications_Model_Fields();
-		$this->_model = new Modules_Publications_Model_Table($this->_name);
-		
-		/* Устанавливаем рубрику к которой привязаны публикации */
-		$this->_routeId = Zend_Registry::get('RouteCurrentId');
-		
-		if ($this->getParam('route_id')) {
-			$this->_routeId = $this->getParam('route_id');
-		}
-		if ($this->getParam('skip_route')) {
-			$this->_routeId = null;
-		}
-		
-		$this->view->route_id = $this->_routeId;
-		$this->_model->setRouteId($this->_routeId);
-		
-		/* Находим текущий тип публикаций */
-		$this->_currentPublicationType = $this->_modelList->getRubricInfo($this->_name);
-		
-		if ($this->_currentPublicationType) {
-			$this->view->pub_rubric_id = $this->_currentPublicationType->rubric_id;
-		}
-		else {
-			throw new Exception('Тип публикации "' . $this->_name . '" не найден');
+		if ($this->_name) {
+			
+			$this->_modelList = new Modules_Publications_Model_List();
+			$this->_modelFields = new Modules_Publications_Model_Fields();
+			$this->_model = new Modules_Publications_Model_Table($this->_name);
+			
+			/* Устанавливаем рубрику к которой привязаны публикации */
+			$this->_routeId = Zend_Registry::get('RouteCurrentId');
+			
+			if ($this->getParam('route_id')) {
+				$this->_routeId = $this->getParam('route_id');
+			}
+			if ($this->getParam('skip_route')) {
+				$this->_routeId = null;
+			}
+			
+			$this->view->route_id = $this->_routeId;
+			$this->_model->setRouteId($this->_routeId);
+			
+			/* Находим текущий тип публикаций */
+			$this->_currentPublicationType = $this->_modelList->getRubricInfo($this->_name);
+			
+			if ($this->_currentPublicationType) {
+				$this->view->pub_rubric_id = $this->_currentPublicationType->rubric_id;
+			}
+			else {
+				throw new Exception('Тип публикации "' . $this->_name . '" не найден');
+			}
+			
 		}
 		
 	}
