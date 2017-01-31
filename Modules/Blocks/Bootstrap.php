@@ -16,10 +16,10 @@ class Modules_Blocks_Bootstrap extends Zetta_BootstrapModules {
 
 			$routerBootstrap = new Modules_Router_Bootstrap();
             $routerBootstrap->bootstrap();
-
+			
 			$_migrationManager = new Modules_Dbmigrations_Framework_Manager();
-			$_migrationManager->upTo('Blocks_Migrations_CreateBlocksTable');
-
+			$_migrationManager->upTo('Modules_Blocks_Migrations_CreateBlocksTable');
+			
 		}
 
 		$this->_registerPlugin();
