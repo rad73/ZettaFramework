@@ -145,7 +145,7 @@ ZETTA {
 			background: url('../images/panel/ico_manage.svg') no-repeat;
 			text-decoration: none;
 			position: absolute;
-			top: 15px;
+			top: 14px;
 			left: 135px;
 			background-size: 16px 16px;
 		}
@@ -892,3 +892,64 @@ ZETTA {
 	#z_window .z_drop_pagination {
 		background: #fff;
 	}
+
+
+@media (max-width: 768px) {
+	
+	#z_admin_panel {
+		min-width: auto;
+	}
+	
+		#z_admin_panel #z_usermenu_widget li:first-child {
+			display: none;
+		}
+	
+		#z_admin_panel #z_favorites_placeholder {
+			display: none;
+		}
+		
+		#z_admin_panel #z_manage_link {
+			left: 120px;
+			width: 0;
+			overflow: hidden;
+		}
+		
+	#zetta_editor_toolbar {
+		min-width: auto;
+	}
+	
+	#z_window {
+		margin: auto 2%;
+		width: 96%;
+		left: 0;
+	}
+	
+		#z_window .zetta_placeholder {
+			margin: 0 10px;
+		}
+	
+		#z_window .z_item {
+			width: 100%;
+		}
+		
+		#z_window #z_module_image {
+			display: none;
+		}
+		
+		#z_window .z_head_module .right {
+			margin-left: 0;
+			width: auto;
+		}
+		
+		#z_window .ui-button {
+			margin: 0 0 5px 5px !important;
+			float: left;
+		}
+		
+		#z_window #z_back_url {
+			margin-top: 15px;
+			position: relative;
+			display: inline-block;
+		}
+	
+}
