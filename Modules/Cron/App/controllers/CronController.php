@@ -1,4 +1,5 @@
 <?php
+use \Jenner\Http;
 
 class Modules_Cron_CronController extends Zend_Controller_Action {
 
@@ -50,57 +51,56 @@ class Modules_Cron_CronController extends Zend_Controller_Action {
 
 	public static function RunTasks(array $tasks) {
 
-		ini_set('max_execution_time', 60);
+		ini_set('max_execution_time', 600);
 
 		if (sizeof($tasks)) {
-
-			$async = new AsyncHttp_Client();
-			$task_id = array();
 			$model = new Modules_Cron_Model_Cron();
-
+			$async = new Http\Async();
+			
 			foreach ($tasks as $task) {
-
+				
 				if ($task instanceof Zend_Db_Table_Row) {
 
 					// Стартуем
 					$time_start = microtime(true);
+					$cron_id = $task->cron_id;
 
 					$model->update(array(
 						'in_progress'	=> 1,
 						'last_run_start'	=> new Zend_Db_Expr('NOW()'),
 						'last_run_finish'	=> new Zend_Db_Expr('NULL')
-					), $model->getAdapter()->quoteInto('cron_id = ?', $task->cron_id));
+					), $model->getAdapter()->quoteInto('cron_id = ?', $cron_id));
 
 					$taskUrl = (stripos($task->task, 'http') === false ? HTTP_HOST : '')  . $task->task . '?secret_key=' . Zend_Registry::get('config')->Db->staticSalt;
-					$id = $async->get($taskUrl);
-					$task_id[$id] = $task;
+					$taskAsync = Http\Task::createGet($taskUrl);
+					$promise = $async->attach($taskAsync, $cron_id);
+					
+					$promise->then(
+					    function ($data) use ($task, $cron_id, $model, $time_start) {
+
+							$time = microtime(true) - $time_start;
+							
+							if (!$data['error']) {
+								Zend_Registry::get('Logger')->info($str = 'Cron: ' . $task->task  . ' завершено за ' . round($time, 3) . ' сек.');
+							}
+							else {
+								Zend_Registry::get('Logger')->info($str = 'Cron: ' . $task->task  . ' завершено с ошибкой "' . $data['error'] . '"! Завершено за ' . round($time, 3) . ' сек.');
+							}
+							
+							// записываем успешное выполнение
+				        	$model->update(array(
+								'in_progress'	=> new Zend_Db_Expr('NULL'),
+								'last_run_finish'	=> new Zend_Db_Expr('NOW()')
+							), $model->getAdapter()->quoteInto('cron_id = ?', $cron_id));
+							
+					    }
+					);
 
 				}
-
+				
 			}
-
-			while (($threads = $async->iteration()) !== false) {
-
-				foreach ($threads as $id) {
-
-			    	$result = $async->getThread($id);
-
-			        if ($result) {
-
-			        	// записываем успешное выполнение
-			        	$model->update(array(
-							'in_progress'	=> new Zend_Db_Expr('NULL'),
-							'last_run_finish'	=> new Zend_Db_Expr('NOW()')
-						), $model->getAdapter()->quoteInto('cron_id = ?', $task_id[$id]->cron_id));
-
-						$time = microtime(true) - $time_start;
-						Zend_Registry::get('Logger')->info($str = 'Cron: ' . $task_id[$id]->task  . ' завершено за ' . round($time, 3) . ' сек.');
-
-			        }
-
-			    }
-
-			}
+			
+			$async->execute();
 
 		}
 
