@@ -15,7 +15,7 @@
             "email": "dirmax@yandex.ru"
     }],
     "require": {
-        "php":">=7",
+        "php":">=5.6",
 		"dirmax/zfdebug": "*",
         "dirmax/phpthumb": "*",
         "zendframework/zendframework1": "*",
