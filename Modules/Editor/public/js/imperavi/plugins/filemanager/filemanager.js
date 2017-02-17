@@ -7,11 +7,13 @@
 
             if (this.button.get('image').length) this.button.remove('image');
             if (this.button.get('file').length) this.button.remove('file');
-
+			
             var button = this.button.addBefore ('link', 'image', this.lang.get('image'));
             this.button.addCallback(button, $.proxy(function () {
                 this.filemanager.makeFilemanager();
             }, this));
+			this.button.setIcon(button, '<i class="re-icon-image"></i>');
+			
         },
         makeFilemanager: function () {
             
@@ -49,7 +51,7 @@
                         _this.code.sync();
 
                         setTimeout(function () {
-                            _this.core.setCallback('fileSelected', file.url);
+                            _this.core.callback('fileSelected', file.url);
                         }, 10);
 
                     }

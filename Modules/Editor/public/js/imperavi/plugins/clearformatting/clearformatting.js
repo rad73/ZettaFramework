@@ -11,9 +11,10 @@
                 }, this));
             },
             callback: function () {
-                var html = this.selection.getHtml();
-                var text = this.clean.getPlainText(html, true);
-                this.insert.html(text);
+                var html = this.selection.html();
+                var text = this.clean.getPlainText(html);
+				console.log(text);
+                this.insert.raw(text);
             },
         }
     }

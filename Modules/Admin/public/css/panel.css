@@ -789,7 +789,8 @@ ZETTA {
 
 
 .z_admin_menu {
-	box-shadow: inset 0px 0px 0px 1px rgba(246, 112, 22, 0.4);
+	transition: all 0.5s;
+	box-shadow: inset 0px 0px 0px 1px rgba(246, 112, 22, 0.3);
 }
 
 	.z_admin_menu:hover {
@@ -801,7 +802,8 @@ ZETTA {
 	}
 
 .z_admin_publications {
-	box-shadow: inset 0px 0px 0px 1px rgba(40, 101, 202, 0.4);
+	transition: all 0.5s;
+	box-shadow: inset 0px 0px 0px 1px rgba(40, 101, 202, 0.3);
 }
 
 	.z_admin_publications:hover {
@@ -815,7 +817,8 @@ ZETTA {
 
 
 .z_admin_block {
-	box-shadow: inset 0px 0px 0px 1px rgba(28, 190, 97, 0.4);
+	transition: all 0.3s;
+	box-shadow: inset 0px 0px 0px 1px rgba(28, 190, 97, 0.3);
 	min-width: 30px;
 	min-height: 1px;
 }
@@ -829,7 +832,7 @@ ZETTA {
 	}
 
 .z_inherit_block {
-	box-shadow: inset 0px 0px 0px 1px rgba(170, 170, 170, 0.4);
+	box-shadow: inset 0px 0px 0px 1px rgba(170, 170, 170, 0.3);
 }
 
 	.z_inherit_block:hover {

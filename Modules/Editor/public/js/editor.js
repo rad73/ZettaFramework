@@ -52,16 +52,15 @@ var _redactor = {
 		this._objectList[this._object.get(0)] = 1;
 
 		this._callbackComplete = function (html, _object) {
-
+			
 			// чистим блок от посторонних тегов
-			html = html.replace(/([\s\S]*(<a.*?><img.*><\/a>)[\s\S]*)/gi, '$2');	//  разрешаем теги A > IMG
+			html = html.replace(/(.*(<a.*?><img.*><\/a>).*)/gi, '$2');	//  разрешаем теги A > IMG
 
-			if (false == html.match(/^<a.*?><img.*><\/a>$/)) {
-				html = html.replace(/([\s\S]*(<img.*?>)[\s\S]*)/gi, '$2');		// разрешаем тег IMG
+			if (!html.match(/^<a.*?><img.*><\/a>$/)) {
+				html = html.replace(/(.*(<img.*?>).*)/gi, '$2');		// разрешаем тег IMG
 			}
 
 			_object.html(html);
-
 			callback(html, _object);
 
 		}
@@ -70,7 +69,13 @@ var _redactor = {
 			toolbarExternal: 'null', 
 			saveWhenFileSelected: true, 
 			replaceFull: true,
-			paragraphize: false
+			paragraphize: false,
+			plugins: ['filemanager'],
+			callbacks: {
+			   change: function() {
+				   	_redactor.destroy();
+			   }
+		   }  
 		});
 
 		this._object
@@ -78,20 +83,11 @@ var _redactor = {
 			.bind('paste', function () { return false; });
 
 		if (this._object.html().indexOf('img') == -1 || disableEdit) {
-			($.proxy(this._object.redactor('core.getObject').filemanager.makeFilemanager, this._object.redactor('core.getObject')))();
+			($.proxy(this._object.redactor('core.object').filemanager.makeFilemanager, this._object.redactor('core.object')))();
 		}
 		else {
-            this._object.redactor('core.getObject').image.showEdit($('img', this._object))
+            this._object.redactor('core.object').image.showEdit($('img', this._object))
 		}
-
-		// отслеживаем успешное завершение работы с картинками
-		var _this = this;
-		var _timer = setInterval(function () {
-			if (_this._object) {
-				_this._object.blur();	// постоянно убираем фокус, чтобы кроме картинки нельзя было ничего вставить
-			}
-		}, 100);
-
 
 	},
 
@@ -107,6 +103,8 @@ var _redactor = {
 			this._objectList[object] = false;
 		}
 		else if (this._object) {
+			
+			this._object.redactor('core.editor').show();
 			this._object.redactor('core.destroy');
 
 			this._save();
@@ -129,7 +127,7 @@ var _redactor = {
 			_parents = $(e.target).parents();
 
 		_parents.push(e.target);
-
+		
 		_parents.each(function () {
 
 			if ($(this).get(0) == _this._object.get(0)) {
@@ -177,6 +175,8 @@ var _redactor = {
 		},
 		_bodyClick: function (e) {
 
+			if ($('.zetta_edit_toolbar_fixed').length) return false;
+
 			var _width = $('#zetta_editor_toolbar').width(),
 				_height = $('#zetta_editor_toolbar').height(),
 				_maxWidth = $('html').width(),
@@ -199,34 +199,43 @@ var _redactor = {
 		var _this = this;
 
 		var _options = $.extend({}, {
-			_this: true,
 			lang: 'ru',
 			toolbarExternal: '#zetta_editor_toolbar',
 			imageUpload: _baseUrl + '/mvc/editor/index/imageupload/?csrf_hash=' + _csrf_hash,
 			fileUpload: _baseUrl + '/mvc/editor/index/fileupload/?csrf_hash=' + _csrf_hash,
 			imageGetJson: _baseUrl + '/mvc/editor/index/images/',
 			emptyHtml: '',
-            plugins: ['clearformatting', 'undoredo', 'filemanager', 'video', 'table', 'fontfamily', 'fontsize', 'fontcolor', 'pin'],
+            plugins: ['source', 'clearformatting', 'undoredo', 'alignment', 'filemanager', 'video', 'table', 'fontfamily', 'fontsize', 'fontcolor', 'pin'],
 			deniedTags: ['html', 'head', 'link', 'body', 'meta', 'style', 'applet'],
 			paragraphize: true,
 			cleanSpaces: false,
-			initCallback: function () {
-    			var button = this.button.addFirst ('save', this.lang.get('save'));
+			imageEditable: true,
+			imagePosition: true,
+            imageResizable: true,
+			callbacks: {
+				init: function () {
+					
+					this.observe.images();
+					this.observe.links();
+					
+					var button = this.button.addFirst ('save', this.lang.get('save'));
 
-                this.button.addCallback(button, function () {
-		    		_this._object.blur();
-			    	_this.destroy()
-				});
-			},
-			clickCallback: function (e) {
-				_this._view._bodyClick(e);
-			},
-			fileSelectedCallback: function (e) {
-				
-				if (options && typeof options.saveWhenFileSelected  != 'undefined' && options.saveWhenFileSelected == true) {
-					_redactor._dispatch(e);
+	                this.button.addCallback(button, function () {
+			    		_this._object.blur();
+				    	_this.destroy()
+					});
+					
+				},
+				click: function (e) {
+					_this._view._bodyClick(e);
+				},
+				fileSelected: function (e) {
+					
+					if (options && typeof options.saveWhenFileSelected  != 'undefined' && options.saveWhenFileSelected == true) {
+						_redactor._dispatch(e);
+					}
+
 				}
-
 			}
 
 		}, options);
@@ -246,7 +255,7 @@ var _redactor = {
 
 }
 
-$(document).mousedown(function (e) {
+$('body').on('click', function (e) {
 	_redactor._dispatch(e);
 });
 

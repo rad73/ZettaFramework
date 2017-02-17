@@ -9,12 +9,14 @@
                 this.button.addCallback(button, $.proxy(function () {
                     this.undoredo.undo();
                 }, this));
+				this.button.setIcon(button, '<i class="re-icon-undo"></i>');
 
                 var button = this.button.addAfter ('undo', 'redo', this.lang.get('redo'));
 
                 this.button.addCallback(button, $.proxy(function () {
                     this.undoredo.redo();
                 }, this));
+				this.button.setIcon(button, '<i class="re-icon-redo"></i>');
 
             },
             undo: function () {

@@ -16,7 +16,8 @@
 
 				dropdown.remove = { title: 'Remove Font Size', func: that.fontsize.reset };
 
-				var button = this.button.add('fontsize', this.lang.get('change_font_size'));
+				var button = this.button.add('fontsize', 'Size');
+				this.button.setIcon(button, '<i class="re-icon-fontsize"></i>');
 				this.button.addDropdown(button, dropdown);
 			},
 			set: function(size)

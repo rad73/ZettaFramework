@@ -16,7 +16,8 @@
 
 				dropdown.remove = { title: 'Remove Font Family', func: that.fontfamily.reset };
 
-				var button = this.button.add('fontfamily', this.lang.get('сhange_font_family'));
+				var button = this.button.add('fontfamily', 'Font');
+				this.button.setIcon(button, '<i class="re-icon-fontfamily"></i>');
 				this.button.addDropdown(button, dropdown);
 
 			},

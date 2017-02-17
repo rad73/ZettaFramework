@@ -4,6 +4,7 @@
     {
         return {
             init: function () {
+				
                 $.cookie('zetta_redactor_toolbar_fixed') == 1
                     ? $('body').addClass('zetta_edit_toolbar_fixed')
                     : $('body').removeClass('zetta_edit_toolbar_fixed');
