@@ -43,6 +43,7 @@ class Zetta_View_Helper_Url extends Zend_View_Helper_Abstract {
 
 	    	$currentUrl = $front->getBaseUrl() . $current['url'];
 	    	$options = array();
+			
 	    	foreach ($urlOptions as $key=>$val) {
 
 	    		if ($key == 'route_id' || $key == 'controller' || $key == 'module' || ($key == 'action' && $action != $front->getDefaultAction())) continue;
@@ -50,14 +51,18 @@ class Zetta_View_Helper_Url extends Zend_View_Helper_Abstract {
                 if (!is_array($val)) {
                     $val = array($val);
                 }
+				else {
+					$key = $key . '[]';
+				}
 
                 foreach ($val as $row) {
                     $options[] = urlencode($key) . '=' . ($encode ? urlencode($row) : $row);
                 }
 
 	    	}
-
+			
 	    	$return = $currentUrl . (sizeof($options) ? ('?' . implode('&', $options)) : '');
+			
 
     	}
 

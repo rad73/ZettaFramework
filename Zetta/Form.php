@@ -33,7 +33,7 @@ class Zetta_Form extends Zend_Form {
 	);
 
 	protected $elementCheckboxDecorators = array(
-	     'ViewHelper',
+	    'ViewHelper',
 	    'Errors',
 	    array(array('data'  => 'HtmlTag'), array('tag' => 'div', 'class' => 'element checkbox')),
 		array(array('description' => 'Description'), array('tag' => 'i', 'class' => 'element_description')),
@@ -172,6 +172,7 @@ class Zetta_Form extends Zend_Form {
 
 		$this->setAttrib('class', 'zetta_form');
 		$this->addPrefixPath('Zetta_Form_Element', 'Zetta/Form/Element/', 'element');
+		$this->addPrefixPath('Zetta_Form_Decorator', 'Zetta/Form/Decorator/', 'decorator');
 
 		parent::__construct($options);
 
