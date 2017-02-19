@@ -105,6 +105,7 @@ var _redactor = {
 		else if (this._object) {
 			
 			this._object.redactor('core.editor').show();
+			this._object.redactor('core.object').codemirror.hide();
 			this._object.redactor('core.destroy');
 
 			this._save();
@@ -139,6 +140,7 @@ var _redactor = {
 
 			if (
 				(_class && _class.indexOf('redactor') >= 0)
+				|| (_class && _class.indexOf('CodeMirror') >= 0)
 				|| (_id && _id.indexOf('redactor') >= 0)
 				|| $(this).is('.ui-dialog')
 			) {
@@ -205,13 +207,19 @@ var _redactor = {
 			fileUpload: _baseUrl + '/mvc/editor/index/fileupload/?csrf_hash=' + _csrf_hash,
 			imageGetJson: _baseUrl + '/mvc/editor/index/images/',
 			emptyHtml: '',
-            plugins: ['source', 'clearformatting', 'undoredo', 'alignment', 'filemanager', 'video', 'table', 'fontfamily', 'fontsize', 'fontcolor', 'pin'],
+            plugins: ['codemirror', 'clearformatting', 'undoredo', 'alignment', 'filemanager', 'video', 'table', 'fontfamily', 'fontsize', 'fontcolor', 'pin'],
 			deniedTags: ['html', 'head', 'link', 'body', 'meta', 'style', 'applet'],
 			paragraphize: true,
 			cleanSpaces: false,
 			imageEditable: true,
 			imagePosition: true,
             imageResizable: true,
+			codemirror: {
+                lineNumbers: true,
+                mode: 'htmlmixed',
+                indentUnit: 4,
+				theme: 'material'
+            },
 			callbacks: {
 				init: function () {
 					

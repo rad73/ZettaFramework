@@ -18,12 +18,6 @@ class Modules_Admin_Plugin_Panel extends Zend_Controller_Plugin_Abstract {
 		$this->_view->headLink()
 			->appendStylesheet($this->_view->libUrl('/css/ui.jquery/jquery.ui.css'))
 			->appendStylesheet($this->_view->libUrl('/Admin/public/css/panel.css'))
-			->appendStylesheet($this->_view->libUrl('/Editor/public/js/imperavi/redactor.css'))
-			->appendStylesheet($this->_view->libUrl('/Editor/public/js/imperavi/plugins/alignment/alignment.css'))
-			
-			->appendStylesheet($this->_view->libUrl('/Editor/public/js/elFinder/css/elfinder.min.css'))
-			->appendStylesheet($this->_view->libUrl('/Editor/public/js/elFinder/css/theme.css'))
-
 			->appendStylesheet($this->_view->libUrl('/css/font-awesome.css'));
 
 		$this->_view->headScript()
@@ -34,25 +28,6 @@ class Modules_Admin_Plugin_Panel extends Zend_Controller_Plugin_Abstract {
 			->appendFile($this->_view->libUrl('/js/jquery/jquery.browser.js'))
 			->appendFile($this->_view->libUrl('/js/jquery/jquery.history.js'))
 			->appendFile($this->_view->libUrl('/js/jquery/jquery.cookie.js'))
-
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/redactor.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/fontfamily/fontfamily.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/fontsize/fontsize.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/fontcolor/fontcolor.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/undoredo/undoredo.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/table/table.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/clearformatting/clearformatting.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/pin/pin.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/filemanager/filemanager.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/source/source.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/alignment/alignment.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/plugins/video/video.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/imperavi/lang/ru.js'))
-
-			->appendFile($this->_view->libUrl('/Editor/public/js/elFinder/js/elfinder.full.js'))
-			->appendFile($this->_view->libUrl('/Editor/public/js/elFinder/js/i18n/elfinder.ru.js'))
-
-			->appendFile($this->_view->libUrl('/Editor/public/js/editor.js'))
 			->appendFile($this->_view->libUrl('/Admin/public/js/panel.js'));
 
     }
