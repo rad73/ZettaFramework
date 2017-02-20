@@ -105,7 +105,9 @@ var _redactor = {
 		else if (this._object) {
 			
 			this._object.redactor('core.editor').show();
-			this._object.redactor('core.object').codemirror.hide();
+			if (this._object.redactor('core.object').codemirror.hide) {
+				this._object.redactor('core.object').codemirror.hide();
+			}
 			this._object.redactor('core.destroy');
 
 			this._save();
@@ -203,6 +205,7 @@ var _redactor = {
 		var _options = $.extend({}, {
 			lang: 'ru',
 			toolbarExternal: '#zetta_editor_toolbar',
+			toolbarFixed: false,
 			imageUpload: _baseUrl + '/mvc/editor/index/imageupload/?csrf_hash=' + _csrf_hash,
 			fileUpload: _baseUrl + '/mvc/editor/index/fileupload/?csrf_hash=' + _csrf_hash,
 			imageGetJson: _baseUrl + '/mvc/editor/index/images/',

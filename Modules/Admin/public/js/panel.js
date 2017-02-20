@@ -91,6 +91,8 @@ $(function () {
 
 		$('textarea[data-type=html]').each(function () {
 
+			$(this).removeAttr('data-type');
+
 			_redactor.destroy(this);
 
 			_redactor.html(this, false, {
