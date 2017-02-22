@@ -105,7 +105,7 @@ class Modules_Publications_Framework_Form extends Zetta_Form {
 
 		}
 		
-		$this->getElement($name)->setAttrib('list_values', null);
+		// $this->getElement($name)->setAttrib('list_values', null);
 
 		return $elementObject;
 
@@ -122,7 +122,7 @@ class Modules_Publications_Framework_Form extends Zetta_Form {
 	}
 
 	public function getPostData() {
-
+		
 		foreach ($this->_fields as $field) {
 
 			if ($field['type'] == 'date' || $field['type'] == 'datetime') {
@@ -139,17 +139,42 @@ class Modules_Publications_Framework_Form extends Zetta_Form {
 			else if ($field['type'] == 'file') {
 
 				// закачиваем файлик
-				if (sizeof($_FILES) && array_key_exists($field['name'], $_FILES) && !$_FILES[$field['name']]['error']) {
+				if (sizeof($_FILES) && array_key_exists($field['name'], $_FILES)) {
 
-					$incomingDir = USER_FILES_PATH . DS . 'files/incoming';
+					$filesArray = $_FILES[$field['name']];
+
+					if (false == is_array($filesArray)) {
+						foreach ($filesArray as $index => $value) {
+							$filesArray[$index] = array($value);
+						}
+					}
+
+					$incomingDir = USER_FILES_PATH . DS . 'files/incoming' . DS;
+					$incomingDirRelative = str_replace(FILE_PATH, '', $incomingDir);
 					if (false == is_dir($incomingDir)) mkdir($incomingDir);
+					$arrayData[ $field['name'] ] = array();
+					
+					foreach ($filesArray['name'] as $index => $name) {
+						
+						if (!$filesArray['error'][$index] && $filesArray['tmp_name'][$index]) {
 
-					$fName = explode('.', $_FILES[$field['name']]['name']);
-					$ext = end($fName);
-					$fileName = str_replace($ext, '_' . time() . '.' . $ext, $_FILES[$field['name']]['name']);
-					move_uploaded_file($_FILES[$field['name']]['tmp_name'], $incomingDir . DS . $fileName);
+							$fName = explode('.', $name);
+							$ext = end($fName);
+							$fileName = str_replace($ext, '_' . time() . '.' . $ext, $name);
+							move_uploaded_file($filesArray['tmp_name'][$index], $incomingDir . $fileName);
 
-					$arrayData[ $field['name'] ] = '/UserFiles/files/incoming/' . $fileName;
+							$arrayData[$field['name']][] = $incomingDirRelative . $fileName;
+							
+						}
+	
+					}
+					
+					if (sizeof($arrayData[$field['name']])) {
+						$arrayData[$field['name']] =  sizeof($arrayData[$field['name']]) == 1 ? $arrayData[$field['name']][0] : json_encode($arrayData[$field['name']]);
+					}
+					else {
+						$arrayData[$field['name']] = new Zend_Db_Expr('NULL');
+					}
 
 				}
 
@@ -192,6 +217,11 @@ class Modules_Publications_Framework_Form extends Zetta_Form {
 				'title'	=> $field->title,
 				'value'	=> $field->default,
 			);
+			
+			if ($field->properties) {
+				$extraOptions = json_decode($field->properties, true);
+				$arrayFields[$i]['options'] = $arrayFields[$i]['options'] + $extraOptions;
+			}
 
 			if ($field['validator']) {
 

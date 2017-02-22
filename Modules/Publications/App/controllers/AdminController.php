@@ -190,6 +190,7 @@ class Modules_Publications_AdminController extends Zend_Controller_Action {
 				'list_values'	=> $form->getValue('list_values'),
 				'hidden_front'	=> $form->getValue('hidden_front'),
 				'hidden_admin'	=> $form->getValue('hidden_admin'),
+				'properties'	=> $form->getValue('properties') ?: new Zend_Db_Expr('NULL'),
 			);
 
 			if ($field_id) {

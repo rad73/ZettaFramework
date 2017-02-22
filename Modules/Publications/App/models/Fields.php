@@ -11,7 +11,7 @@ class Modules_Publications_Model_Fields extends Zetta_Db_Table  {
 		'radio'	=> array('varchar', 255),
 		'checkbox'	=> array('varchar', 255),
 		'password'	=> array('varchar', 255),
-		'file'	=> array('varchar', 255),
+		'file'	=> array('text', null),
 		'html'	=> array('longtext', null),
 		'date'	=> array('date', null),
 		'datetime'	=> array('datetime', null),
