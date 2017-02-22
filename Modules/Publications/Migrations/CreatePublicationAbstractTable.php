@@ -25,6 +25,14 @@ class Modules_Publications_Migrations_CreatePublicationAbstractTable extends Mod
 				'type'		=>	'int',
 				'unsigned'	=>	1,
 				'null'		=> true,
+				'references'	=>	array(
+					$table_name . '__route_id'	=>	array(
+						'table'	=>	Modules_Router_Model_Router::getInstance()->info('name'),
+						'field'	=>	'route_id',
+						'ondelete'	=>	'SET NULL',
+						'onupdate'	=>	'CASCADE'
+					)
+				),
 			),
 			
 			'sort' => array(
