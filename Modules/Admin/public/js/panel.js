@@ -50,7 +50,7 @@ $(function () {
 
 			$('*[disabled=disabled]', this).removeAttr('disabled');
 			$('*[type=submit]', this).attr('disabled', 'disabled');
-			$('input[type=file]:enabled', this).filter(function() { return $(this).val() == ''; }).attr('disabled', 'disabled');
+			// $('input[type=file]:enabled', this).filter(function() { return $(this).val() == ''; }).attr('disabled', 'disabled');
 
 			var _url = ($(this).attr('action') || $.History.getState()) + '?format=html&currentUrl=' + encodeURIComponent(_currentUrl),
 				_method = $(this).attr('method') || 'get';

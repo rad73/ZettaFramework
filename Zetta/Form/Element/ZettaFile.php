@@ -13,5 +13,15 @@ class Zetta_Form_Element_ZettaFile extends Zend_Form_Element_File {
 		$this->_value = $value;
 		return $this;
 	}
+	
+	public function isValid($value, $context = null) {
+        
+		if (!$this->isRequired() && !sizeof($_FILES)) {
+			return true;
+        }
+		
+		return parent::isValid($value, $context);
+
+    }
 
 }
