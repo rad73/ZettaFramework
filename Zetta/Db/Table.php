@@ -10,11 +10,11 @@ class Zetta_Db_Table extends Zend_Db_Table {
 	private static $_fullData = null;
 
 	/**
-	 * Имя адаптера
+	 * Имя соединения
 	 *
 	 * @var string
 	 */
-	protected $_adapterName;
+	protected $_connectionName;
 
 
 	public function init() {
@@ -23,20 +23,32 @@ class Zetta_Db_Table extends Zend_Db_Table {
 			$this->_name = static::TABLE_NAME;
 		}
 
-		if (defined('static::CONNECTION')) {
-			$this->_adapterName = static::CONNECTION;
-		}
-
-		if (
-			isset($this->_adapterName)
-			&& Zend_Registry::isRegistered("dbs")
-			&& isset(Zend_Registry::get("dbs")[$this->_adapterName])
-		) {
-	    	$this->_setAdapter(Zend_Registry::get("dbs")[$this->_adapterName]);
+		if (defined('static::CONNECTION') || $this->_connectionName) {
+			$this->setConnection(static::CONNECTION ?: $this->_connectionName);
 		}
 
 		parent::init();
 
+	}
+	
+	/**
+	 * Установка источника БД 
+	 *
+	 * @return string
+	 */
+	public function setConnection($name) {
+		
+		if (
+			Zend_Registry::isRegistered("dbs")
+			&& isset(Zend_Registry::get("dbs")[$name])
+		) {
+			$this->_connectionName = $name;
+	    	return $this->_setAdapter(Zend_Registry::get("dbs")[$name]);
+		}
+		else {
+			throw new \Zend_Db_Exception('DbConnection name ' . $name . ' not found');
+		}
+		
 	}
 
 	/**
