@@ -104,8 +104,9 @@ var _redactor = {
 		}
 		else if (this._object) {
 			
-			if (this._object.redactor('core.object').codemirror.$textarea.hasClass('open')) {
-				this._object.redactor('core.object').codemirror.toggle();
+			var _codeMirror = this._object.redactor('core.object').codemirror;
+			if (_codeMirror.$textarea && _codeMirror.$textarea.hasClass('open')) {
+				_codeMirror.toggle();
 			}
 			this._object.redactor('core.editor').show();
 			this._object.redactor('core.destroy');
