@@ -104,10 +104,10 @@ var _redactor = {
 		}
 		else if (this._object) {
 			
-			this._object.redactor('core.editor').show();
-			if (this._object.redactor('core.object').codemirror.hide) {
-				this._object.redactor('core.object').codemirror.hide();
+			if (this._object.redactor('core.object').codemirror.$textarea.hasClass('open')) {
+				this._object.redactor('core.object').codemirror.toggle();
 			}
+			this._object.redactor('core.editor').show();
 			this._object.redactor('core.destroy');
 
 			this._save();
