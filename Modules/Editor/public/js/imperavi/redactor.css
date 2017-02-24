@@ -1265,6 +1265,10 @@
 	box-shadow: 0px 0px 10px #000 !important;
 }
 
+#z_window .redactor-box {
+	width: 702px;
+}
+
 #z_window .redactor-toolbar li a.re-button-icon {
 	padding: 11px;
 }

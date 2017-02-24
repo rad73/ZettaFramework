@@ -22,7 +22,7 @@
         "leafo/scssphp": "*",
         "oyejorge/less.php": "*",
         "matthiasmullie/minify": "*",
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "5.*",
 		"phpunit/dbunit": "*",
 		"phpunit/php-invoker": "*",
 		"jenner/timer": "*",

@@ -52,7 +52,7 @@ ol li {
 	}
 
 #ltie8_message { display: none; }
-.ltie8 #ltie8_message, .lteie9 #ltie8_message { display: block; }
+.ltie11 #ltie8_message { display: block; }
 
 #ZFDebug {
 	z-index: 10000 !important;
