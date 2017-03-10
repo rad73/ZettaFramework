@@ -143,7 +143,7 @@ class Modules_Publications_Framework_Form extends Zetta_Form {
 
 					$filesArray = $_FILES[$field['name']];
 
-					if (false == is_array($filesArray)) {
+					if (false == is_array($filesArray['tmp_name'])) {
 						foreach ($filesArray as $index => $value) {
 							$filesArray[$index] = array($value);
 						}
