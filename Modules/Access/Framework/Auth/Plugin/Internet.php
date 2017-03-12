@@ -8,9 +8,11 @@
  */
 class Modules_Access_Framework_Auth_Plugin_Internet extends Modules_Access_Framework_Auth_Plugin_RequestRsa {
 
+	const SUPERADMIN_ROLE = 'superadmin';
+
 	protected $_password;
 	protected $_username;
-	
+		
 	public function authenticate() {
 
 		$authRequest = Zend_Auth::getInstance()->getStorage()->read();
@@ -59,7 +61,7 @@ class Modules_Access_Framework_Auth_Plugin_Internet extends Modules_Access_Frame
 			}
 			
 		}
-		else if (is_object($authRequest) && $authRequest->role_name == 'superadmin') {
+		else if (is_object($authRequest) && $authRequest->role_name == self::SUPERADMIN_ROLE) {
 			
 			$this->_password = $authRequest->password;
 			$this->_username = $authRequest->username;

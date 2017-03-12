@@ -16,8 +16,12 @@ class Modules_Access_Framework_Auth_Plugin_Session extends Modules_Access_Framew
 
 			Zend_Auth::getInstance()->setStorage($storage);
 			$authRequest = Zend_Auth::getInstance()->getStorage()->read();
-
-			if (is_object($authRequest) && isset($authRequest->username) && isset($authRequest->password)) {
+			
+			if (is_object($authRequest) 
+				&& isset($authRequest->username) 
+				&& isset($authRequest->password)
+				&& ($authRequest->role_name != Modules_Access_Framework_Auth_Plugin_Internet::SUPERADMIN_ROLE)
+			) {
 			
 				$this
 					->setUserName($authRequest->username)
