@@ -161,8 +161,7 @@ var _redactor = {
 	_view: {
 		onCreate: function () {
 			
-			$('.redactor_box').parent().addClass('in_edit');
-			
+			$('.redactor-box').parent().addClass('in_edit');
 
 			$('#zetta_editor_toolbar')
 				.show()
