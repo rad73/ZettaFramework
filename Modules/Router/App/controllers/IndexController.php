@@ -72,10 +72,9 @@ class Modules_Router_IndexController extends Zend_Controller_Action {
 			case $action = $this->getFrontController()->getDefaultAction():		// action по умолчанию
 				break;
 		}
-
-		$params = ($params = $this->_currentSection['parms']) ? unserialize($params) : $this->getRequest()->getParams();
-		$params = (array)$params;
-
+		
+		$params = array_merge_recursive($this->getRequest()->getParams(), ($this->_currentSection['parms'] ? json_decode($this->_currentSection['parms'] , true) : array()));
+		
 		// в URL можно передавать один параметро вида /param_value.html, он ложится в переменную $this->getRequest()->getParam('main_param')
 		$url = Zend_Controller_Front::getInstance()->getRequest()->getPathInfo();
 		if (preg_match('|.*/(.*)\.html|u', $url, $matches)) {
