@@ -24,7 +24,7 @@ class Zetta_Db_Table extends Zend_Db_Table {
 		}
 
 		if (defined('static::CONNECTION') || $this->_connectionName) {
-			$this->setConnection(static::CONNECTION ?: $this->_connectionName);
+			$this->setConnection($this->_connectionName ?: static::CONNECTION);
 		}
 
 		parent::init();
