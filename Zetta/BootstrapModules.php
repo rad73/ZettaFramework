@@ -142,10 +142,10 @@ abstract class Zetta_BootstrapModules  {
 			$configName = $this->_moduleName;
 
 			try {
-				Zend_Registry::get('config')->$configName = new Zend_Config_Ini($this->_modulePath . DS . 'config.ini', ZETTA_MODE);
+				Zend_Registry::get('config')->$configName = new Zend_Config_Ini($this->_modulePath . DS . 'config.ini', ZETTA_MODE, true);
 			}
 			catch (Zend_Config_Exception $e) {
-				Zend_Registry::get('config')->$configName = new Zend_Config_Ini($this->_modulePath . DS . 'config.ini');
+				Zend_Registry::get('config')->$configName = new Zend_Config_Ini($this->_modulePath . DS . 'config.ini', null, true);
 			}
 
 		}

@@ -1,6 +1,10 @@
 $(function () {
 
 	$('body').addClass('zetta_front');
+	
+	if ($.fn.button.noConflict) {
+		$.fn.btn = $.fn.button.noConflict();
+	}
 
 	$(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
 

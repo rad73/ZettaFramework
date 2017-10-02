@@ -179,7 +179,7 @@ abstract class System_Functions {
 	public static function createThumbWatermark($imageSrc, $imageDest, $width, $height, $quality = 85) {
 		
 		$thumb = new \PHPThumb\GD($imageSrc, array(), array(
-			new PHPThumb\Plugins\Watermark(0, 0, USER_FILES_PATH . DS . 'watermark.png')
+			new PHPThumb\Plugins\Watermark(0, 0, USER_FILES_PATH . DS . 'watermark.png', 1)
 		));
 		$dimensions = $thumb->getCurrentDimensions();
 
