@@ -7,8 +7,8 @@ class Modules_Admin_Model_Panel extends Zend_Db_Table  {
 	protected function _findModules() {
 
 		$moduleInfoFiles =
-			(array)glob(MODULES_PATH . '/*/info.ini', GLOB_NOSORT)
-			+ (array)glob(HEAP_PATH . '/*/info.ini', GLOB_NOSORT);
+            (array)glob(HEAP_PATH . '/*/info.ini', GLOB_NOSORT)
+			+ (array)glob(MODULES_PATH . '/*/info.ini', GLOB_NOSORT);
 
 		sort($moduleInfoFiles);
 

@@ -1,10 +1,19 @@
 <?php if (sizeof($this->favorites)) : ?>
-
+    
 	<ul>
 	
 		<?php foreach ($this->favorites as $favorite) : ?>
+            
+            <?php 
+                $url = isset($favorite->admin_url) 
+                    ? $favorite->admin_url 
+                    : $this->url(array('module' => $favorite->module, 'controller' => 'admin'), 'mvc', true);
+                    
+                $no_ajax_class = strpos($url, 'direct') != -1 ? 'no_ajax' : '';
+            ?>
+            
 			<li>
-				<a href="<?php echo $this->url(array('module' => $favorite->module, 'controller' => 'admin'), 'mvc', true) ?>">
+				<a href="<?php echo $url?>" class="<?=$no_ajax_class?>">
 					<img src="<?php echo $this->libUrl($favorite->ico) ?>" alt=""/>
 					<span><?php echo $favorite->title ?></span>
 				</a>
