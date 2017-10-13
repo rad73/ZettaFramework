@@ -3,7 +3,7 @@
         ? $this->admin_url 
         : $this->url(array('module' => $this->module, 'controller' => 'admin'), 'mvc', true);
         
-    $no_ajax_class = strpos($url, 'direct') != -1 ? 'no_ajax' : '';
+    $no_ajax_class = strpos($url, 'direct') != false ? 'no_ajax' : '';
 ?>
 <div class="z_item">
 	<a href="<?php echo $url ?>" class="<?=$no_ajax_class?>""><img src="<?php echo $this->libUrl($this->ico) ?>" alt=""/></a>
