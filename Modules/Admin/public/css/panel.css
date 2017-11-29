@@ -420,6 +420,10 @@ ZETTA {
 			#z_window .element {
 				float: left;
 			}
+			
+			#z_window .element_description {
+				display: none;
+			}
 
 			#z_window .form_row:after {
 				content: ".";

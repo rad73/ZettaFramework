@@ -222,6 +222,10 @@ class Modules_Publications_Framework_Form extends Zetta_Form {
 				$extraOptions = json_decode($field->properties, true);
 				$arrayFields[$i]['options'] = $arrayFields[$i]['options'] + $extraOptions;
 			}
+			
+			if ($field->tooltip) {
+				$arrayFields[$i]['options']['description'] = $field->tooltip;
+			}
 
 			if ($field['validator']) {
 
