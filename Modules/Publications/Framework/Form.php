@@ -78,36 +78,7 @@ class Modules_Publications_Framework_Form extends Zetta_Form {
 			$options['label'] = $options['title'];
 		}
 
-		$elementObject = parent::addElement($element, $name, $options);
-
-		if (array_key_exists('list_values', $options) && $options['list_values']) {
-
-			switch ($element) {
-				case 'multiCheckbox':
-				case 'radio':
-				case 'select':
-
-					if ('routes' == $options['list_values']) {
-						$this->getElement($name)->addMultiOptions(Modules_Router_Model_Router::getInstance()->getRoutesTreeHash());
-					}
-					else if ($list_values = json_decode($options['list_values'])) {
-						$this->getElement($name)->addMultiOptions((array)$list_values);
-					}
-					else {
-						$model = new Modules_Publications_Model_Table($options['list_values']);
-						$options = $model->getAssocArray('publication_id', 'name');
-
-						$this->getElement($name)->addMultiOptions($options);
-					}
-
-					break;
-			}
-
-		}
-		
-		// $this->getElement($name)->setAttrib('list_values', null);
-
-		return $elementObject;
+		return parent::addElement($element, $name, $options);
 
 	}
 
