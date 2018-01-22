@@ -126,5 +126,68 @@ class Zetta_Db_Table extends Zend_Db_Table {
 		$this->_cleanFullData();
 		return $return;
 	}
+	
+	public function truncate() {
+		$this->getAdapter()->query('TRUNCATE TABLE ' . $this->_db->quoteIdentifier($this->info('name')));
+	}
 
+    /**
+	*  @brief Safe implementation of INSERT INTO
+	*  
+	*  @param $array Array[] of values 'column'=>'value"
+	*  @param $execute execute insertments
+	*  
+	*/
+	protected $_bulkInsert = array();
+	public function bulkInsertMysql($array, $execute = true) {
+	   
+		if ($array) {
+			$this->_bulkInsert = $this->_bulkInsert + $array;
+		}
+
+		if ($execute && sizeof($this->_bulkInsert)) {
+
+			$vals = array();
+			foreach ($this->_bulkInsert as $i=>$bind) {
+					
+				$valsArray = array();
+				foreach ($bind as $col => $val) {
+					$valsArray[] = $this->_db->quote($val);
+				}
+				
+				$vals[] = implode(', ', $valsArray);
+
+	        }
+			
+			$cols = array();
+			foreach ($this->_bulkInsert[0] as $col => $val) {
+				$cols[] = $this->_db->quoteIdentifier($col, true);
+			}
+
+			// build the statement
+			$sql = "INSERT INTO "
+				. $this->_db->quoteIdentifier($this->info('name'), true)
+				. ' (' . implode(', ', $cols) . ') '
+				. 'VALUES (' . implode('), (', $vals) . ')';
+
+
+			$sql .= ' ON DUPLICATE KEY UPDATE ';
+
+			$strArr = array();
+			foreach ($cols as $col) {
+				$strArr[] = $col . ' = VALUES(' . $col . ')';
+			}
+			
+			$sql .= implode(', ', $strArr);
+			$this->_bulkInsert = array();
+
+			$stmt = $this->_db->query($sql);
+			$result = $stmt->rowCount();
+						
+			return $result;
+
+		}
+			
+	}
+    
 }
