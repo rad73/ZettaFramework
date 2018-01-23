@@ -52,14 +52,14 @@ class Modules_Service_Model_Backup  {
 	 * Создание резервной копии всего сайта
 	 *
 	 */
-	public function backup($skip_zetta = false) {
+	public function backup($skip_zetta = false, $skip_folders = false) {
 
 		$backupTo = $this->_backupsDir . DS . date('Y-m-d_H-i-s');
 		mkdir($backupTo);
 
 		$this
 			->_backupDB($backupTo)
-			->_backupFiles($backupTo);
+			->_backupFiles($backupTo, $skip_folders);
 
 		if (false == $skip_zetta) {
 			$this->_backupZetta($backupTo);
@@ -95,10 +95,11 @@ class Modules_Service_Model_Backup  {
 	 * @param string $backupTo	Путь куда сохраниться бекап
 	 * @return Modules_Service_Model_Backup
 	 */
-	protected function _backupFiles($backupTo) {
+	protected function _backupFiles($backupTo, $skipFolders = false) {
 
 		exec('cd ' . FILE_PATH
 			. ' && tar -cvpzf ' . $backupTo . DS . 'files.tgz .  --exclude="*/Backups/*" --exclude="\.git*"'
+			. ($skipFolders ? ' --exclude="' . $skipFolders . '"' : '')
 		);
 
 		return $this;

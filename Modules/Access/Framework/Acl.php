@@ -57,17 +57,11 @@ class Modules_Access_Framework_Acl extends Zend_Acl {
 
 	public function bootstrap() {
 
-		if ($this->getMyGroup() != self::GUEST_GROUP) {
-		
-			$this
-				->_initRoles()
-				->_initRules();
-				
-			return true;
-				
-		}
-		
-		return false;
+		$this
+			->_initRoles()
+			->_initRules();
+			
+		return true;
 
 	}
 

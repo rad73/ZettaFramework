@@ -1281,3 +1281,7 @@
 #z_window .redactor-toolbar li a.re-save {
 	padding: 13px 19px;
 }
+
+.z_admin_wrapper .CodeMirror {
+    min-height: 35px;
+}

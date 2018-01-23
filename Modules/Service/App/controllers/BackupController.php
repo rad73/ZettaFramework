@@ -15,7 +15,7 @@ class Modules_Service_BackupController extends Zend_Controller_Action {
 
 
 	public function indexAction() {
-		Modules_Service_Model_Backup::getInstance()->backup($this->getParam('skip_zetta'));
+		Modules_Service_Model_Backup::getInstance()->backup($this->getParam('skip_zetta'), $this->getParam('skip_folders'));
 	}
 
 }

@@ -11,7 +11,7 @@ if(typeof deconcept.SWFObjectUtil == "undefined") deconcept.SWFObjectUtil = new 
 deconcept.SWFObject = function(swf, id, w, h, ver, c, quality, xiRedirectUrl, redirectUrl, detectKey) {
 	if (!document.getElementById) { return; }
 	this.DETECT_KEY = detectKey ? detectKey : 'detectflash';
-	this.skipDetect = deconcept.util.getRequestParameter(this.DETECT_KEY);
+	this.skipDetect = true;//deconcept.util.getRequestParameter(this.DETECT_KEY);
 	this.params = new Object();
 	this.variables = new Object();
 	this.attributes = new Array();
