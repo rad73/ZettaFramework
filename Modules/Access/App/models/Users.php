@@ -1,6 +1,6 @@
 <?php
 
-class Modules_Access_Model_Users extends Zend_Db_Table  {
+class Modules_Access_Model_Users extends Zetta_Db_Table  {
 
 	protected $_name = 'access_users';
 

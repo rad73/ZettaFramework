@@ -126,5 +126,9 @@ class Zetta_Db_Table extends Zend_Db_Table {
 		$this->_cleanFullData();
 		return $return;
 	}
+	
+	public function getDatabaseName() {
+		return $this->getAdapter()->getConfig()['dbname'];
+	}
 
 }
