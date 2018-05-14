@@ -62,10 +62,10 @@ class BootstrapQuick extends Zend_Application_Bootstrap_Bootstrap {
 		$logger = $this->getResource('Log');
 
 		if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
-			$logger->setEventItem('remote_addr', $_SERVER['REMOTE_ADDR']);
+			$logger->setEventItem('remote_addr', htmlspecialchars($_SERVER['REMOTE_ADDR']));
 		}
 		if (array_key_exists('REQUEST_URI', $_SERVER)) {
-			$logger->setEventItem('request_url', $_SERVER['REQUEST_URI']);
+			$logger->setEventItem('request_url', htmlspecialchars($_SERVER['REQUEST_URI']));
 		}
 
 		Zend_Registry::set('Logger', $logger);
