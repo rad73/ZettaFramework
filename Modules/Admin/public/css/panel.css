@@ -250,16 +250,37 @@ ZETTA {
 	}
 
 	/* Всплывающее окно */
+    .z_window_show {
+        overflow: hidden !important;
+    }
+    .z_window_wrapper {
+        transition: opacity 0.4s;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 10000;
+        visibility: hidden;
+        opacity: 0;
+        outline: 0;
+        background: rgba(0, 0, 0, 0.3);
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+        .z_visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
 	#z_window {
-		position: absolute;
-		z-index: 10010;
-		top: 50px;
-		display: none;
-		width: 950px;
-		left: 50%;
-		margin-left: -475px;
+		position: relative;
+		width: 90%;
+        max-width: 1400px;
 		font-family: Arial;
 		padding: 20px 0;
+        margin: 100px auto 30px auto;
 		background: #f7f7f7;
 		background: -moz-linear-gradient(top,  #f7f7f7 0%, #e2e2e2 100%);
 		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#e2e2e2));
@@ -277,6 +298,11 @@ ZETTA {
 			border-top: 1px dashed #666;
 			margin-top: 20px;
 		}
+
+        #z_window .table_wrapper {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
 
 		#z_window A {
 			color: #6d9bce;
@@ -385,12 +411,11 @@ ZETTA {
 		#z_window .z_head_module {
 			margin-bottom: 15px;
 			border-bottom: 1px dashed #BBBBBB;
-			padding-bottom: 10px;
 		}
 
 		#z_window .z_head_module .right {
-			margin-left: 20px;
-			width: 840px;
+			margin-left: 40px;
+            float: none;
 		}
 
 		#z_window P {
@@ -420,7 +445,7 @@ ZETTA {
 			#z_window .element {
 				float: left;
 			}
-			
+
 			#z_window .element_description {
 				display: none;
 			}
@@ -538,6 +563,10 @@ ZETTA {
 		    right: 5px;
 		    top: 5px;
 		}
+
+            #z_window .z_icons_table {
+                position: static;
+            }
 
 			#z_window LI:hover .z_icons {
 				display: block;
@@ -748,6 +777,7 @@ ZETTA {
 		right: 0px;
 		font-size: 12px;
 		background: #1cbe61;
+		opacity: .7;
 		/* z-index: 10000; */
 	}
 
@@ -761,13 +791,13 @@ ZETTA {
 			color: #fff !important;
 			padding: 4px 0 !important;;
 			width: 23px !important;
-			display: none;
+			display: none !important;
 			text-align: center;
 			font-size: 12px !important;
 			cursor: pointer;
 		}
 		.z_icons_editable .icon-pencil, .z_icons_editable .icon {
-			display: block;
+			display: block !important;
 			float: left;
 		}
 
@@ -783,13 +813,13 @@ ZETTA {
 			cursor: text;
 		}
 
-		.z_inherit_block .icon-pencil { display: none; }
-		.z_inherit_block .icon-unlock { display: none; }
-		.z_inherit_block .icon-lock { display: block; }
+		.z_inherit_block .icon-pencil { display: none !important; }
+		.z_inherit_block .icon-unlock { display: none !important; }
+		.z_inherit_block .icon-lock { display: block !important; }
 
-	.z_override_block .icon-pencil { display: none; }
-	.z_override_block .icon-lock { display: none; }
-	.z_override_block .icon-unlock { display: block; }
+	.z_override_block .icon-pencil { display: none !important; }
+	.z_override_block .icon-lock { display: none !important; }
+	.z_override_block .icon-unlock { display: block !important; }
 
 
 .z_admin_menu {
@@ -902,61 +932,60 @@ ZETTA {
 
 
 @media (max-width: 768px) {
-	
+
 	#z_admin_panel {
 		min-width: auto;
 	}
-	
+
 		#z_admin_panel #z_usermenu_widget li:first-child {
 			display: none;
 		}
-	
+
 		#z_admin_panel #z_favorites_placeholder {
 			display: none;
 		}
-		
+
 		#z_admin_panel #z_manage_link {
 			left: 120px;
 			width: 0;
 			overflow: hidden;
 		}
-		
+
 	#zetta_editor_toolbar {
 		min-width: auto;
 	}
-	
+
 	#z_window {
-		margin: auto 2%;
+		margin-top: 50px;
 		width: 96%;
-		left: 0;
 	}
-	
+
 		#z_window .zetta_placeholder {
 			margin: 0 10px;
 		}
-	
+
 		#z_window .z_item {
 			width: 100%;
 		}
-		
+
 		#z_window #z_module_image {
 			display: none;
 		}
-		
+
 		#z_window .z_head_module .right {
 			margin-left: 0;
 			width: auto;
 		}
-		
+
 		#z_window .ui-button {
 			margin: 0 0 5px 5px !important;
 			float: left;
 		}
-		
+
 		#z_window #z_back_url {
 			margin-top: 15px;
 			position: relative;
 			display: inline-block;
 		}
-	
+
 }

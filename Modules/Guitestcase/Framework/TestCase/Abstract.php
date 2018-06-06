@@ -1,123 +1,128 @@
 <?php
 
-abstract class Modules_Guitestcase_Framework_TestCase_Abstract {
+abstract class Modules_Guitestcase_Framework_TestCase_Abstract
+{
 
-	/**
-	 * Тестовые классы
-	 *
-	 * @var array
-	 */
-	protected $_testCases = array();
+    /**
+     * Тестовые классы
+     *
+     * @var array
+     */
+    protected $_testCases = array();
 
-	protected $_formatter = null;
-	protected $_testResult = null;
+    protected $_formatter = null;
+    protected $_testResult = null;
 
 
-	public function __construct() {
+    public function __construct()
+    {
+        $this
+            ->setDefaultFormatter()
+            ->setDefaultTestResult();
+    }
 
-		$this
-			->setDefaultFormatter()
-			->setDefaultTestResult();
+    /**
+     * Setter для self::$_testCases
+     *
+     * @param array $testCases
+     */
+    public function setTestCases($testCases)
+    {
+        $this->_testCases = $testCases;
+    }
 
-	}
+    /**
+     * Getter для self::$_testCases
+     *
+     * @return array
+     */
+    public function getTestCases()
+    {
+        return $this->_testCases;
+    }
 
-	/**
-	 * Setter для self::$_testCases
-	 *
-	 * @param array $testCases
-	 */
-	public function setTestCases($testCases) {
-		$this->_testCases = $testCases;
-	}
+    /**
+     * Установка класса по выводу результатов тестирования
+     *
+     * @param PHPUnit_Framework_TestListener $formatter
+     */
+    public function setFormatter(PHPUnit_Framework_TestListener $formatter)
+    {
+        $this->_formatter = $formatter;
+    }
 
-	/**
-	 * Getter для self::$_testCases
-	 *
-	 * @return array
-	 */
-	public function getTestCases() {
-		return $this->_testCases;
-	}
+    /**
+     * Установка класса вывода по умолчанию (System_Testcase_Formatter)
+     *
+     */
+    public function setDefaultFormatter()
+    {
+        $this->setFormatter(new PHPUnit_Util_Log_JUnit());
 
-	/**
-	 * Установка класса по выводу результатов тестирования
-	 *
-	 * @param PHPUnit_Framework_TestListener $formatter
-	 */
-	public function setFormatter(PHPUnit_Framework_TestListener $formatter) {
-		$this->_formatter = $formatter;
-	}
+        return $this;
+    }
 
-	/**
-	 * Установка класса вывода по умолчанию (System_Testcase_Formatter)
-	 *
-	 */
-	public function setDefaultFormatter() {
-		$this->setFormatter(new PHPUnit_Util_Log_JUnit());
-		return $this;
-	}
+    /**
+     * Извлекаем класс вывода
+     *
+     * @return PHPUnit_Framework_TestListener
+     */
+    public function getFormatter()
+    {
+        if (null == $this->_formatter) {
+            $this->setDefaultFormatter();
+        }
 
-	/**
-	 * Извлекаем класс вывода
-	 *
-	 * @return PHPUnit_Framework_TestListener
-	 */
-	public function getFormatter() {
+        return $this->_formatter;
+    }
 
-		if (null == $this->_formatter) {
-			$this->setDefaultFormatter();
-		}
+    /**
+     * Устанавливаем класс обработки тестов
+     *
+     * @param PHPUnit_Framework_TestResult $testResult
+     */
+    public function setTestResult(PHPUnit_Framework_TestResult $testResult)
+    {
+        $this->_testResult = $testResult;
 
-		return $this->_formatter;
+        return $this;
+    }
 
-	}
+    /**
+     * Получение класса обработки тестов
+     *
+     * @return PHPUnit_Framework_TestResult $testResult
+     */
+    public function getTestResult()
+    {
+        if (null == $this->_testResult) {
+            $this->setDefaultTestResult();
+        }
 
-	/**
-	 * Устанавливаем класс обработки тестов
-	 *
-	 * @param PHPUnit_Framework_TestResult $testResult
-	 */
-	public function setTestResult(PHPUnit_Framework_TestResult $testResult) {
-		$this->_testResult = $testResult;
-		return $this;
-	}
+        return $this->_testResult;
+    }
 
-	/**
-	 * Получение класса обработки тестов
-	 *
-	 * @return PHPUnit_Framework_TestResult $testResult
-	 */
-	public function getTestResult() {
+    /**
+     * Устанавливаем класс обработки тестов по умолчанию (PHPUnit_Framework_TestResult)
+     *
+     * @param PHPUnit_Framework_TestResult $testResult
+     */
 
-		if (null == $this->_testResult) {
-			$this->setDefaultTestResult();
-		}
+    public function setDefaultTestResult()
+    {
+        $this->setTestResult(new PHPUnit_Framework_TestResult());
 
-		return $this->_testResult;
+        return $this;
+    }
 
-	}
+    public function runTestCase(PHPUnit_Framework_TestCase $testCase)
+    {
+        $suite = new PHPUnit_Framework_TestSuite();
+        $suite->addTestSuite(get_class($testCase));
 
-	/**
-	 * Устанавливаем класс обработки тестов по умолчанию (PHPUnit_Framework_TestResult)
-	 *
-	 * @param PHPUnit_Framework_TestResult $testResult
-	 */
+        $this->_testResult->addListener($this->getFormatter());
+        $result = $suite->run($this->_testResult);
 
-	public function setDefaultTestResult() {
-		$this->setTestResult(new PHPUnit_Framework_TestResult());
-		return $this;
-	}
-
-	public function runTestCase(PHPUnit_Framework_TestCase $testCase) {
-
-		$suite = new PHPUnit_Framework_TestSuite();
-		$suite->addTestSuite(get_class($testCase));
-
-		$this->_testResult->addListener($this->getFormatter());
-		$result = $suite->run($this->_testResult);
-
-		return $this->getFormatter();
-
-	}
-
+        return $this->getFormatter();
+    }
 }

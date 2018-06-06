@@ -1,103 +1,90 @@
 <?php
 
-class Modules_Search_CronController extends Zend_Controller_Action {
+class Modules_Search_CronController extends Zend_Controller_Action
+{
+    protected $_indexHandle;
 
-	protected $_indexHandle;
+    protected $_indexedUrl = array();
 
-	protected $_indexedUrl = array();
+    public function init()
+    {
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
 
-	public function init() {
+        ini_set('max_execution_time', 0);
 
-		$this->_helper->layout()->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
+        $indexPath = TEMP_PATH . '/Search';
+        $files = glob($indexPath . '/*.*', GLOB_NOSORT);
+        // чистим старй индекс
+        foreach ($files as $file) {
+            unlink($file);
+        }
 
-		ini_set('max_execution_time', 0);
+        $this->_indexHandle = Zend_Search_Lucene::create($indexPath);
+    }
 
-		$indexPath = TEMP_PATH . '/Search';
-		$files = glob($indexPath . '/*.*', GLOB_NOSORT);
-		// чистим старй индекс
-		foreach ($files as $file) {
-			unlink($file);
-		}
+    public function indexateAction()
+    {
+        Zetta_ErrorHandler::$DISABLE = true;
+        $this->_indexate($this->view->baseUrl());
+        $this->_indexHandle->optimize();
+    }
 
-		$this->_indexHandle = Zend_Search_Lucene::create($indexPath);
+    protected function _indexate($url, $urlFrom = '')
+    {
+        if (!stristr($url, '://')) {
+            $url = HTTP_HOST . $url;
+        }
+        
+        $url = substr($url, -1) == '/' ? substr($url, 0, -1) : $url;
 
-	}
+        if (!in_array($url, $this->_indexedUrl)) {
+            if (stristr($url, HTTP_HOST)) {
+                array_push($this->_indexedUrl, $url);
 
-	public function indexateAction() {
+                $client = (new \Zend_Http_Client())
+                    ->setUri($url)
+                    ->setConfig(array(
+                        'maxredirects' => 5,
+                        'timeout' => 300
+                    ))
+                ;
+                $response = $client->request(\Zend_Http_Client::GET);
+                if ($response->getStatus() == 200) {
+                    $html = $response->getBody();
 
-		Zetta_ErrorHandler::$DISABLE = true;
-		$this->_indexate($this->view->baseUrl());
-		$this->_indexHandle->optimize();
+                    libxml_use_internal_errors(true);
+                    $doc = Zend_Search_Lucene_Document_Html::loadHTML($html);
+                    libxml_use_internal_errors(false);
 
-	}
+                    if (preg_match('/<\!--index-->(.*)<\!--\/index-->/isu', $html, $matches)) {
+                        $html = $matches[1];
+                    }
 
-	protected function _indexate($url, $urlFrom = '') {
-
-		if (!stristr($url, '://')) {
-			$url = HTTP_HOST . $url;
-		}
-		
-		$url = substr($url, -1) == '/' ? substr($url, 0, -1) : $url;
-
-		if (!in_array($url, $this->_indexedUrl)) {
-
-			if (stristr($url, HTTP_HOST)) {
-
-				array_push($this->_indexedUrl, $url);
-
-				$client = (new \Zend_Http_Client())
-					->setUri($url)
-					->setConfig(array(
-						'maxredirects' => 5,
-						'timeout'      => 300
-					))
-				;
-				$response = $client->request(\Zend_Http_Client::GET);
-				if ($response->getStatus() == 200) {
-					
-					$html = $response->getBody();
-
-					libxml_use_internal_errors(true);
-					$doc = Zend_Search_Lucene_Document_Html::loadHTML($html);
-					libxml_use_internal_errors(false);
-
-					if (preg_match('/<\!--index-->(.*)<\!--\/index-->/isu', $html, $matches)) {
-						$html = $matches[1];
-					}
-
-					$html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
-					$html = strip_tags($html);
+                    $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+                    $html = strip_tags($html);
 
 
-					$doc->addField(Zend_Search_Lucene_Field::Text('content', $html, 'utf-8'));
+                    $doc->addField(Zend_Search_Lucene_Field::Text('content', $html, 'utf-8'));
 
-					$doc->addField(Zend_Search_Lucene_Field::UnIndexed('body', '', 'utf-8'));
-					$doc->addField(Zend_Search_Lucene_Field::Text('url', $url, 'utf-8'));
+                    $doc->addField(Zend_Search_Lucene_Field::UnIndexed('body', '', 'utf-8'));
+                    $doc->addField(Zend_Search_Lucene_Field::Text('url', $url, 'utf-8'));
 
-					$this->_indexHandle->addDocument($doc);
+                    $this->_indexHandle->addDocument($doc);
 
-					Zend_Registry::get('Logger')->info('Search index is created: ' . $url, Zend_Log::INFO);
+                    Zend_Registry::get('Logger')->info('Search index is created: ' . $url, Zend_Log::INFO);
 
-					foreach ($doc->getLinks() as $link) {
-
-						$temp = explode('.', $link);
-						$ext = end($temp);
-						if ($link == $ext || in_array($ext, array('php', 'html', 'txt', 'htm'))) {
-							$this->_indexate($link, $url);
-						}
-
-					}
-					
-				}
-				else {
-					Zend_Registry::get('Logger')->info('Search index page error: ' . $url . ', url from: ' . $urlFrom . ', status: ' . $response->getStatus(), Zend_Log::INFO);
-				}
-
-			}
-
-		}
-
-	}
-
+                    foreach ($doc->getLinks() as $link) {
+                        $temp = explode('.', $link);
+                        $ext = end($temp);
+                        if ($link == $ext || in_array($ext, array('php', 'html', 'txt', 'htm'))) {
+                            $this->_indexate($link, $url);
+                        }
+                    }
+                } else {
+                    Zend_Registry::get('Logger')->info('Search index page error: ' . $url . ', url from: ' . $urlFrom . ', status: ' . $response->getStatus(), Zend_Log::INFO);
+                }
+            }
+        }
+    }
 }

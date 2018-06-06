@@ -1,96 +1,108 @@
 <?php
 
-abstract class Modules_Dbmigrations_Framework_Abstract implements Modules_Dbmigrations_Framework_Adapter_Interface {
+abstract class Modules_Dbmigrations_Framework_Abstract implements Modules_Dbmigrations_Framework_Adapter_Interface
+{
+    protected $_adapter;
+    protected $_comment;
+    protected $_db;
 
-	protected $_adapter;
-	protected $_comment;
-	protected $_db;
+    public function __construct()
+    {
+        $this->_setDb();
+    }
 
-	public function __construct() {
-		$this->_setDb();
-	}
+    /**
+     * Подключаем адаптер миграций
+     *
+     * @return Modules_Dbmigrations_Abstract
+     */
+    protected function _setAdapter()
+    {
+        $db = $this->_db;
 
-	/**
-	 * Подключаем адаптер миграций
-	 *
-	 * @return Modules_Dbmigrations_Abstract
-	 */
-	protected function _setAdapter() {
+        switch (true) {
 
-		$db = $this->_db;
+            case $db instanceof Zend_Db_Adapter_Mysqli:
+            case $db instanceof Zend_Db_Adapter_Pdo_Mysql:
+                    $this->_adapter = new Modules_Dbmigrations_Framework_Adapter_Mysql($db);
 
-		switch (true) {
+                break;
 
-			case $db instanceof Zend_Db_Adapter_Mysqli:
-			case $db instanceof Zend_Db_Adapter_Pdo_Mysql:
-					$this->_adapter = new Modules_Dbmigrations_Framework_Adapter_Mysql($db);
-				break;
+            case $db instanceof Zend_Db_Adapter_Pdo_Sqlite:
+                    $this->_adapter = new Modules_Dbmigrations_Framework_Adapter_Sqlite($db);
 
-			case $db instanceof Zend_Db_Adapter_Pdo_Sqlite:
-					$this->_adapter = new Modules_Dbmigrations_Framework_Adapter_Sqlite($db);
-				break;
+                break;
 
-		}
+        }
 
-		return $this;
+        return $this;
+    }
 
-	}
+    /**
+     * Сохраняем ссылку на БД
+     *
+     * @return Modules_Dbmigrations_Abstract
+     *
+     */
+    protected function _setDb(Zend_Db_Adapter_Abstract $db = null)
+    {
+        $this->_db = $db ? $db : Zend_Registry::get('db');
+        $this->_setAdapter();
 
-	/**
-	 * Сохраняем ссылку на БД
-	 *
-	 * @return Modules_Dbmigrations_Abstract
-	 *
-	 */
-	protected function _setDb(Zend_Db_Adapter_Abstract $db = null) {
+        return $this;
+    }
 
-		$this->_db = $db ? $db : Zend_Registry::get('db');
-		$this->_setAdapter();
+    public function getComment()
+    {
+        return $this->_comment;
+    }
 
-		return $this;
-	}
+    public function createTable($name, $columns)
+    {
+        $this->_adapter->createTable($name, $columns);
+    }
+    public function renameTable($tableName, $newName)
+    {
+        $this->_adapter->renameTable($tableName, $newName);
+    }
+    public function dropTable($name)
+    {
+        $this->_adapter->dropTable($name);
+    }
 
-	public function getComment() {
-		return $this->_comment;
-	}
+    public function createKey($table, $columnName, $keyName, $options = array('uniq' => false, 'primary' => false))
+    {
+        $this->_adapter->createKey($table, $columnName, $keyName, $options);
+    }
+    public function dropKey($table, $keyName)
+    {
+        $this->_adapter->dropKey($table, $keyName);
+    }
 
-	public function createTable($name, $columns) {
-		$this->_adapter->createTable($name, $columns);
-	}
-	public function renameTable($tableName, $newName) {
-		$this->_adapter->renameTable($tableName, $newName);
-	}
-	public function dropTable($name) {
-		$this->_adapter->dropTable($name);
-	}
+    public function createForeignKey($table, $columnName, $keyName, $options = array('table' => null, 'field' => null, 'ondelete' => null, 'onupdate' => null))
+    {
+        $this->_adapter->createForeignKey($table, $columnName, $keyName, $options);
+    }
+    public function dropForeignKey($table, $keyName)
+    {
+        $this->_adapter->dropForeignKey($table, $keyName);
+    }
 
-	public function createKey($table, $columnName, $keyName, $options = array('uniq'=>false, 'primary'=>false)) {
-		$this->_adapter->createKey($table, $columnName, $keyName, $options);
-	}
-	public function	dropKey($table, $keyName) {
-		$this->_adapter->dropKey($table, $keyName);
-	}
+    public function addColumn($table, $name, $options = array())
+    {
+        $this->_adapter->addColumn($table, $name, $options);
+    }
 
-	public function createForeignKey($table, $columnName, $keyName, $options = array('table'=>null, 'field'=>null, 'ondelete'=>null, 'onupdate'=>null)) {
-		$this->_adapter->createForeignKey($table, $columnName, $keyName, $options);
-	}
-	public function dropForeignKey($table, $keyName) {
-		$this->_adapter->dropForeignKey($table, $keyName);
-	}
+    public function dropColumn($table, $name)
+    {
+        $this->_adapter->dropColumn($table, $name);
+    }
 
-	public function	addColumn($table, $name, $options = array()) {
-		$this->_adapter->addColumn($table, $name, $options);
-	}
+    public function alterColumn($table, $name, $newName, $options = array())
+    {
+        $this->_adapter->alterColumn($table, $name, $newName, $options);
+    }
 
-	public function	dropColumn($table, $name) {
-		$this->_adapter->dropColumn($table, $name);
-	}
-
-	public function	alterColumn($table, $name, $newName, $options = array()) {
-		$this->_adapter->alterColumn($table, $name, $newName, $options);
-	}
-
-	abstract public function up($params = false);
-	abstract public function down($params = false);
-
+    abstract public function up($params = false);
+    abstract public function down($params = false);
 }

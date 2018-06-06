@@ -1,0 +1,17 @@
+<div id="z_view_publications" class="sortable">
+
+	<?php
+	if (sizeof($this->publications)) {
+        try {
+            echo $this->partialLoop('admin_' . $this->rubric->table_name . '/partialPublication.phtml', $this->publications);
+        }
+        catch (Exception $e) {
+            echo $this->partialLoop('admin/partialPublication.phtml', $this->publications);
+        }
+	}
+	else {
+		?>Не добавлено ни одной публикации<?php
+	}
+	?>
+	<?php echo $this->paginationControl($this->paginator) ?>
+</div>

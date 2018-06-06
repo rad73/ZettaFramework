@@ -1,78 +1,76 @@
 <?php
 
-class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Standard {
+class Zetta_Controller_Dispatcher_Standard extends \DI\Bridge\ZendFramework1\Dispatcher
+{
 
-	/**
-	 * Форматируем имя модуля
-	 * Если модуль не найден в HEAP_PATH пробуем найти в папке MODULES_PATH
-	 *
-	 * @param string $unformatted
-	 * @return string
-	 */
-	public function formatModuleName($unformatted) {
+    /**
+     * Форматируем имя модуля
+     * Если модуль не найден в HEAP_PATH пробуем найти в папке MODULES_PATH
+     *
+     * @param string $unformatted
+     * @return string
+     */
+    public function formatModuleName($unformatted)
+    {
+        $_front = $this->getFrontController();
+        $_request = $_front->getRequest();
+        $_formatedModuleName = parent::formatModuleName($unformatted);
 
-		$_front = $this->getFrontController();
-		$_request = $_front->getRequest();
-		$_formatedModuleName = parent::formatModuleName($unformatted);
+        /* Если файл в HEAP_PATH есть $classNameFile будет указывать на него */
+        $_currentControllerDir = $this->getControllerDirectory($_formatedModuleName);
+        $_classNameFile = $_currentControllerDir . DS .  $this->classToFilename($this->getControllerClass($_request));
 
-		/* Если файл в HEAP_PATH есть $classNameFile будет указывать на него */
-		$_currentControllerDir = $this->getControllerDirectory($_formatedModuleName);
-		$_classNameFile = $_currentControllerDir . DS .  $this->classToFilename($this->getControllerClass($_request));
+        if (false == Zend_Loader::isReadable($_classNameFile)) {
+            // файл не существует значит будем искать в MODULES_PATH
+            $_modulesControllerDir = $this->_modulesControllerDirectory();
+            $this
+                ->addControllerDirectory($_modulesControllerDir, $_formatedModuleName);
+        } else {
+            // файл существует зададим высший приоритет
+            $this
+                ->addControllerDirectory($_currentControllerDir, $_formatedModuleName);
+        }
 
-		if (false == Zend_Loader::isReadable($_classNameFile)) {
-			// файл не существует значит будем искать в MODULES_PATH
-			$_modulesControllerDir = $this->_modulesControllerDirectory();
-			$this
-				->addControllerDirectory($_modulesControllerDir, $_formatedModuleName);
-		}
-		else {
-			// файл существует зададим высший приоритет
-			$this
-				->addControllerDirectory($_currentControllerDir, $_formatedModuleName);
-		}
+        $dirModuleName = $this->getControllerDirectory($_formatedModuleName);
 
-		$dirModuleName = $this->getControllerDirectory($_formatedModuleName);
+        return $this->getModulePrefix($dirModuleName) . $_formatedModuleName;
+    }
 
-		return $this->getModulePrefix($dirModuleName) . $_formatedModuleName;
+    /**
+     * Расширяем диспетчер для функционала описанного в методе loadClass
+     *
+     * @param Zend_Controller_Request_Abstract $action
+     * @return boolean
+     */
+    public function isDispatchable(Zend_Controller_Request_Abstract $request)
+    {
+        $isDispatchable = parent::isDispatchable($request);
+        if (!$isDispatchable) {
+            $className = $this->getControllerClass($request);
+            $systemControllerDir = $this->_modulesControllerDirectory();
 
-	}
+            $isDispatchable = Zend_Loader::isReadable($systemControllerDir . DS . $this->classToFilename($className));
+        }
 
-	/**
-	 * Расширяем диспетчер для функционала описанного в методе loadClass
-	 *
-	 * @param Zend_Controller_Request_Abstract $action
-	 * @return boolean
-	 */
-	public function isDispatchable(Zend_Controller_Request_Abstract $request) {
+        return $isDispatchable;
+    }
 
-		$isDispatchable = parent::isDispatchable($request);
-		if (!$isDispatchable) {
+    public function getModulePrefix($path)
+    {
+        return strstr($path, MODULES_PATH) ? 'Modules_' : '';
+    }
 
-			$className = $this->getControllerClass($request);
-			$systemControllerDir = $this->_modulesControllerDirectory();
+    /**
+     * Путь к контроллеру текущего модуля в папке FRAMEWORK
+     *
+     * @return string
+     */
+    protected function _modulesControllerDirectory()
+    {
+        return MODULES_PATH . DS . ucfirst($this->_curModule) . DS . $this->getFrontController()->getModuleControllerDirectoryName();
+    }
 
-			$isDispatchable = Zend_Loader::isReadable($systemControllerDir . DS . $this->classToFilename($className));
-
-		}
-
-		return $isDispatchable;
-
-	}
-
-	public function getModulePrefix($path) {
-		return strstr($path, MODULES_PATH) ? 'Modules_' : '';
-	}
-
-	/**
-	 * Путь к контроллеру текущего модуля в папке FRAMEWORK
-	 *
-	 * @return string
-	 */
-	protected function _modulesControllerDirectory() {
-		return MODULES_PATH . DS . ucfirst($this->_curModule) . DS . $this->getFrontController()->getModuleControllerDirectoryName();
-	}
-
-	/**
+    /**
      * Load a controller class
      *
      * Attempts to load the controller class file from
@@ -83,27 +81,23 @@ class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_St
      * @return string Class name loaded
      * @throws Zend_Controller_Dispatcher_Exception if class not loaded
      */
-    public function loadClass($className) {
+    public function loadClass($className)
+    {
+        try {
+            return parent::loadClass($className);
+        } catch (Zend_Controller_Dispatcher_Exception $e) {
+            $finalClass = $this->formatClassName($this->_curModule, $className);
+            $finalClassNS = str_replace('_', '\\', $finalClass);
 
-		try {
-			return parent::loadClass($className);
-		}
-		catch(Zend_Controller_Dispatcher_Exception $e) {
+            if (!class_exists($finalClassNS, false)) {
+                throw new Zend_Controller_Dispatcher_Exception($e->getMessage());
+            }
 
-			$finalClass = $this->formatClassName($this->_curModule, $className);
-			$finalClassNS = str_replace('_', '\\', $finalClass);
+            return $finalClassNS;
+        }
+    }
 
-			if (!class_exists($finalClassNS, false)) {
-				throw new Zend_Controller_Dispatcher_Exception($e->getMessage());
-			}
-
-			return $finalClassNS;
-
-		}
-
-	}
-
-	/**
+    /**
      * Dispatch to a controller/action
      *
      * By default, if a controller is not dispatchable, dispatch() will throw
@@ -144,8 +138,7 @@ class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_St
          */
         $moduleClassName = $className;
         if (($this->_defaultModule != $this->_curModule)
-            || $this->getParam('prefixDefaultModule'))
-        {
+            || $this->getParam('prefixDefaultModule')) {
             $moduleClassName = $this->formatClassName($this->_curModule, $className);
         }
 
@@ -159,6 +152,13 @@ class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_St
          * arguments; throw exception if it's not an action controller
          */
         $controller = new $moduleClassName($request, $this->getResponse(), $this->getParams());
+
+        // Code edited for PHP-DI
+        // -----------------------------------------------
+        // Inject the dependencies on the controller
+        $this->getContainer()->injectOn($controller);
+        // -----------------------------------------------
+
         if (!($controller instanceof Zend_Controller_Action_Interface) &&
             !($controller instanceof Zend_Controller_Action)) {
             throw new Zend_Controller_Dispatcher_Exception(
@@ -178,7 +178,7 @@ class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_St
 
         // by default, buffer output
         $disableOb = $this->getParam('disableOutputBuffering');
-        $obLevel   = ob_get_level();
+        $obLevel = ob_get_level();
         if (empty($disableOb)) {
             ob_start();
         }
@@ -194,6 +194,7 @@ class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_St
                     $curObLevel = ob_get_level();
                 } while ($curObLevel > $obLevel);
             }
+
             throw $e;
         }
 
@@ -205,5 +206,4 @@ class Zetta_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_St
         // Destroy the page controller instance and reflection objects
         $controller = null;
     }
-
 }

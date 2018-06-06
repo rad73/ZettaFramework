@@ -1,6 +1,7 @@
 <?php
 
-class Modules_Zfdebuginit_Plugin_Debug_Phpinfo extends ZFDebug_Controller_Plugin_Debug_Plugin implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
+class Modules_Zfdebuginit_Plugin_Debug_Phpinfo extends ZFDebug_Controller_Plugin_Debug_Plugin implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface
+{
     /**
      * Contains plugin identifier name
      *
@@ -17,7 +18,6 @@ class Modules_Zfdebuginit_Plugin_Debug_Phpinfo extends ZFDebug_Controller_Plugin
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -55,6 +55,7 @@ class Modules_Zfdebuginit_Plugin_Debug_Phpinfo extends ZFDebug_Controller_Plugin
      *
      * @return string
      */
-    public function getPanel() {  }
-
+    public function getPanel()
+    {
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Хранение данных от авторизации в куках
- * 
+ *
  * @author Александр Хрищанович
  *
  */
@@ -22,7 +22,7 @@ class Modules_Access_Framework_Auth_Storage_Cookie implements Zend_Auth_Storage_
      */
     public function isEmpty()
     {
-		return !isset($_COOKIE[self::NAMESPACE_DEFAULT]);
+        return !isset($_COOKIE[self::NAMESPACE_DEFAULT]);
     }
 
     /**
@@ -32,9 +32,9 @@ class Modules_Access_Framework_Auth_Storage_Cookie implements Zend_Auth_Storage_
      */
     public function read()
     {
-    	if (array_key_exists(self::NAMESPACE_DEFAULT, $_COOKIE)) {
-        	return unserialize($_COOKIE[self::NAMESPACE_DEFAULT]);
-    	}
+        if (array_key_exists(self::NAMESPACE_DEFAULT, $_COOKIE)) {
+            return unserialize($_COOKIE[self::NAMESPACE_DEFAULT]);
+        }
     }
 
     /**
@@ -43,26 +43,23 @@ class Modules_Access_Framework_Auth_Storage_Cookie implements Zend_Auth_Storage_
      * @param  mixed $contents
      * @return void
      */
-    public function write($contents) {
-    	
-    	if (true == is_object($contents)) {
-
-    		$writeClass = new stdClass();
-	    	$writeClass->username = $contents->username;
-	    	$writeClass->auth_hash = $contents->password;
-	    	$writeClass->role_name = $contents->role_name;
-	    	
-	    	$_COOKIE[self::NAMESPACE_DEFAULT] = serialize($writeClass);
-	    	
-	    	setcookie(
-	    		self::NAMESPACE_DEFAULT,
-	            $_COOKIE[self::NAMESPACE_DEFAULT],
-	            time() + self::LIFE_TIME,
-	            Zend_Controller_Front::getInstance()->getBaseUrl() . DS
-			);
-			
-    	}
-
+    public function write($contents)
+    {
+        if (true == is_object($contents)) {
+            $writeClass = new stdClass();
+            $writeClass->username = $contents->username;
+            $writeClass->auth_hash = $contents->password;
+            $writeClass->role_name = $contents->role_name;
+            
+            $_COOKIE[self::NAMESPACE_DEFAULT] = serialize($writeClass);
+            
+            setcookie(
+                self::NAMESPACE_DEFAULT,
+                $_COOKIE[self::NAMESPACE_DEFAULT],
+                time() + self::LIFE_TIME,
+                Zend_Controller_Front::getInstance()->getBaseUrl() . DS
+            );
+        }
     }
 
     /**
@@ -70,14 +67,14 @@ class Modules_Access_Framework_Auth_Storage_Cookie implements Zend_Auth_Storage_
      *
      * @return void
      */
-    public function clear() {
-    	
+    public function clear()
+    {
         setcookie(
-    		self::NAMESPACE_DEFAULT,
+            self::NAMESPACE_DEFAULT,
             false,
             315554400,
-			Zend_Controller_Front::getInstance()->getBaseUrl() . DS
-		);
+            Zend_Controller_Front::getInstance()->getBaseUrl() . DS
+        );
         
         unset($_COOKIE[self::NAMESPACE_DEFAULT]);
     }

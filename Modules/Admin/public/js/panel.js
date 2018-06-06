@@ -1,7 +1,7 @@
 $(function () {
 
 	$('body').addClass('zetta_front');
-	
+
 	if ($.fn.button.noConflict) {
 		$.fn.btn = $.fn.button.noConflict();
 	}
@@ -15,30 +15,29 @@ $(function () {
 
 	var _showManageWindow = function () {
 
-		var _panel_manage = $('#z_window'),
-			_panel_overlay = $('#z_overlay');
+		var _panel = $('.z_window_wrapper')
+            _panel_manage = $('#z_window');
 
-		_panel_manage.fadeIn() && _panel_overlay.fadeIn(function () {
-			$(_panel_manage).trigger('z_window_show');
-		});
+        _panel.addClass('z_visible');
+		_panel_manage.trigger('z_window_show');
+
+        $('body').addClass('z_window_show');
 
 	}
 	var _hideManageWindow = function () {
 
-		var _panel_manage = $('#z_window'),
-			_panel_overlay = $('#z_overlay');
-
-		_panel_manage.fadeOut() && _panel_overlay.fadeOut();
-
+		$('.z_window_wrapper').removeClass('z_visible');
+        $('body').removeClass('z_window_show');
 		$.History.go('');
 
 	}
 
 	var _afterLoadWindow = function () {
 
-		$('body, html').animate({
-			scrollTop: 0
-		}, 100);
+		//$('body, html').animate({
+		//	scrollTop: 0
+		//}, 100);
+		//},
 
 		hidePreloader();
 		_showManageWindow();

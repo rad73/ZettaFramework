@@ -1,6 +1,7 @@
 <?php
 
-class Modules_Zfdebuginit_Plugin_Debug_Logger extends ZFDebug_Controller_Plugin_Debug_Plugin implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface {
+class Modules_Zfdebuginit_Plugin_Debug_Logger extends ZFDebug_Controller_Plugin_Debug_Plugin implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface
+{
     /**
      * Contains plugin identifier name
      *
@@ -17,7 +18,6 @@ class Modules_Zfdebuginit_Plugin_Debug_Logger extends ZFDebug_Controller_Plugin_
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -57,55 +57,52 @@ class Modules_Zfdebuginit_Plugin_Debug_Logger extends ZFDebug_Controller_Plugin_
      */
     public function getPanel()
     {
-
         $events = Zetta_Log_Writers_Memory::getEvents();
 
         if (sizeof($events)) {
-
             $return = '<ol>';
 
             foreach ($events as $i => $event) {
-
-                $return .= '<li>' 
-                    . ($i + 1) . '. ' 
+                $return .= '<li>'
+                    . ($i + 1) . '. '
                     . $this->_getIcon($event['priority']) . '&nbsp;'
-                    . $event['message'] 
-                    . (isset($event['file']) ? ' (in ' . $event['file'] . ':' .  $event['line'] . ')' : '') 
+                    . $event['message']
+                    . (isset($event['file']) ? ' (in ' . $event['file'] . ':' .  $event['line'] . ')' : '')
                 . '</li>' ;
-
             }
 
             return $return . '</ol>';
-
         }
-		
     }
 
-    protected function _getIcon($priority) {
-
+    protected function _getIcon($priority)
+    {
         switch ($priority) {
             case Zend_Log::EMERG:
                 $icoName = 'fa-fire';
+
                 break;
             case Zend_Log::ALERT:
             case Zend_Log::WARN:
                 $icoName = 'fa-exclamation-triangle';
+                // no break
             case Zend_Log::CRIT:
             case Zend_Log::ERR:
                 $icoName = 'fa-exclamation-circle';
+
                 break;
             case Zend_Log::NOTICE:
             case Zend_Log::INFO:
                 $icoName = 'fa-info-circle';
+
                 break;
             case Zend_Log::DEBUG:
                 $icoName = 'fa-bug';
+
                 break;
         }
 
 
         return '<i class="fa ' . $icoName . '"></i>';
-
     }
-
 }

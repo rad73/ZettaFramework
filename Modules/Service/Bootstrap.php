@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Bootstrap для модуля Modules_Service	
- * 
+ * Bootstrap для модуля Modules_Service
+ *
  * @author Александр Хрищанович
  *
  */
-class Modules_Service_Bootstrap extends Zetta_BootstrapModules {
-	
+class Modules_Service_Bootstrap extends Zetta_BootstrapModules
+{
 }

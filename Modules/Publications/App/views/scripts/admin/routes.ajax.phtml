@@ -2,32 +2,27 @@
 
 <div id="z_publications_modules">
 
-	<?php 
+	<?php
 	if (sizeof($this->routes)) {
 		echo $this->partialLoop('admin/partialRoute.phtml', $this->routes);
 	}
 	else {
-		?>Данные модуль не подключен ни к одной рубрике.<?php 
+		?>Данные модуль не подключен ни к одной рубрике.<?php
 	}
 	?>
 
 </div>
 
 <?php if (sizeof($this->publications)) : ?>
-
-	<div id="z_view_publications" class="sortable">	
-		<h2>Публикации без рубрики</h2>
-		<?php
-			try {
-				echo $this->partialLoop('admin_' . $this->rubric->table_name . '/partialPublication.phtml', $this->publications);
-			}
-			catch (Exception $e) {
-				echo $this->partialLoop('admin/partialPublication.phtml', $this->publications);
-			}
-		?>
-		<?php echo $this->paginationControl($this->paginator) ?>
-	</div>
-	
+    <h2 class="z_publications_title_no_rubric">Публикации без рубрики</h2>
+    <?php
+        try {
+            echo $this->partial('admin_' . $this->rubric->table_name . '/publications.phtml', $this);
+        }
+        catch (Exception $e) {
+            echo $this->partial('admin/publications.phtml', $this);
+        }
+    ?>
 <?php endif ?>
 
 <div class="z_buttons_placehoder">

@@ -6,15 +6,13 @@
  * @author Александр Хрищанович
  *
  */
-class Modules_Accessusers_Bootstrap extends Zetta_BootstrapModules {
+class Modules_Accessusers_Bootstrap extends Zetta_BootstrapModules
+{
+    public function bootstrap()
+    {
+        parent::bootstrap();
 
-	public function bootstrap() {
-
-		parent::bootstrap();
-
-		Zend_Controller_Front::getInstance()
-			->registerPlugin(new Modules_Accessusers_Plugin_Widget(), 1000);
-
-	}
-
+        Zend_Controller_Front::getInstance()
+            ->registerPlugin(new Modules_Accessusers_Plugin_Widget(), 1000);
+    }
 }

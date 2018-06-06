@@ -26,8 +26,10 @@
 		"phpunit/dbunit": "*",
 		"phpunit/php-invoker": "*",
 		"jenner/timer": "*",
-	    "react/promise": "*",
-		"jenner/async-http-php": "*"
+		"jenner/async-http-php": "*",
+        "wapmorgan/morphos": "^3.2",
+        "php-di/zf1-bridge": "^4.0",
+        "doctrine/annotations": "^1.6"
     },
     "repositories": [{
         "url": "https://github.com/dirmax/ZFDebug.git",

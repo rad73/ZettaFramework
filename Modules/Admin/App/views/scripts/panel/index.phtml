@@ -1,15 +1,15 @@
 <div id="z_admin_panel">
 
 	<div class="z_panel_wrapper">
-		
+
 		<a href="<?php echo $this->baseUrl() ?>/"><img src="<?php echo $this->libUrl('/i/logo.png') ?>" class="z_logo" width="80" height="26" alt="ZettaCMS - построй сайт своей мечты"></a>
-	
+
 		<a href="<?php echo $this->url(array('action'=>'managepanel', 'controller'=>'panel', 'module'=>'admin'), 'mvc')?>" id="z_manage_link"><span>Управление</span></a>
-	
+
 		<div id="z_favorites_placeholder">
 			<?php echo $this->action('favoriteslist', 'Panel', 'Admin') ?>
 		</div>
-		
+
 		<div id="z_panel_placeholder">
 			<?php echo $this->placeholder('z_panel_modules') ?>
 		</div>
@@ -21,13 +21,14 @@
 </div>
 
 <!-- Всплывающее окно администрирования -->
-<div id="z_overlay"><!-- --></div>
-<div id="z_window">
-	<a href="#" id="z_close">×</a>
-	
-	<div class="zetta_placeholder"><!-- Placeholder для содержимого админки --></div>
-	
-	<div class="clear"><!-- --></div>
+<div class="z_window_wrapper">
+    <div id="z_window">
+    	<a href="#" id="z_close">×</a>
+
+    	<div class="zetta_placeholder"><!-- Placeholder для содержимого админки --></div>
+
+    	<div class="clear"><!-- --></div>
+    </div>
 </div>
 <!-- /Всплывающее окно администрирования -->
 

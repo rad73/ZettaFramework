@@ -6,6 +6,6 @@
  * @author Александр Хрищанович
  *
  */
-class Modules_Analytics_Bootstrap extends Zetta_BootstrapModules {
-
+class Modules_Analytics_Bootstrap extends Zetta_BootstrapModules
+{
 }

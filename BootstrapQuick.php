@@ -1,76 +1,76 @@
 <?php
 
-class BootstrapQuick extends Zend_Application_Bootstrap_Bootstrap {
+class BootstrapQuick extends Zend_Application_Bootstrap_Bootstrap
+{
 
-	/**
-	 * Устанавливаем кодировку UTF-8 для функций mb_*
-	 *
-	 */
-	protected function _initEncoding() {
+    /**
+     * Устанавливаем кодировку UTF-8 для функций mb_*
+     *
+     */
+    protected function _initEncoding()
+    {
+        if (phpversion() < 5.6) {
+            mb_internal_encoding('utf-8');
+            iconv_set_encoding('internal_encoding', 'utf-8');
+        }
+    }
 
-		if (phpversion() < 5.6) {
-			mb_internal_encoding('utf-8');
-			iconv_set_encoding('internal_encoding', 'utf-8');
-		}
-	}
+    /**
+     * Инициализируем переменные с коммандной строки
+     *
+     */
+    protected function _initOptParams()
+    {
+        $arrayInput = getopt(false, array('url:'));
+        if ($arrayInput && array_key_exists('url', $arrayInput)) {
+            $_SERVER['REQUEST_URI'] = $arrayInput['url'];
+        }
+    }
 
-	/**
-	 * Инициализируем переменные с коммандной строки
-	 *
-	 */
-	protected function _initOptParams() {
+    /**
+     * Устанавливаем путь к системным папкам
+     * таким как Zend Fremawork library и библиотеки CMS
+     */
+    protected function _initLoader()
+    {
+        $this->bootstrap('Autoloader');
+    }
 
-		$arrayInput = getopt(false, array('url:'));
-		if ($arrayInput && array_key_exists('url', $arrayInput)) {
-			$_SERVER['REQUEST_URI'] = $arrayInput['url'];
-		}
+    /**
+     * Создаём реестр для config
+     */
+    protected function _initConfigRegistry()
+    {
+        Zend_Registry::set('config', new stdClass());
+        Zend_Registry::get('config')->app = (object)$this->getOption('app');
+    }
 
-	}
+    /**
+     * Сохраняем LOG в Zend_Registry::get('Logger');
+     *
+     */
+    protected function _initRegisterLogger()
+    {
+        $options = $this->getPluginResource('log')->getOptions();
+        $options = $options['stream']['writerParams'];
 
-	/**
-	 * Устанавливаем путь к системным папкам
-	 * таким как Zend Fremawork library и библиотеки CMS
-	 */
-	protected function _initLoader() {
-		$this->bootstrap('Autoloader');
-	}
+        $logFile = $options['stream'];
+        if (!is_file($logFile)) {
+            touch($logFile);
+            chmod($logFile, octdec($options['file_perm']));
+        }
 
-	/**
-	 * Создаём реестр для config
-	 */
-	protected function _initConfigRegistry() {
-		Zend_Registry::set('config', new stdClass());
-		Zend_Registry::get('config')->app = (object)$this->getOption('app');
-	}
+        $this->bootstrap('Log');
+        $logger = $this->getResource('Log');
 
-	/**
-	 * Сохраняем LOG в Zend_Registry::get('Logger');
-	 *
-	 */
-	protected function _initRegisterLogger() {
+        if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
+            $logger->setEventItem('remote_addr', htmlspecialchars($_SERVER['REMOTE_ADDR']));
+        }
+        if (array_key_exists('REQUEST_URI', $_SERVER)) {
+            $logger->setEventItem('request_url', htmlspecialchars($_SERVER['REQUEST_URI']));
+        }
 
-		$options = $this->getPluginResource('log')->getOptions();
-		$options = $options['stream']['writerParams'];
-
-		$logFile = $options['stream'];
-		if (!is_file($logFile)) {
-			touch($logFile);
-			chmod($logFile, octdec($options['file_perm']));
-		}
-
-		$this->bootstrap('Log');
-		$logger = $this->getResource('Log');
-
-		if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
-			$logger->setEventItem('remote_addr', htmlspecialchars($_SERVER['REMOTE_ADDR']));
-		}
-		if (array_key_exists('REQUEST_URI', $_SERVER)) {
-			$logger->setEventItem('request_url', htmlspecialchars($_SERVER['REQUEST_URI']));
-		}
-
-		Zend_Registry::set('Logger', $logger);
-		Zend_Registry::set('Debugger', new Zend_Log(new Zetta_Log_Writers_Memory()));
-
-	}
-
+        Zend_Registry::set('Logger', $logger);
+        Zend_Registry::set('Debugger', new Zend_Log(new Zetta_Log_Writers_Memory()));
+    }
 }

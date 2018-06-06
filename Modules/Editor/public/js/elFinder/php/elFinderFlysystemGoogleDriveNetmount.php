@@ -20,17 +20,16 @@ if (! class_exists('elFinderVolumeFlysystemGoogleDriveCache', false)) {
 
 class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysystemDriverExt\Driver
 {
-
     public function __construct()
     {
         parent::__construct();
         
         $opts = array(
             'rootCssClass' => 'elfinder-navbar-root-googledrive',
-            'gdAlias'        => '%s@GDrive',
-            'gdCacheDir'     => __DIR__ . '/.tmp',
-            'gdCachePrefix'  => 'gd-',
-            'gdCacheExpire'  => 600
+            'gdAlias' => '%s@GDrive',
+            'gdCacheDir' => __DIR__ . '/.tmp',
+            'gdCachePrefix' => 'gd-',
+            'gdCacheExpire' => 600
         );
 
         $this->options = array_merge($this->options, $opts);
@@ -52,6 +51,7 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
                 unset($this->options['icon']);
             }
         }
+
         return $res;
     }
 
@@ -84,7 +84,7 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
             if ($options['pass'] === 'reauth') {
                 $options['pass'] = '';
                 $this->session->set('GoogleDriveAuthParams', [])->set('GoogleDriveTokens', []);
-            } else if ($options['pass'] === 'googledrive') {
+            } elseif ($options['pass'] === 'googledrive') {
                 $options['pass'] = '';
             }
 
@@ -109,16 +109,15 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
 
                     $options['access_token'] = $aToken;
                     $this->session->set('GoogleDriveAuthParams', $options);
-
                 } catch (Exception $e) {
                     $aToken = [];
                     $options['access_token'] = [];
                     if ($options['user'] !== 'init') {
                         $this->session->set('GoogleDriveAuthParams', $options);
+
                         return array('exit' => true, 'error' => elFinder::ERROR_REAUTH_REQUIRE);
                     }
                 }
-
             }
 
             if ($options['user'] === 'init') {
@@ -126,7 +125,7 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
                     $options['url'] = $this->getConnectorUrl();
                 }
                 
-                $callback  = $options['url']
+                $callback = $options['url']
                            . '?cmd=netmount&protocol=googledrive&host=1';
                 $client->setRedirectUri($callback);
 
@@ -145,6 +144,7 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
                     if (empty($options['pass']) && $options['host'] !== '1') {
                         $options['pass'] = 'return';
                         $this->session->set('GoogleDriveAuthParams', $options);
+
                         return array('exit' => true, 'body' => $html);
                     } else {
                         $out = array(
@@ -152,6 +152,7 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
                             'json' => '{"protocol": "googledrive", "mode": "makebtn", "body" : "'.str_replace($html, '"', '\\"').'", "error" : "'.elFinder::ERROR_ACCESS_DENIED.'"}',
                             'bind' => 'netmount'
                         );
+
                         return array('exit' => 'callback', 'out' => $out);
                     }
                 } else {
@@ -164,10 +165,11 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
                             'json' => '{"protocol": "googledrive", "mode": "done", "reset": 1}',
                             'bind' => 'netmount'
                         );
+
                         return array('exit' => 'callback', 'out' => $out);
                     }
                     $folders = [];
-                    foreach($service->files->listFiles([
+                    foreach ($service->files->listFiles([
                         'pageSize' => 1000,
                         'q' => 'trashed = false and mimeType = "application/vnd.google-apps.folder"'
                     ]) as $f) {
@@ -183,6 +185,7 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
                         $("#'.$options['id'].'").elfinder("instance").trigger("netmount", '.$json.');
                     </script>';
                     $this->session->set('GoogleDriveAuthParams', $options);
+
                     return array('exit' => true, 'body' => $html);
                 }
             }
@@ -217,7 +220,7 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
             return array('exit' => true, 'error' => $e->getMessage());
         }
 
-        foreach(['host', 'user', 'pass', 'id', 'offline'] as $key) {
+        foreach (['host', 'user', 'pass', 'id', 'offline'] as $key) {
             unset($options[$key]);
         }
 
@@ -240,10 +243,11 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
             unlink($cache);
         }
         if ($tmbs = glob($this->tmbPath . DIRECTORY_SEPARATOR . $this->netMountKey . '*')) {
-            foreach($tmbs as $file) {
+            foreach ($tmbs as $file) {
                 unlink($file);
             }
         }
+
         return true;
     }
 
@@ -275,6 +279,7 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
                 $creds = $client->fetchAccessTokenWithRefreshToken();
             } catch (LogicException $e) {
                 $this->session->remove('GoogleDriveAuthParams');
+
                 throw $e;
             }
         }
@@ -322,25 +327,26 @@ class elFinderVolumeFlysystemGoogleDriveNetmount extends \Hypweb\elFinderFlysyst
 
     /**
      * Get script url
-     * 
+     *
      * @return string full URL
      * @author Naoki Sawada
      */
     private function getConnectorUrl()
     {
-        $url  = ((isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')? 'https://' : 'http://')
+        $url = ((isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')? 'https://' : 'http://')
                . $_SERVER['SERVER_NAME']                                              // host
               . ($_SERVER['SERVER_PORT'] == 80 ? '' : ':' . $_SERVER['SERVER_PORT'])  // port
                . $_SERVER['REQUEST_URI'];                                             // path & query
         list($url) = explode('?', $url);
+
         return $url;
     }
 
     /**
      * @inheritdoc
      */
-	protected function tmbname($stat) {
-		return $this->netMountKey.substr(substr($stat['hash'], strlen($this->id)), -38).$stat['ts'].'.png';
-	}
-
+    protected function tmbname($stat)
+    {
+        return $this->netMountKey.substr(substr($stat['hash'], strlen($this->id)), -38).$stat['ts'].'.png';
+    }
 }

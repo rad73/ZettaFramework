@@ -1,84 +1,75 @@
 <?php
 
-class Modules_Admin_Model_Panel extends Zend_Db_Table  {
+class Modules_Admin_Model_Panel extends Zend_Db_Table
+{
+    protected $_name = 'admin_panel_favorites';
 
-	protected $_name = 'admin_panel_favorites';
+    protected function _findModules()
+    {
+        $moduleInfoFiles = array_merge(
+            (array)glob(HEAP_PATH . '/*/info.ini', GLOB_NOSORT),
+            (array)glob(MODULES_PATH . '/*/info.ini', GLOB_NOSORT)
+        );
 
-	protected function _findModules() {
+        $return = array();
+        $returnDeveloper = array();
+        foreach ($moduleInfoFiles as $row) {
+            $config = new Zend_Config_Ini($row);
 
-		$moduleInfoFiles = array_merge(
-			(array)glob(HEAP_PATH . '/*/info.ini', GLOB_NOSORT),
-			(array)glob(MODULES_PATH . '/*/info.ini', GLOB_NOSORT)
-		);
+            preg_match('|.*/(.*)/info.ini$|i', $row, $matches);
 
-		$return = array();
-		$returnDeveloper = array();
-		foreach ($moduleInfoFiles as $row) {
+            /* регистрируем плагин вывода панели администрирования на frontend */
+            if (Zetta_Acl::getInstance()->isAllowed('admin_module_' . System_String::StrToLower($matches[1]), 'deny')) {
+                if (false == $config->developer) {
+                    $return[] = array_merge(
+                        $config->toArray(),
+                        array('module' => $matches[1])
+                    );
+                } else {
+                    $returnDeveloper[] = array_merge(
+                        $config->toArray(),
+                        array('module' => $matches[1])
+                    );
+                }
+            }
+        }
 
-			$config = new Zend_Config_Ini($row);
+        return array($return, $returnDeveloper);
+    }
 
-			preg_match('|.*/(.*)/info.ini$|i', $row, $matches);
+    public function findModules()
+    {
+        $modules = $this->_findModules();
 
-			/* регистрируем плагин вывода панели администрирования на frontend */
-			if (Zetta_Acl::getInstance()->isAllowed('admin_module_' . System_String::StrToLower($matches[1]), 'deny')) {
+        return $modules[0];
+    }
 
-				if (false == $config->developer) {
+    public function findModulesDeveloper()
+    {
+        $modules = $this->_findModules();
 
-					$return[] = array_merge(
-						$config->toArray(),
-						array('module' => $matches[1])
-					);
+        return $modules[1];
+    }
 
-				}
-				else {
+    public function getFavorites($username)
+    {
+        $data = $this->fetchAll(
+            $this->select()
+                ->where('username = ?', $username)
+                ->order('id')
+        );
 
-					$returnDeveloper[] = array_merge(
-						$config->toArray(),
-						array('module' => $matches[1])
-					);
+        $allModules = array_merge($this->findModules(), $this->findModulesDeveloper());
+        $return = array();
 
-				}
+        foreach ($data as $user_row) {
+            foreach ($allModules as $row) {
+                if (System_String::StrToLower($row['module']) == System_String::StrToLower($user_row['module'])) {
+                    $return[] = array_merge(array('id' => $user_row['id']), $row);
+                }
+            }
+        }
 
-			}
-
-		}
-
-		return array($return, $returnDeveloper);
-
-	}
-
-	public function findModules() {
-		$modules = $this->_findModules();
-		return $modules[0];
-	}
-
-	public function findModulesDeveloper() {
-		$modules = $this->_findModules();
-		return $modules[1];
-	}
-
-	public function getFavorites($username) {
-
-		$data = $this->fetchAll(
-			$this->select()
-				->where('username = ?', $username)
-				->order('id')
-		);
-
-		$allModules = array_merge($this->findModules(), $this->findModulesDeveloper());
-		$return = array();
-
-		foreach ($data as $user_row) {
-			foreach ($allModules as $row) {
-				if (System_String::StrToLower($row['module']) == System_String::StrToLower($user_row['module'])) {
-					$return[] = array_merge(array('id' => $user_row['id']), $row);
-				}
-			}
-
-		}
-
-		return System_Functions::toObject($return);
-
-	}
-
+        return System_Functions::toObject($return);
+    }
 }

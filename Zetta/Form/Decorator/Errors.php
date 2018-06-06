@@ -1,12 +1,12 @@
 <?php
 
-class Zetta_Form_Decorator_Errors extends Zend_Form_Decorator_Errors {
-    
-	public function getElement()
+class Zetta_Form_Decorator_Errors extends Zend_Form_Decorator_Errors
+{
+    public function getElement()
     {
-		$element = parent::getElement();
-		
-		// Get error messages
+        $element = parent::getElement();
+        
+        // Get error messages
         if ($element instanceof Zend_Form
             && null !== $element->getElementsBelongTo()
         ) {
@@ -16,13 +16,11 @@ class Zetta_Form_Decorator_Errors extends Zend_Form_Decorator_Errors {
         }
 
         if (!empty($errors)) {
-			$decoratorRow = $element->getDecorator('row');
-			$currentClasses = $decoratorRow->getOption('class');
-			$decoratorRow->setOption('class', $currentClasses . ' form_row__error');
+            $decoratorRow = $element->getDecorator('row');
+            $currentClasses = $decoratorRow->getOption('class');
+            $decoratorRow->setOption('class', $currentClasses . ' form_row__error');
         }
-		
+        
         return $element;
     }
-
-
 }

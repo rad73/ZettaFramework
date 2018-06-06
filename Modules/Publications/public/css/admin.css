@@ -5,11 +5,11 @@
 
 #z_add_field_form {
 }
-	
+
 	#z_add_field_form .errors {
 		width: 195px;
 	}
-	
+
 	#z_add_field_form #fieldset-base,
 	#z_add_field_form #fieldset-extend,
 	#z_add_field_form #fieldset-buttons
@@ -18,13 +18,13 @@
 		float: left;
 		padding-top: 5px;
 	}
-	
+
 	#z_add_field_form #fieldset-extend {
 		float: right;
 		padding-left: 5%;
 		background: url('../images/admin/zigzag_separator_form.png') repeat-y;
 	}
-	
+
 	#z_add_field_form #fieldset-buttons {
 		width: 100%;
 	}
@@ -53,7 +53,7 @@
 .z_temp_image {
 	margin-top: 3px;
 }
-		
+
 	.z_temp_image IMG {
 		max-width: 650px;
 	}
@@ -84,4 +84,8 @@
 
 #z_view_publications LI.disabled {
 	text-decoration: line-through;
+}
+
+.z_publications_title_no_rubric {
+    margin-top: 20px;
 }

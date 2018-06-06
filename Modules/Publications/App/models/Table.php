@@ -1,274 +1,254 @@
 <?php
 
-class Modules_Publications_Model_Table extends Zetta_Db_Table  {
+class Modules_Publications_Model_Table extends Zetta_Db_Table
+{
+    const PREFIX_TABLE = 'publications__';
 
-	const PREFIX_TABLE = 'publications__';
+    protected $_cleanName;
 
-	protected $_cleanName;
+    protected static $linkedData = array();
+    protected static $linkedFieldsTableData = array();
+    protected static $setupedTables = array();
 
-	protected static $linkedData = array();
-	protected static $linkedFieldsTableData = array();
-	protected static $setupedTables = array();
+    protected $_tableProfile;
 
-	protected $_tableProfile;
+    protected $_route_id;
 
-	protected $_route_id;
+    /**
+     * Устанавливаем ID маршрута в котором будем искать публикации
+     *
+     * @param int $route_id
+     */
+    public function setRouteId($route_id)
+    {
+        $this->_route_id = intval($route_id);
+    }
 
-	/**
-	 * Устанавливаем ID маршрута в котором будем искать публикации
-	 *
-	 * @param int $route_id
-	 */
-	public function setRouteId($route_id) {
-		$this->_route_id = intval($route_id);
-	}
+    /**
+     * Все таблицы для хранения данных имеют префикс
+     *
+     */
+    protected function _setup()
+    {
+        parent::_setup();
 
-	/**
-	 * Все таблицы для хранения данных имеют префикс
-	 *
-	 */
-	protected function _setup() {
+        $this->_cleanName = $this->_name;
+        $this->_name = self::PREFIX_TABLE . $this->_name;
 
-		parent::_setup();
+        if (false == array_key_exists($this->_cleanName, self::$setupedTables)) {
+            $modelFields = new Modules_Publications_Model_Fields();
 
-		$this->_cleanName = $this->_name;
-		$this->_name = self::PREFIX_TABLE . $this->_name;
+            $this->_tableProfile = $modelFields->fetchAllByTableName($this->_cleanName);
 
-		if (false == array_key_exists($this->_cleanName, self::$setupedTables)) {
+            foreach ($this->_tableProfile as $row) {
+                if ($row->list_values) {
+                    if (false == array_key_exists($row->list_values, self::$linkedData)) {
+                        self::$linkedData[$row->list_values] = [];
 
-			$modelFields = new Modules_Publications_Model_Fields();
+                        if ('routes' == $row->list_values) {
+                            self::$linkedData[$row->list_values] = Modules_Router_Model_Router::getInstance()->getRoutesTreeHash();
+                        } elseif ($list_values = json_decode($row->list_values)) {
+                            self::$linkedData[$row->list_values] = $list_values;
+                        } else {
+                            if ($props = $row->properties) {
+                                $props = json_decode($props);
+                            }
+                            if (true === ($props->auto_linked ?? true)) {
+                                $model = new self($row->list_values);
+                                self::$linkedData[$row->list_values] = $model->fetchAll()->toArray();
+                            }
+                        }
+                    }
 
-			$this->_tableProfile = $modelFields->fetchAllByTableName($this->_cleanName);
+                    self::$linkedFieldsTableData[$this->_cleanName . '_' . $row->name] = self::$linkedData[$row->list_values];
+                }
+            }
 
-			foreach ($this->_tableProfile as $row) {
+            self::$setupedTables[$this->_cleanName] = $this->_tableProfile;
+        } else {
+            $this->_tableProfile = self::$setupedTables[$this->_cleanName];
+        }
+    }
 
-				if ($row->list_values) {
+    /**
+     * Выбираем публикации в виде ассоциативного массива
+     *
+     * @param string $keyName
+     * @param string $valueName
+     * @return array
+     */
+    public function getAssocArray($keyName, $valueName)
+    {
+        $data = $this->fetchAll($this->select()
+            ->where('active = 1')
+            ->order('sort'));
 
-					if (false == array_key_exists($row->list_values, self::$linkedData)) {
+        $return = array();
 
-						if ('routes' == $row->list_values) {
-							self::$linkedData[$row->list_values] = Modules_Router_Model_Router::getInstance()->getRoutesTreeHash();
-						}
-						else if ($list_values = json_decode($row->list_values)) {
-							self::$linkedData[$row->list_values] = $list_values;
-						}
-						else {
-							$model = new self($row->list_values);
-							self::$linkedData[$row->list_values] = $model->fetchAll()->toArray();
-						}
+        foreach ($data as $row) {
+            $return[$row[$keyName]] = $row[$valueName];
+        }
 
-					}
+        return $return;
+    }
 
-					self::$linkedFieldsTableData[$this->_cleanName . '_' . $row->name] = self::$linkedData[$row->list_values];
-
-				}
-
-			}
-
-			self::$setupedTables[$this->_cleanName] = $this->_tableProfile;
-
-		}
-		else {
-			$this->_tableProfile = self::$setupedTables[$this->_cleanName];
-		}
-
-	}
-
-	/**
-	 * Выбираем публикации в виде ассоциативного массива
-	 *
-	 * @param string $keyName
-	 * @param string $valueName
-	 * @return array
-	 */
-	public function getAssocArray($keyName, $valueName) {
-
-		$data = $this->fetchAll($this->select()
-			->where('active = 1')
-			->order('sort'));
-
-		$return = array();
-
-		foreach ($data as $row) {
-			$return[$row[$keyName]] = $row[$valueName];
-		}
-
-		return $return;
-
-	}
-
-	/**
+    /**
      * Inserts a new row.
      *
      * @param  array  $data  Column-value pairs.
      * @return mixed         The primary key of the row inserted.
      */
-    public function insert(array $data) {
+    public function insert(array $data)
+    {
+        if (false == array_key_exists('sort', $data)) {
+            $rowMaxSort = $this->fetchRow($this->select()->from($this->info('name'), array(new Zend_Db_Expr("MAX(sort) AS sort"))));
+            $data['sort'] = ($rowMaxSort) ? (int)$rowMaxSort->sort + 1 : 1;
+        }
 
-    	if (false == array_key_exists('sort', $data)) {
-			$rowMaxSort = $this->fetchRow($this->select()->from($this->info('name'), array(new Zend_Db_Expr("MAX(sort) AS sort"))));
-			$data['sort'] = ($rowMaxSort) ? (int)$rowMaxSort->sort + 1 : 1;
-		}
-
-    	return parent::insert($data);
-
+        return parent::insert($data);
     }
 
-	/**
-	 * Переписываем стандартный _fetch с учётом выборки связанных данных
-	 *
-	 * @param Zend_Db_Table_Select $select
-	 */
-	protected function _fetch(Zend_Db_Table_Select $select) {
+    /**
+     * Переписываем стандартный _fetch с учётом выборки связанных данных
+     *
+     * @param Zend_Db_Table_Select $select
+     */
+    protected function _fetch(Zend_Db_Table_Select $select)
+    {
+        if ($this->_route_id) {
+            $select = $select->where('route_id = ?', $this->_route_id);
+        }
 
-		if ($this->_route_id) {
-			$select = $select->where('route_id = ?', $this->_route_id);
-		}
+        $rows = parent::_fetch($select);
 
-		$rows = parent::_fetch($select);
+        foreach ($rows as &$row) {
+            foreach ($row as $fieldName => $field) {
+                if (array_key_exists($this->_cleanName . '_' . $fieldName, self::$linkedFieldsTableData)) {
+                    if ($this->_isSerialized($row[$fieldName])) {
+                        $row[$fieldName] = $this->_unserialize($row[$fieldName]);
+                        if (sizeof($row[$fieldName])) {
+                            $field = implode(',', $row[$fieldName]);
+                        }
+                    }
 
-		foreach ($rows as &$row) {
+                    $data = explode(',', $field);
 
-			foreach ($row as $fieldName => $field) {
+                    foreach ($data as $val) {
+                        $val = chop($val);
 
-				if (array_key_exists($this->_cleanName . '_' . $fieldName, self::$linkedFieldsTableData)) {
+                        foreach (self::$linkedFieldsTableData[$this->_cleanName . '_' . $fieldName] as $linked_row) {
+                            if (is_array($linked_row) && $val == $linked_row['publication_id']) {
+                                if (false == array_key_exists($fieldName . '_linked', $row) || false == is_array($row[$fieldName . '_linked'])) {
+                                    $row[$fieldName . '_linked'] = array();
+                                }
+                                array_push($row[$fieldName . '_linked'], $linked_row);
 
-					if ($this->_isSerialized($row[$fieldName])) {
-						$row[$fieldName] = $this->_unserialize($row[$fieldName]);
-						if (sizeof($row[$fieldName])) {
-							$field = implode(',', $row[$fieldName]);
-						}
-					}
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
 
-					$data = explode(',', $field);
+            $row['rubric_id'] =
+                $row['pub_rubric_id'] = $this->_tableProfile[0]->rubric_id;
+        }
 
-					foreach ($data as $val) {
+        return $rows;
+    }
 
-						$val = chop($val);
+    public function getTableProfile()
+    {
+        return $this->_tableProfile;
+    }
 
-						foreach (self::$linkedFieldsTableData[$this->_cleanName . '_' . $fieldName] as $linked_row) {
+    /**
+     * Получаем публикации c рубрикой
+     *
+     * @return Zend_Db_Rowset
+     */
+    public function getWithRubrics($pageNumber = 1, $onPage = 25)
+    {
+        $select = $this->select()
+            ->where('route_id = ?', $this->_route_id)
+            ->order('sort')
+            ->order('publication_id')
+        ;
 
-							if (is_array($linked_row) && $val == $linked_row['publication_id']) {
+        $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbTableSelect($select));
+        $paginator->setCurrentPageNumber($pageNumber);
+        $paginator->setItemCountPerPage($onPage);
 
-								if (false == array_key_exists($fieldName . '_linked', $row) || false == is_array($row[$fieldName . '_linked'])) {
-									$row[$fieldName . '_linked'] = array();
-								}
-								array_push($row[$fieldName . '_linked'], $linked_row);
+        return $paginator;
+    }
 
-								break;
+    /**
+     * Получаем публикации без рубрики
+     *
+     * @return Zend_Db_Rowset
+     */
+    public function getWithoutRubrics($pageNumber = 1, $onPage = 25)
+    {
+        $select = $this->select()
+            ->where('route_id IS NULL')
+            ->order('sort')
+            ->order('publication_id')
+        ;
 
-							}
+        $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbTableSelect($select));
+        $paginator->setCurrentPageNumber($pageNumber);
+        $paginator->setItemCountPerPage($onPage);
 
-						}
+        return $paginator;
+    }
 
-					}
+    public function sort($current, $next = false, $prev = false)
+    {
+        if (false == $next && false == $prev) {
+            return;
+        }
 
-				}
+        // узнаем новое значение сортировки для элемента
+        if ($prev) {
+            $sort = 1 + $this->getAdapter()->fetchOne($this->select()->from($this->info('name'), array('sort'))->where('publication_id = ? ', $prev));
+        } elseif ($next) {
+            $sort = $this->getAdapter()->fetchOne($this->select()->from($this->info('name'), array('sort'))->where('publication_id = ? ', $next));
+        }
 
-			}
+        // сортируем элемент который перетащили
+        $this->update(array(
+            'sort' => $sort
+        ), $this->getAdapter()->quoteInto('publication_id = ?', $current));
 
-			$row['rubric_id'] =
-				$row['pub_rubric_id'] = $this->_tableProfile[0]->rubric_id;
+        // сортируем все элементы которые старше по сотритовке чем наш
+        $this->update(
+            array(
+                'sort' => new Zend_Db_Expr('sort + 1')
+            ),
+            array(
+                $this->getAdapter()->quoteInto('sort >= ?', $sort),
+                $this->getAdapter()->quoteInto('publication_id != ?', $current)
+            )
+        );
+    }
 
-		}
+    protected function _isSerialized($data)
+    {
+        if (!is_string($data)) {
+            return false;
+        }
 
-		return $rows;
+        return System_String::Substr($data, 0, 1) == '÷' && System_String::Substr($data, -1, 1) == '÷';
+    }
 
-	}
+    protected function _unserialize($string)
+    {
+        if (!is_string($string)) {
+            return false;
+        }
 
-	public function getTableProfile() {
-		return $this->_tableProfile;
-	}
+        $string = System_String::Substr($string, 1, -1);
 
-	/**
-	 * Получаем публикации c рубрикой
-	 *
-	 * @return Zend_Db_Rowset
-	 */
-	public function getWithRubrics($pageNumber = 1, $onPage = 25) {
-
-		$select = $this->select()
-			->where('route_id = ?', $this->_route_id)
-			->order('sort')
-			->order('publication_id')
-		;
-
-		$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbTableSelect($select));
-		$paginator->setCurrentPageNumber($pageNumber);
-		$paginator->setItemCountPerPage($onPage);
-
-		return $paginator;
-
-	}
-
-	/**
-	 * Получаем публикации без рубрики
-	 *
-	 * @return Zend_Db_Rowset
-	 */
-	public function getWithoutRubrics($pageNumber = 1, $onPage = 25) {
-
-		$select = $this->select()
-			->where('route_id IS NULL')
-			->order('sort')
-			->order('publication_id')
-		;
-
-		$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbTableSelect($select));
-		$paginator->setCurrentPageNumber($pageNumber);
-		$paginator->setItemCountPerPage($onPage);
-
-		return $paginator;
-
-	}
-
-	public function sort($current, $next = false, $prev = false) {
-
-		if (false == $next && false == $prev) return;
-
-		// узнаем новое значение сортировки для элемента
-		if ($prev) {
-			$sort = 1 + $this->getAdapter()->fetchOne($this->select()->from($this->info('name'), array('sort'))->where('publication_id = ? ', $prev));
-		}
-		else if ($next) {
-			$sort = $this->getAdapter()->fetchOne($this->select()->from($this->info('name'), array('sort'))->where('publication_id = ? ', $next));
-		}
-
-		// сортируем элемент который перетащили
-		$this->update(array(
-			'sort' => $sort
-		), $this->getAdapter()->quoteInto('publication_id = ?', $current));
-
-		// сортируем все элементы которые старше по сотритовке чем наш
-		$this->update(array(
-			'sort' => new Zend_Db_Expr('sort + 1')
-		), array(
-				$this->getAdapter()->quoteInto('sort >= ?', $sort),
-				$this->getAdapter()->quoteInto('publication_id != ?', $current)
-			)
-		);
-
-	}
-
-	protected function _isSerialized($data) {
-
-		if (!is_string( $data)) {
-			return false;
-		}
-
-		return System_String::Substr($data, 0, 1) == '÷' && System_String::Substr($data, -1, 1) == '÷';
-
-	}
-
-	protected function _unserialize($string) {
-
-		if (!is_string($string)) {
-			return false;
-		}
-
-		$string = System_String::Substr($string, 1, -1);
-		return explode('÷', $string);
-
-	}
-
+        return explode('÷', $string);
+    }
 }

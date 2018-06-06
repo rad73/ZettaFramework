@@ -1,17 +1,13 @@
 <?php echo $this->partial('admin/partialHead.phtml', array('subtitle' => 'Публикации в модуле "' . $this->rubric->name . '" в маршруте "' . $this->route['name'] . '"')); ?>
 
-<div id="z_view_publications" class="sortable">
-
-	<?php 
-	if (sizeof($this->publications)) {
-		echo $this->partialLoop('admin/partialPublication.phtml', $this->publications);
-	}
-	else {
-		?>Не добавлено ни одной публикации<?php 
-	}
-	?>
-	<?php echo $this->paginationControl($this->paginator) ?>
-</div>
+<?php
+    try {
+        echo $this->partial('admin_' . $this->rubric->table_name . '/publications.phtml', $this);
+    }
+    catch (Exception $e) {
+        echo $this->partial('admin/publications.phtml', $this);
+    }
+?>
 
 <div class="z_buttons_placehoder">
 	<a href="<?php echo $this->url(array('module' => 'publications', 'controller' => 'admin', 'action'=>'addpublication', 'rubric_id' => $this->rubric->rubric_id, 'route_id' => $this->route_id), 'mvc', true) ?>" class="ui-button">Добавить публикацию</a>

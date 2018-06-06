@@ -9,15 +9,16 @@
  * @package Zend_Controller
  * @subpackage Request
  */
-class Zetta_Controller_Request_Http extends Zend_Controller_Request_Http {
-	
-	/**
+class Zetta_Controller_Request_Http extends Zend_Controller_Request_Http
+{
+    
+    /**
      * Retrieve the module name
      *
      * @return string
      */
-	public function getModuleName() {
-		return ucfirst(System_String::StrToLower(parent::getModuleName()));
-	}
-
+    public function getModuleName()
+    {
+        return ucfirst(System_String::StrToLower(parent::getModuleName()));
+    }
 }

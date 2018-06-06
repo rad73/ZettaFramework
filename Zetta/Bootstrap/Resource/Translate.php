@@ -4,42 +4,33 @@
  * Настраиваем Translate
  *
  */
-class Zetta_Bootstrap_Resource_Translate extends Zend_Application_Resource_Translate {
+class Zetta_Bootstrap_Resource_Translate extends Zend_Application_Resource_Translate
+{
+    public function init()
+    {
+        parent::init();
 
-	public function init() {
+        $modules = Zend_Registry::get('modules');
 
-		parent::init();
+        foreach ($modules as &$path) {
+            if (is_dir($path . DS . 'Locales')) {
+                $files = glob($path . DS . 'Locales' . DS . '*.*', GLOB_NOSORT);
 
-		$modules = Zend_Registry::get('modules');
+                if (sizeof($files)) {
+                    foreach ($files as $file) {
 
-		foreach ($modules as &$path) {
+                        //$name = basename($file);
+                        //list($locale, $extension) = explode('.', $name);
 
-			if (is_dir($path . DS . 'Locales')) {
-
-				$files = glob($path . DS . 'Locales' . DS . '*.*', GLOB_NOSORT);
-
-				if (sizeof($files)) {
-
-					foreach ($files as $file) {
-
-						//$name = basename($file);
-						//list($locale, $extension) = explode('.', $name);
-
-						$this->_translate->addTranslation(
-						    array(
-						        'content' => $file,
-						        'locale'  => 'auto'
-						    )
-						);
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}
-
+                        $this->_translate->addTranslation(
+                            array(
+                                'content' => $file,
+                                'locale' => 'auto'
+                            )
+                        );
+                    }
+                }
+            }
+        }
+    }
 }
