@@ -28,7 +28,7 @@ class Modules_Publications_Migrations_AddHiddenAdminFieledToFields extends Modul
 
     public function up($params = null)
     {
-        $this->addColumn($this->_model->info('name'), $this->_nameColumn, array(
+        $this->addColumn($this->_model->info('name'), $this->nameColumn, array(
             'type' => 'char',
             'length' => 1,
             'comment' => 'Не выводить поле администратору',
@@ -38,6 +38,6 @@ class Modules_Publications_Migrations_AddHiddenAdminFieledToFields extends Modul
 
     public function down($params = null)
     {
-        $this->dropColumn($this->_model->info('name'), $this->_nameColumn);
+        $this->dropColumn($this->_model->info('name'), $this->nameColumn);
     }
 }

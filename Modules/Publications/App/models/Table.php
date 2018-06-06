@@ -28,12 +28,12 @@ class Modules_Publications_Model_Table extends Zetta_Db_Table
      * Все таблицы для хранения данных имеют префикс
      *
      */
-    protected function _setup()
+    public function init()
     {
-        parent::_setup();
+        parent::init();
 
-        $this->_cleanName = $this->_name;
-        $this->_name = self::PREFIX_TABLE . $this->_name;
+        $this->_cleanName = $this->name;
+        $this->_name = $this->name = self::PREFIX_TABLE . $this->name;
 
         if (false == array_key_exists($this->_cleanName, self::$setupedTables)) {
             $modelFields = new Modules_Publications_Model_Fields();

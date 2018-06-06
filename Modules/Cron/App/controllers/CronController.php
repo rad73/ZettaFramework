@@ -66,7 +66,7 @@ class Modules_Cron_CronController extends Zend_Controller_Action
             $async = new Http\Async();
             
             foreach ($tasks as $task) {
-                if ($task instanceof Zend_Db_Table_Row) {
+                if ($task instanceof Zetta_Db_Table_Row) {
 
                     // Стартуем
                     $time_start = microtime(true);

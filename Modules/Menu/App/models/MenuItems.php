@@ -2,7 +2,7 @@
 
 class Modules_Menu_Model_MenuItems extends Zetta_Db_Table
 {
-    protected $_name = 'menu_items';
+    protected $name = 'menu_items';
 
     private static $_fullData = null;
 

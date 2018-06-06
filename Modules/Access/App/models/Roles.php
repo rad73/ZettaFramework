@@ -1,8 +1,8 @@
 <?php
 
-class Modules_Access_Model_Roles extends Zend_Db_Table
+class Modules_Access_Model_Roles extends Zetta_Db_Table
 {
-    protected $_name = 'access_roles';
+    protected $name = 'access_roles';
 
     /**
      * Получаем роль по её имени

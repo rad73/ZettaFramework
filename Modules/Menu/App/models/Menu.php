@@ -2,7 +2,7 @@
 
 class Modules_Menu_Model_Menu extends Zetta_Db_Table
 {
-    protected $_name = 'menu';
+    protected $name = 'menu';
 
     /**
      * Модель разелов меню

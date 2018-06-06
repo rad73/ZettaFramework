@@ -1,8 +1,8 @@
 <?php
 
-class Modules_Admin_Model_Panel extends Zend_Db_Table
+class Modules_Admin_Model_Panel extends Zetta_Db_Table
 {
-    protected $_name = 'admin_panel_favorites';
+    protected $name = 'admin_panel_favorites';
 
     protected function _findModules()
     {

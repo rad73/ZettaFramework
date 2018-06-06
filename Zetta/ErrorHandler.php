@@ -42,7 +42,7 @@ class Zetta_ErrorHandler
                 header('HTTP/1.1 500 Internal Server Error');
 
                 if (ini_get('display_errors')) {
-                    ob_end_clean();
+                //    ob_end_clean();
                     echo 'ZettaCMS: ' . htmlspecialchars($error['message']) . ' in ' . $error['file'] . ':' . $error['line'];
                 } else {
                     ob_end_clean();

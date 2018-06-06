@@ -28,7 +28,7 @@ class Modules_Router_Migrations_AddTypeField extends Modules_Dbmigrations_Framew
 
     public function up($params = null)
     {
-        $this->addColumn($this->_model->info('name'), $this->_nameColumn, array(
+        $this->addColumn($this->_model->info('name'), $this->nameColumn, array(
             'type' => 'varchar',
             'length' => 255,
             'comment' => 'Тип маршрута',
@@ -39,6 +39,6 @@ class Modules_Router_Migrations_AddTypeField extends Modules_Dbmigrations_Framew
 
     public function down($params = null)
     {
-        $this->dropColumn($this->_model->info('name'), $this->_nameColumn);
+        $this->dropColumn($this->_model->info('name'), $this->nameColumn);
     }
 }

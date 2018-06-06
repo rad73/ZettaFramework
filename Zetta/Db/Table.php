@@ -2,6 +2,7 @@
 
 class Zetta_Db_Table extends Zend_Db_Table
 {
+    protected $name;
 
     /**
      * Все данные из таблицы
@@ -17,7 +18,6 @@ class Zetta_Db_Table extends Zend_Db_Table
      */
     protected $_connectionName;
 
-
     public function init()
     {
         if (defined('static::TABLE_NAME')) {
@@ -26,6 +26,14 @@ class Zetta_Db_Table extends Zend_Db_Table
 
         if (defined('static::CONNECTION') || $this->_connectionName) {
             $this->setConnection($this->_connectionName ?: static::CONNECTION);
+        }
+
+        if (isset($this->name) && $this->name) {
+            $this->_name = $this->name;
+        }
+
+        if ($this->name == null) {
+            $this->name = $this->_name;
         }
 
         parent::init();
@@ -198,6 +206,15 @@ class Zetta_Db_Table extends Zend_Db_Table
      * @return string
      */
     public function __toString()
+    {
+        return $this->getTableName();
+    }
+
+    /**
+     * Получаем имя таблицы
+     * @return string
+     */
+    public function getTableName()
     {
         return $this->info('name');
     }

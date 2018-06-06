@@ -1,8 +1,8 @@
 <?php
 
-class Modules_Seo_Model_Seo extends Zend_Db_Table
+class Modules_Seo_Model_Seo extends Zetta_Db_Table
 {
-    protected $_name = 'seo';
+    protected $name = 'seo';
     
     /**
      * Сохраняем данные по seo

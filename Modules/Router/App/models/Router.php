@@ -1,10 +1,10 @@
 <?php
 
-class Modules_Router_Model_Router extends Zend_Db_Table
+class Modules_Router_Model_Router extends Zetta_Db_Table
 {
     protected static $_instance;
 
-    protected $_name = 'routes';
+    protected $name = 'routes';
     protected $_routesTree = array();	// информация о роутах в виде дерева
     protected $_routesData = array();	// информация о роутах в плоском виде
     protected $_current;

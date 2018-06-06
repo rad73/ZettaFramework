@@ -2,7 +2,7 @@
 
 class Modules_Access_Model_Users extends Zetta_Db_Table
 {
-    protected $_name = 'access_users';
+    protected $name = 'access_users';
 
     protected $_acceptedRoles;
 

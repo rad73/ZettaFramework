@@ -8,12 +8,12 @@ class Modules_Blocks_Model_Blocks extends Zetta_Db_Table
      *
      * @var string
      */
-    protected $_name = 'blocks';
+    protected $name = 'blocks';
 
     /**
      * Массив блоков на текущей странице
      *
-     * @var Zend_Db_Table_Rowset
+     * @var Zetta_Db_Table_Rowset
      */
     protected static $_fullData = null;
 

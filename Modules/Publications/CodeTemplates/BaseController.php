@@ -6,7 +6,7 @@
  */
 class Publications_{Base}Controller extends Modules_Publications_IndexController
 {
-    protected $_name = '{base}';
+    protected $name = '{base}';
 
     /**
      * @description Вывод списка публикаций

@@ -8,50 +8,50 @@ class Modules_Publications_IndexController extends Zend_Controller_Action
      *
      * @var Modules_Publications_Model_List
      */
-    protected $_modelList;
+    protected $modelList;
 
     /**
      * Модель полей публикаций
      *
      * @var Modules_Publications_Model_Fields
      */
-    protected $_modelFields;
+    protected $modelFields;
 
     /**
      * Модель с самими публикациями
      *
      * @var Modules_Publications_Model_Table
      */
-    protected $_model;
+    protected $model;
 
     /**
      * Название таблицы модели
      *
      * @var string
      */
-    protected $_name;
+    protected $name;
 
     /**
      * ID маршрута к которому привязаны публикации
      *
      * @var int
      */
-    protected $_routeId = null;
+    protected $routeId = null;
 
     /**
      * Информация о текущем типе публикаций
      *
      * @var Zend_Db_Row
      */
-    protected $_currentPublicationType;
+    protected $currentPublicationType;
 
 
     public function init()
     {
-        if ($this->_name) {
+        if ($this->name) {
             $this->_modelList = new Modules_Publications_Model_List();
             $this->_modelFields = new Modules_Publications_Model_Fields();
-            $this->_model = new Modules_Publications_Model_Table($this->_name);
+            $this->_model = new Modules_Publications_Model_Table($this->name);
 
             /* Устанавливаем рубрику к которой привязаны публикации */
             $this->_routeId = Zend_Registry::get('RouteCurrentId');
@@ -67,12 +67,12 @@ class Modules_Publications_IndexController extends Zend_Controller_Action
             $this->_model->setRouteId($this->_routeId);
 
             /* Находим текущий тип публикаций */
-            $this->_currentPublicationType = $this->_modelList->getRubricInfo($this->_name);
+            $this->_currentPublicationType = $this->_modelList->getRubricInfo($this->name);
 
             if ($this->_currentPublicationType) {
                 $this->view->pub_rubric_id = $this->_currentPublicationType->rubric_id;
             } else {
-                throw new Exception('Тип публикации "' . $this->_name . '" не найден');
+                throw new Exception('Тип публикации "' . $this->name . '" не найден');
             }
         }
     }

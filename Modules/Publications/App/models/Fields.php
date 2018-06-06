@@ -2,7 +2,7 @@
 
 class Modules_Publications_Model_Fields extends Zetta_Db_Table
 {
-    protected $_name = 'publications_fields';
+    protected $name = 'publications_fields';
 
     protected $_convertTypes = array(
         'text' => array('varchar', 255),

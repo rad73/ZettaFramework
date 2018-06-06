@@ -2,7 +2,7 @@
 
 class Modules_Publications_Model_List extends Zetta_Db_Table
 {
-    protected $_name = 'publications_list';
+    protected $name = 'publications_list';
 
     /**
      * @var Zetta_Acl

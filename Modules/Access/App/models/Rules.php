@@ -1,8 +1,8 @@
 <?php
 
-class Modules_Access_Model_Rules extends Zend_Db_Table
+class Modules_Access_Model_Rules extends Zetta_Db_Table
 {
-    protected $_name = 'access_rules';
+    protected $name = 'access_rules';
     
     public function addRule($resource_name, $role_name, $type)
     {

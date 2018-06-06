@@ -28,7 +28,7 @@ class Modules_Publications_Migrations_AddPropertiesFieledToFields extends Module
 
     public function up($params = null)
     {
-        $this->addColumn($this->_model->info('name'), $this->_nameColumn, array(
+        $this->addColumn($this->_model->info('name'), $this->nameColumn, array(
             'type' => 'text',
             'comment' => 'JSON строка для доп. свойств поля',
             'null' => true,
@@ -37,6 +37,6 @@ class Modules_Publications_Migrations_AddPropertiesFieledToFields extends Module
 
     public function down($params = null)
     {
-        $this->dropColumn($this->_model->info('name'), $this->_nameColumn);
+        $this->dropColumn($this->_model->info('name'), $this->nameColumn);
     }
 }

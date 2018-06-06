@@ -1,6 +1,6 @@
 <?php
 
-class Modules_Cron_Model_Cron extends Zend_Db_Table
+class Modules_Cron_Model_Cron extends Zetta_Db_Table
 {
-    protected $_name = 'cron';
+    protected $name = 'cron';
 }
