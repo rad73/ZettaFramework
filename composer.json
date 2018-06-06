@@ -10,6 +10,9 @@
             "Zetta_": "Zetta/",
             "System_": "System/",
             "Modules_": "Modules/"
+        },
+        "psr-4": {
+            "Zetta\\": "Zetta"
         }
     },
     "authors": [{
