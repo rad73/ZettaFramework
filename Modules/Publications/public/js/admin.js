@@ -194,7 +194,10 @@ $(function () {
                         behaviors: ['scrollZoom', 'drag']
                     });
 
-                    var placemark = new ymaps.Placemark(myMap.getCenter(), {}, {draggable: true});
+                    var placemark = new ymaps.Placemark(myMap.getCenter(), { }, {
+                        draggable: true,
+                        preset: 'islands#redDotIcon'
+                    });
                     myMap.geoObjects.add(placemark);
                     _saveCoords(myMap.getCenter());
 
