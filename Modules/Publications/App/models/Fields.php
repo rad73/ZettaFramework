@@ -17,6 +17,7 @@ class Modules_Publications_Model_Fields extends Zetta_Db_Table
         'datetime' => array('datetime', null),
         'file_dialog' => array('varchar', 255),
         'route' => array('int', 10),
+        'mapPoint' => array('varchar', 50),
     );
 
     private static $_fullData = null;

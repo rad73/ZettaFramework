@@ -89,3 +89,8 @@
 .z_publications_title_no_rubric {
     margin-top: 20px;
 }
+
+#z_window .map_point {
+    height: 300px;
+    margin: 15px 0;
+}

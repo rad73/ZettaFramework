@@ -442,7 +442,7 @@ ZETTA {
 				font-size: 13px;
 			}
 
-			#z_window .element {
+			#z_window .element.checkbox {
 				float: left;
 			}
 

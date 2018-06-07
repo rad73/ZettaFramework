@@ -54,7 +54,6 @@ class Modules_Publications_Framework_Form extends Zetta_Form
             case 'file_dialog':
                     $element = 'text';
                     $options['z_image_dialog'] = 1;
-
                 break;
             case 'date':
                     $element = 'text';
@@ -74,6 +73,10 @@ class Modules_Publications_Framework_Form extends Zetta_Form
             case 'file':
                     $element = 'ZettaFile';
 
+                break;
+            case 'mapPoint':
+                    $element = 'text';
+                    $options['z_map_point'] = 1;
                 break;
         }
 
