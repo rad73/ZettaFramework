@@ -1,13 +1,13 @@
 <?php
 
-class Access_Framework_Validator_UniqResource extends Zend_Validate_Abstract
+class Modules_Access_Framework_Validator_UniqResource extends Zend_Validate_Abstract
 {
     const ERROR = "'%value%' must be unique resource";
- 
+
     protected $_messageTemplates = array(
         self::ERROR => "'%value%' must be unique resource",
     );
-    
+
     public function isValid($value)
     {
         $isValid = true;
