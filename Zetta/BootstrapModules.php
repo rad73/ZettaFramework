@@ -55,6 +55,7 @@ abstract class Zetta_BootstrapModules
 
         if ($this->_selfClassName != 'Zetta_BootstrapModules' && false == $this->isBootstraped($this->_selfClassName)) {
             $this->_bootstrap();
+            $this->injectDi();
         }
     }
 
@@ -182,5 +183,15 @@ abstract class Zetta_BootstrapModules
 
             self::$_bootstraped[$this->_selfClassName] = $this->_selfClassName;
         }
+    }
+
+    /**
+     * Внедряем DI
+     * @return self
+     */
+    protected function injectDi()
+    {
+        Zend_Registry::get('container')->injectOn($this);
+        return $this;
     }
 }

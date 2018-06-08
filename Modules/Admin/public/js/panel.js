@@ -121,7 +121,7 @@ $(function () {
 
 	$.History.bind(function(url){
 
-		if (!url || url.indexOf('/') == -1) return;
+		if (!url || url.indexOf('/mvc') == -1) return;
 
 		showPreloader();
 

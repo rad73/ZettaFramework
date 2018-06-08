@@ -3,6 +3,5 @@
 }
 
 #z_window {
-	width: 970px;
-	margin-left: -485px;
+	min-width: 970px;
 }

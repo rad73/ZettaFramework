@@ -499,12 +499,16 @@ ZETTA {
 			}
 
 			#z_window .checkbox {
-				margin-left: 186px;
+				margin-left: 170px;
 			}
 
 			#z_window .form_row_radio {
 				position: relative;
 			}
+
+                #z_window .radio {
+                    float: left;
+                }
 
 					#z_window .radio LABEL {
 						padding-right: 0;

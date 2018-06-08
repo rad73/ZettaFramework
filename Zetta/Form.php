@@ -132,6 +132,14 @@ class Zetta_Form extends Zend_Form
                         ? Zend_Registry::get('config')->app->captcha['expiration']
                         : '600';
 
+                    $width = isset(Zend_Registry::get('config')->app->captcha['width'])
+                        ? Zend_Registry::get('config')->app->captcha['width']
+                        : '200';
+
+                    $height = isset(Zend_Registry::get('config')->app->captcha['height'])
+                        ? Zend_Registry::get('config')->app->captcha['height']
+                        : '50';
+
 
                     $options['captcha'] = array(
                         'captcha' => $provider,
@@ -142,6 +150,8 @@ class Zetta_Form extends Zend_Form
                         'lineNoiseLevel' => $lineNoiseLevel,
                         'dotNoiseLevel' => $dotNoiseLevel,
                         'expiration' => $expiration,
+                        'width' => $width,
+                        'height' => $height,
                     );
 
                     $options['prefixPath']['captcha'] = array(
@@ -216,7 +226,6 @@ class Zetta_Form extends Zend_Form
         }
     }
 
-
     public function isValid($data)
     {
         if ($this->_formID) {
@@ -226,5 +235,44 @@ class Zetta_Form extends Zend_Form
         }
 
         return parent::isValid($data);
+    }
+
+    /**
+     * Преобразуем форму к массиву
+     * @return array
+     */
+    public function toArray()
+    {
+        $result = [
+            'elements'  => [],
+            'errors'    => $this->getMessages()
+        ];
+
+        foreach ($this->getElements() as $name => $element) {
+            $result['elements'][$name] = [
+                'attr'         => $element->getAttribs(),
+                'description'  => $element->getDescription(),
+                'errors'       => array_values($element->getMessages()),
+                'id'           => $element->getId(),
+                'label'        => $element->getLabel(),
+                'name'         => $element->getName(),
+                'type'         => $element->getType(),
+                'value'        => $element->getValue(),
+                'isRequired'   => $element->isRequired(),
+            ];
+
+            if ($element instanceof Zend_Form_Element_Captcha) {
+                $captchaObject = $element->getCaptcha();
+                $captchaObject->generate();
+
+                $result['elements'][$name]['captchaId'] = $captchaObject->getId();
+                $result['elements'][$name]['captchaUrl'] = $captchaObject->getImgUrl()
+                    . $captchaObject->getId()
+                    . $captchaObject->getSuffix()
+                ;
+            }
+        }
+
+        return $result;
     }
 }
