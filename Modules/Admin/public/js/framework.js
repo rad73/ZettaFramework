@@ -111,9 +111,9 @@ var _zettaUIDropPage = function (object, complete) {
 
 	        		var _newPage = $('.pagination_current', data).text(),
 	        			_data = {
-		        			prev: _newPage >= _currentPage ? $('li:first', data).data('id') : null,
+		        			prev: _newPage >= _currentPage ? $('*[data-id]:first', data).data('id') : null,
 							current: $(ui.item).data('id'),
-							next: _newPage < _currentPage ? $('li:first', data).data('id'): null,
+							next: _newPage < _currentPage ? $('*[data-id]:first', data).data('id'): null,
 		        		};
 
 	        		if (typeof(complete) == 'function') {
