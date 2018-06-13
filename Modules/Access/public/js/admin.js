@@ -87,14 +87,14 @@ $(function () {
 	// переключалка типов привелегии
 	$('input[name=type]').click(function () {
 		
-		$('#fieldset-base .form_row').hide();
+		$('#fieldset-base .form-rom').hide();
 		
 		if ($(this).val() == 'free') {
-			$('#resource_name').parents('.form_row:first').show();
-			$('#description').parents('.form_row:first').show();
+			$('#resource_name').parents('.form-rom:first').show();
+			$('#description').parents('.form-rom:first').show();
 		}
 		else {
-			$('#route_id').parents('.form_row:first').show();
+			$('#route_id').parents('.form-rom:first').show();
 		}
 		
 	});

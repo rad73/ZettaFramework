@@ -431,7 +431,7 @@ ZETTA {
 				margin: 0;
 			}
 
-			#z_window .form_row {
+			#z_window .form-row {
 				padding-bottom: 10px;
 			}
 
@@ -446,11 +446,11 @@ ZETTA {
 				float: left;
 			}
 
-			#z_window .element_description {
+			#z_window .element-description {
 				display: none;
 			}
 
-			#z_window .form_row:after {
+			#z_window .form-row:after {
 				content: ".";
 				display: block;
 				height: 0;
@@ -493,63 +493,55 @@ ZETTA {
 				position: absolute;
 			}
 
-			#z_window .label_checkbox {
+			#z_window .label-checkbox {
 				width: auto;
 				padding: 1px 0 0 5px;
 			}
 
-			#z_window .checkbox {
+			#z_window .element-checkbox {
 				margin-left: 170px;
 			}
 
-			#z_window .form_row_radio {
+			#z_window .f-radio {
 				position: relative;
 			}
 
-                #z_window .radio {
-                    float: left;
+                #z_window .f-radio .element input {
+                    margin-right: 5px;
                 }
 
-					#z_window .radio LABEL {
-						padding-right: 0;
-						margin-left: 20px;
-					}
-
-					#z_window .radio INPUT {
-						position: absolute;
-						margin-left: -20px;
-					}
-
-				#z_window .radio_label {
-					position: absolute;
-					left: 0;
-					top: 5px;
-					padding: 0;
-				}
-
-			#z_window .z_buttons_placehoder {
+			#z_window .f-submit,
+            #z_window .z_buttons_placehoder {
 				margin-top: 40px;
 				border-top: 1px dashed #bbb;
 				padding-bottom: 0px;
 				min-height: 35px;
 			}
 
-				#z_window .z_buttons_placehoder .submit {
-					float: right;
-				}
+            #z_window #fieldset-buttons > div,
+            #z_window .z_buttons_placehoder {
+                position: relative;
+            }
 
-			#z_window .z_buttons_placehoder .ui-button {
+            #z_window .z_buttons_placehoder .submit {
+                float: right;
+            }
+
+			#z_window .f-submit .ui-button,
+            #z_window .z_buttons_placehoder .ui-button {
 				top: 10px;
+                right: 0px;
+                position: absolute;
 			}
 
-			#z_window .form_row .text input,
+			#z_window .form-row .text input,
 			#z_window select {
 				width: 190px;
 				font-size: 12px;
 				font-family: Arial;
 			}
 
-				#z_window .form_row .text textarea {
+				#z_window .form-row .text textarea {
 					font-size: 12px;
 					font-family: Arial;
 					width: 350px;

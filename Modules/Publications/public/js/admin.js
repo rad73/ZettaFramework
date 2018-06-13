@@ -48,10 +48,10 @@ $(function () {
 	$('select[name=type]').change(function () {
 
 		if ($(this).val() == 'select' || $(this).val() == 'radio' || $(this).val() == 'multiCheckbox') {
-			$('#list_values').parents('.form_row').show();
+			$('#list_values').parents('.form-rom').show();
 		}
 		else {
-			$('#list_values').parents('.form_row').hide();
+			$('#list_values').parents('.form-rom').hide();
 		}
 
 	});
@@ -89,7 +89,7 @@ $(function () {
 							: ''
 					)
 					+ '</div>')
-				.parents('.form_row').addClass('z_image_browse_row');
+				.parents('.form-rom').addClass('z_image_browse_row');
 
 			$(this).focus(function () {
 				$(this).click();
@@ -103,7 +103,7 @@ $(function () {
 
 			if (_dialogOpen) return false; _dialogOpen = true;
 
-			var _parent = $(this).parents('.form_row:first')
+			var _parent = $(this).parents('.form-rom:first')
 				_input = $('input', _parent),
 				_object = $('.z_temp_image', _parent);
 
