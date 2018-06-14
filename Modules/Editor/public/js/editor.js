@@ -52,7 +52,7 @@ var _redactor = {
 		this._objectList[this._object.get(0)] = 1;
 
 		this._callbackComplete = function (html, _object) {
-			
+
 			// чистим блок от посторонних тегов
 			html = html.replace(/(.*(<a.*?><img.*><\/a>).*)/gi, '$2');	//  разрешаем теги A > IMG
 
@@ -66,8 +66,8 @@ var _redactor = {
 		}
 
 		this._create({
-			toolbarExternal: 'null', 
-			saveWhenFileSelected: true, 
+			toolbarExternal: 'null',
+			saveWhenFileSelected: true,
 			replaceFull: true,
 			paragraphize: false,
 			plugins: ['filemanager'],
@@ -75,7 +75,7 @@ var _redactor = {
 			   change: function() {
 				   	_redactor.destroy();
 			   }
-		   }  
+		   }
 		});
 
 		this._object
@@ -103,7 +103,7 @@ var _redactor = {
 			this._objectList[object] = false;
 		}
 		else if (this._object) {
-			
+
 			var _codeMirror = this._object.redactor('core.object').codemirror;
 			if (_codeMirror.$textarea && _codeMirror.$textarea.hasClass('open')) {
 				_codeMirror.toggle();
@@ -131,7 +131,7 @@ var _redactor = {
 			_parents = $(e.target).parents();
 
 		_parents.push(e.target);
-		
+
 		_parents.each(function () {
 
 			if ($(this).get(0) == _this._object.get(0)) {
@@ -160,7 +160,7 @@ var _redactor = {
 
 	_view: {
 		onCreate: function () {
-			
+
 			$('.redactor-box').parent().addClass('in_edit');
 
 			$('#zetta_editor_toolbar')
@@ -225,23 +225,23 @@ var _redactor = {
             },
 			callbacks: {
 				init: function () {
-					
+
 					this.observe.images();
 					this.observe.links();
-					
+
 					var button = this.button.addFirst ('save', this.lang.get('save'));
 
 	                this.button.addCallback(button, function () {
 			    		_this._object.blur();
 				    	_this.destroy()
 					});
-					
+
 				},
 				click: function (e) {
 					_this._view._bodyClick(e);
 				},
 				fileSelected: function (e) {
-					
+
 					if (options && typeof options.saveWhenFileSelected  != 'undefined' && options.saveWhenFileSelected == true) {
 						_redactor._dispatch(e);
 					}
