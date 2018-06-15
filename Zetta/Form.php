@@ -160,7 +160,38 @@ class Zetta_Form extends Zend_Form {
 		$options['decorators'][sizeof($options['decorators']) - 1][1]['id'] = 'row_' . $name;
 		$options['decorators'][sizeof($options['decorators']) - 2][1]['class'] = 'label_' . $element;
 
-		return parent::addElement($element, $name, $options);
+		$elementObject = parent::addElement($element, $name, $options);
+
+        if (array_key_exists('list_values', $options) && $options['list_values']) {
+
+            switch ($element) {
+                case 'multiCheckbox':
+                case 'radio':
+                case 'select':
+
+                    if ('routes' == $options['list_values']) {
+                        $this->getElement($name)->addMultiOptions(Modules_Router_Model_Router::getInstance()->getRoutesTreeHash());
+                    }
+                    else if ($list_values = json_decode($options['list_values'])) {
+                        $this->getElement($name)->addMultiOptions((array)$list_values);
+                    }
+                    else if (is_callable($options['list_values'])) {
+                        $options = $options['list_values']();
+                        $this->getElement($name)->addMultiOptions($options);
+                    }
+                    else {
+                        $model = new Modules_Publications_Model_Table($options['list_values']);
+                        $options = $model->getAssocArray('publication_id', 'name');
+
+                        $this->getElement($name)->addMultiOptions($options);
+                    }
+
+                    break;
+            }
+
+        }
+
+		return $elementObject;
 
 	}
 
