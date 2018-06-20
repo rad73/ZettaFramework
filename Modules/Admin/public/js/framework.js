@@ -32,7 +32,7 @@ var _zettaUISort = function(object, complete, nested, quickDump) {
 		forcePlaceholderSize: true,
 		handle: '.move',
 		helper:	'clone',
-		//listType: 'UL',
+		listType: nested ? 'UL' : false,
 		items: ">*:not(.not_moved)",
 		opacity: .8,
 		placeholder: 'sortable_placeholder',
