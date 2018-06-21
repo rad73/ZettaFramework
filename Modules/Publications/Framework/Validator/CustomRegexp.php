@@ -37,7 +37,7 @@ class Modules_Publications_Framework_Validator_CustomRegexp extends Zend_Validat
 
                 break;
             default:
-                    $pattern = '/^' . $this->_field->validator . '$/s';
+                    $pattern = '/^' . $this->_field->validator . '$/us';
 
                 break;
         }
