@@ -27,7 +27,7 @@ ZETTA {
 	}
 
 		#z_admin_panel LI,
-		#z_window LI {
+		#z_window LI:not(.select2-results__option) {
 			list-style: none;
 			padding: 0;
 		}
@@ -108,7 +108,7 @@ ZETTA {
 		background: url('../images/panel/pattern.gif') repeat;
 		border-bottom: 3px solid #B0B0B0;
 		position: fixed;
-		z-index: 10020;
+		z-index: 9995;
 		top: 0;
 		left:0;
 		min-width: 800px;
@@ -260,7 +260,7 @@ ZETTA {
         right: 0;
         bottom: 0;
         left: 0;
-        z-index: 10000;
+        z-index: 9990;
         visibility: hidden;
         opacity: 0;
         outline: 0;
@@ -380,7 +380,7 @@ ZETTA {
 			height: 100%;
 			background: #333333;
 			opacity: 0.5;
-			z-index: 10005;
+			z-index: 9980;
 			display: none;
 		}
 
@@ -433,14 +433,22 @@ ZETTA {
 
 			#z_window .form-row {
 				padding-bottom: 10px;
+                display: flex;
 			}
 
-			#z_window LABEL {
-				float: left;
-				width: 170px;
+			#z_window .form-row:not(.f-check) > LABEL {
+				flex: 25% 0 0;
 				padding: 5px 20px 5px 0;
 				font-size: 13px;
 			}
+
+            #z_window .form-row:not(.f-check) .element {
+                flex: 1;
+            }
+
+            #z_window .form-row:not(.f-submit):not(.f-check) .element > *:first-child {
+                width: 90%;
+            }
 
 			#z_window .element.checkbox {
 				float: left;
@@ -499,7 +507,7 @@ ZETTA {
 			}
 
 			#z_window .element-checkbox {
-				margin-left: 170px;
+				margin-left: 25%;
 			}
 
 			#z_window .f-radio {
@@ -531,8 +539,7 @@ ZETTA {
 			#z_window .f-submit .ui-button,
             #z_window .z_buttons_placehoder .ui-button {
 				top: 10px;
-                right: 0px;
-                position: absolute;
+                position: relative;
 			}
 
 			#z_window .form-row .text input,
