@@ -20,7 +20,7 @@ class Zetta_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract {
 			foreach ($parentsId as $parent) {
 
 				$item = $modelRouter->getItem($parent);
-				$return .= '<a href="' . $this->view->url(array('route_id' => $item['route_id'])) . '">' . $this->view->escape($item['name']) . '</a>' . $separator;
+				$return .= '<a href="' . $this->view->url(array('route_id' => $item['route_id']), false, true) . '">' . $this->view->escape($item['name']) . '</a>' . $separator;
 
 			}
 
