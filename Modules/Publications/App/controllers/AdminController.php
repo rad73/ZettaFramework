@@ -59,8 +59,8 @@ class Modules_Publications_AdminController extends Zend_Controller_Action
         if ($rubric_id = $this->getParam('rubric_id')) {
             $this->_rubric = $this->view->rubric = $this->_modelList->getRubricInfo($rubric_id);
 
-            if (class_exists('Publications\\Model\\' . $this->_rubric->table_name)) {
-                $className = 'Publications\\Model\\' . $this->_rubric->table_name;
+            if (class_exists('Publications\\Model\\' . ucfirst($this->_rubric->table_name))) {
+                $className = 'Publications\\Model\\' . ucfirst($this->_rubric->table_name);
                 $this->_modelPublications = new $className;
             } else {
                 $this->_modelPublications = new Modules_Publications_Model_Table($this->view->rubric->table_name);
