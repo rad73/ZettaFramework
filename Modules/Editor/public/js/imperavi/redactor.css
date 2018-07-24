@@ -1230,6 +1230,46 @@
       height: 100% !important; }
 
 
+  .redactor-styles ol,
+  .redactor-styles ul {
+  	padding: 0
+  }
+
+  .redactor-styles ol,
+  .redactor-styles ol ol,
+  .redactor-styles ol ul,
+  .redactor-styles ul,
+  .redactor-styles ul ol,
+  .redactor-styles ul ul {
+  	margin: 0 0 0 1.5em !important;
+  }
+
+  .redactor-styles ol li,
+  .redactor-styles ul li {
+  	text-align: left;
+  }
+
+  .redactor-styles ul li {
+      list-style-type: disc !important;
+  }
+
+  .redactor-styles ol li {
+  	list-style-type: decimal !important;
+  }
+
+  .redactor-styles ol ol li {
+  	list-style-type: lower-alpha !important;
+  }
+
+  .redactor-styles ol ol ol li {
+  	list-style-type: lower-roman !important;
+  }
+
+  .redactor-styles ol,
+  .redactor-styles ul {
+  	margin-bottom: 1em !important;
+  }
+
 .redactor-toolbar li a {
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
