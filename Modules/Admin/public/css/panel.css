@@ -325,6 +325,11 @@ ZETTA {
 				color: #000;
 			}
 
+        #z_window .z_icons_wrapper {
+            position: relative;
+            white-space: nowrap;
+        }
+
 		#z_window .z_item IMG,
 		#z_window .z_item .right {
 			float: left;

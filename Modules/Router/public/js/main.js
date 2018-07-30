@@ -84,6 +84,9 @@ $(function () {
 
 	});
 
+    console.log(jQuery.fn.jquery);
+
+
 	$('#add_route_form #default_actions').change(function () {
 
 		if ($(this).val()) {

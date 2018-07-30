@@ -318,7 +318,7 @@ class Modules_Publications_AdminController extends Zend_Controller_Action
         if (!sizeof($_POST) || !$form->isValid($_POST)) {
             $this->view->form = $form;
         } else {
-            $post = $this->_extendFormPostData($form->getPostData());
+            $post = $this->extendFormPostData($form->getPostData());
 
             if ($route_id) {
                 $post['route_id'] = $route_id;
@@ -366,6 +366,10 @@ class Modules_Publications_AdminController extends Zend_Controller_Action
 
             file_put_contents($file, $content);
         }
+    }
+
+    protected function extendFormPostData($post) {
+        return $this->_extendFormPostData($post);
     }
 
     protected function _extendFormPostData($post)

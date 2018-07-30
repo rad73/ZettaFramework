@@ -42,10 +42,6 @@ $(function () {
 		hidePreloader();
 		_showManageWindow();
 
-        if (typeof(onAdminLoadWindow) == 'function') {
-            onAdminLoadWindow();
-        }
-
 		$('#z_window .zetta_placeholder A:not(.no_ajax)').unbind('click').click(function () {
 			$.History.go($(this).attr('href'));
 			return false;
@@ -108,7 +104,11 @@ $(function () {
 				no_dispatch: true
 			});
 
-		})
+		});
+
+        if (typeof(onAdminLoadWindow) == 'function') {
+            onAdminLoadWindow();
+        }
 
 	}
 
